@@ -1,4 +1,5 @@
 // creates and returns complete overview page with HTML and CSS reference
+// TODO: manage which rows are shown
 function getLocationList(locations) {
     console.log("getLocationsList")
     console.log(locations);
@@ -13,7 +14,7 @@ function getLocationList(locations) {
         <h1>Locations Overview</h1>
         <table>
             <tr>
-                <th>id</th><th>Liquid</th><th>Amount</th><th colspan="2">actions</th>
+                <th>id</th><th>Location</th><th>Amount</th><th colspan="2">actions</th>
             </tr>
     
             ${locations.map(createRow).join('')}
