@@ -14,7 +14,11 @@ function getAllLocations(locations) {
         <h1>Locations Overview</h1>
         <table>
             <tr>
-                <th>id</th><th>Location</th><th>Amount</th><th colspan="2">actions</th>
+                <th>street</th>
+                <th>housenumber</th>
+                <th>postalcode</th>
+                <th>city</th>
+                <th>country</th>
             </tr>
     
             ${locations.map(createRow).join('')}
@@ -27,8 +31,13 @@ function getAllLocations(locations) {
 // TODO: add elements, which you like add to the table
 function createRow(location) {
     return `<tr>
-                <td>${location.id}</td>
+                <td>${location.street}</td>
+                <td>${location.housenumber}</td>
+                <td>${location.postalcode}</td>
+                <td>${location.city}</td>
+                <td>${location.country}</td>
                 <td><a href="/delete/${location.id}"><img class="icon" src="/public/images/delete.png" alt="delete location" title="delete location"/></a></td>
                 <td><a href="/edit/${location.id}"><img class="icon" src="/public/images/edit.png" alt="edit location" title="edit location"/></a></td>
             </tr>`;
 }
+module.exports = getAllLocations;

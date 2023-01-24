@@ -1,23 +1,23 @@
 const express = require("express")
+const getAllLocations = require("./views/list");
 const router = express.Router();
-
 const db = require('./database')
 
 router.use("/static", express.static('public'));
 
 router.get("/", (req, res) => {
-    db.getAllLocations().then(
-        result => {
 
-        },
-        error => {
-
-        }
-    );
-    res.redirect('/overview')
 });
 router.get("/overview", (req, res) => {
-    //TODO implement overview
+    res.setHeader('Content-Type', 'text/html');
+    db.getAllLocations().then(
+        locations => {
+            res.status(200).send(getAllLocations(locations));
+        },
+        error => {
+            console.log("Error", error);
+        }
+    );
 });
 router.get("/addLocation", (req, res) => {
     //TODO implement addLocation
