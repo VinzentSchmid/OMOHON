@@ -2,6 +2,7 @@ const express = require("express")
 const getAllLocations = require("./views/list");
 const router = express.Router();
 const db = require('./database')
+const path = require("path");
 
 router.use("/static", express.static('public'));
 
@@ -30,6 +31,14 @@ router.get("/deleteLocation", (req, res) => {
 });
 router.get("/detailLocation", (req, res) => {
     //TODO implement detailLocation
+});
+router.get("/public/images/:image", (req, res) => {
+    const image = req.params.image;
+    res.sendFile(path.join(__dirname, 'public/images/' + image));
+});
+router.get("/public/css/:stylesheet", (req, res) => {
+    const stylesheet = req.params.stylesheet;
+    res.sendFile(path.join(__dirname, 'public', 'css', stylesheet));
 });
 
 module.exports = router;

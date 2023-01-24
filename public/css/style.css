@@ -1,0 +1,27 @@
+*{
+    font-family: "Roboto Light", sans-serif;
+    background-color: #444755;
+    color: white;
+    text-decoration: none;
+}
+h1{
+    text-align: center;
+}
+img{
+    width: 18px;
+    height: 18px;
+}
+td{
+    text-align: center;
+}
+th{
+    padding-top: 30px;
+    padding-bottom: 15px;
+}
+table{
+    width: 100%;
+    border-collapse: collapse;
+}
+#add{
+    float: right;
+}

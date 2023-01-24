@@ -12,6 +12,11 @@ function getAllLocations(locations) {
     </head>
      <body>
         <h1>Locations Overview</h1>
+        <div id="add">
+            <a href="/new"> <span>Add Location</span></a>
+            <a href="/new"><img class="icon" src="public/images/new.png" alt="new location" title="New Location" /></a>
+        </div>
+        
         <table>
             <tr>
                 <th>street</th>
@@ -24,7 +29,6 @@ function getAllLocations(locations) {
             ${locations.map(createRow).join('')}
     
         </table>
-        <a href="/new"><img class="icon" src="/public/images/new.png" alt="new location" title="New Location" /></a>
      </body>
  </html>`;
 }
