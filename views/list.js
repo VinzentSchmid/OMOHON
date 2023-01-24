@@ -1,7 +1,7 @@
 // creates and returns complete overview page with HTML and CSS reference
 // TODO: manage which rows are shown
-function getLocationList(locations) {
-    console.log("getLocationsList")
+function getAllLocations(locations) {
+    console.log("getAllLocations")
     console.log(locations);
     return `<!DOCTYPE html>
  <html>
@@ -28,7 +28,7 @@ function getLocationList(locations) {
 function createRow(location) {
     return `<tr>
                 <td>${location.id}</td>
-                <td><a href="/delete/${location.id}"><img class="icon" src="/public/images/delete.png" alt="delete liquid" title="delete liquid"/></a></td>
-                <td><a href="/edit/${location.id}"><img class="icon" src="/public/images/edit.png" alt="edit liquid" title="edit liquid"/></a></td>
+                <td><a href="/delete/${location.id}"><img class="icon" src="/public/images/delete.png" alt="delete location" title="delete location"/></a></td>
+                <td><a href="/edit/${location.id}"><img class="icon" src="/public/images/edit.png" alt="edit location" title="edit location"/></a></td>
             </tr>`;
 }
