@@ -18,6 +18,6 @@
   "homepage": "https://github.com/VinzentSchmid/sprint_location#readme",
   "dependencies": {
     "express": "4.18.2",
-    "mysql2": "^3.0.1"
+    "mysql2": "3.0.1"
   }
 }

@@ -1,20 +1,14 @@
-const mysql = require('mysql2');
-
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'root',
-    database: 'omohon'
-});
+const connection = require('./config')
 
 function getAllLocations() {
     return new Promise((resolve, reject) => {
-        const query = '';
+        const query = 'SELECT * FROM locations;';
         connection.query(query, (error, results) => {
             if (error) {
                 console.log(error);
                 reject(error);
             } else {
+                console.log(results);
                 resolve(results);
             }
         });

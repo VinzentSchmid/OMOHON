@@ -1,9 +1,19 @@
 const express = require("express")
 const router = express.Router();
 
+const db = require('./database')
+
 router.use("/static", express.static('public'));
 
 router.get("/", (req, res) => {
+    db.getAllLocations().then(
+        result => {
+
+        },
+        error => {
+
+        }
+    );
     res.redirect('/overview')
 });
 router.get("/overview", (req, res) => {
