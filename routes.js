@@ -6,7 +6,7 @@ const db = require('./database')
 router.use("/static", express.static('public'));
 
 router.get("/", (req, res) => {
-
+    res.redirect('/overview');
 });
 router.get("/overview", (req, res) => {
     res.setHeader('Content-Type', 'text/html');
