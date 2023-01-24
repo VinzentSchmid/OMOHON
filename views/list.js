@@ -20,7 +20,7 @@ function getLocationList(locations) {
             ${locations.map(createRow).join('')}
     
         </table>
-        <a href="/new"><img class="icon" src="/static/images/new.png" alt="new location" title="New Location" /></a>
+        <a href="/new"><img class="icon" src="/public/images/new.png" alt="new location" title="New Location" /></a>
      </body>
  </html>`;
 }
@@ -28,7 +28,7 @@ function getLocationList(locations) {
 function createRow(location) {
     return `<tr>
                 <td>${location.id}</td>
-                <td><a href="/delete/${liquid.id}"><img class="icon" src="/public/images/delete.png" alt="delete liquid" title="delete liquid"/></a></td>
-                <td><a href="/edit/${liquid.id}"><img class="icon" src="/public/images/edit.png" alt="edit liquid" title="edit liquid"/></a></td>
+                <td><a href="/delete/${location.id}"><img class="icon" src="/public/images/delete.png" alt="delete liquid" title="delete liquid"/></a></td>
+                <td><a href="/edit/${location.id}"><img class="icon" src="/public/images/edit.png" alt="edit liquid" title="edit liquid"/></a></td>
             </tr>`;
 }
