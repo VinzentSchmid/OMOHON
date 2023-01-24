@@ -20,7 +20,7 @@ router.get("/overview", (req, res) => {
     //TODO implement overview
 });
 router.get("/addLocation", (req, res) => {
-    //TODO implement addLocation
+    db.addLocation(location);
 });
 router.get("/updateLocation", (req, res) => {
     //TODO implement updateLocation
