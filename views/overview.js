@@ -13,17 +13,19 @@ function getAllLocations(locations) {
      <body>
         <h1>Locations Overview</h1>
         <div id="add">
-            <a href="/new"> <span>Add Location</span></a>
             <a href="/new"><img class="icon" src="public/images/new.png" alt="new location" title="New Location" /></a>
+            <a href="/new"><span id="addText">Add Location</span></a>
         </div>
         
         <table>
-            <tr>
+            <tr class="headerTable">
                 <th>street</th>
                 <th>housenumber</th>
                 <th>postalcode</th>
                 <th>city</th>
                 <th>country</th>
+                <th>delete</th>
+                <th>edit</th>
             </tr>
     
             ${locations.map(createRow).join('')}
@@ -39,7 +41,7 @@ function createRow(location) {
                 <td>${location.postalcode}</td>
                 <td>${location.city}</td>
                 <td>${location.country}</td>
-                <td><a href="/deleteLocation/${location.id}" onclick="return confirm('Are you sure you want to delete this location')"><img class="icon" src="/public/images/delete.png" alt="delete location" title="delete location"/></a></td>
+                <td><a href="/deleteLocation/${location.id}" onclick="return confirm('Are you sure you want to delete this location ?')"><img class="icon" src="/public/images/delete.png" alt="delete location" title="delete location"/></a></td>
                 <td><a href="/edit/${location.id}"><img class="icon" src="/public/images/edit.png" alt="edit location" title="edit location"/></a></td>
             </tr>`;
 }

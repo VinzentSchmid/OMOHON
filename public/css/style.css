@@ -6,22 +6,36 @@
 }
 h1{
     text-align: center;
+    background-color: #343440;
+    border-radius: 10px;
+    padding: 10px;
 }
-img{
-    width: 18px;
-    height: 18px;
+.icon{
+    border-radius: 5px;
+    background-color: #343440;
+    border: 1px solid #343440;
+    padding: 5px;
 }
 td{
     text-align: center;
 }
-th{
-    padding-top: 30px;
-    padding-bottom: 15px;
+.headerTable > th{
+    margin-top: 30px;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #343440;
 }
 table{
     width: 100%;
-    border-collapse: collapse;
+    border-spacing: 10px;
+    border-collapse: separate!important;
+
 }
 #add{
-    float: right;
+    display: flex;
+    align-items: center;
+}
+#addText{
+    margin-left: 20px;
 }
