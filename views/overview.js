@@ -32,7 +32,6 @@ function getAllLocations(locations) {
      </body>
  </html>`;
 }
-// TODO: add elements, which you like add to the table
 function createRow(location) {
     return `<tr>
                 <td>${location.street}</td>
@@ -40,7 +39,7 @@ function createRow(location) {
                 <td>${location.postalcode}</td>
                 <td>${location.city}</td>
                 <td>${location.country}</td>
-                <td><a href="/delete/${location.id}"><img class="icon" src="/public/images/delete.png" alt="delete location" title="delete location"/></a></td>
+                <td><a href="/deleteLocation/${location.id}" onclick="return confirm('Are you sure you want to delete this location')"><img class="icon" src="/public/images/delete.png" alt="delete location" title="delete location"/></a></td>
                 <td><a href="/edit/${location.id}"><img class="icon" src="/public/images/edit.png" alt="edit location" title="edit location"/></a></td>
             </tr>`;
 }

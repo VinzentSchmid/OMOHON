@@ -22,6 +22,16 @@ function getLocationByID(id) {
 function addLocation(location) {
 }
 function removeLocation(id) {
+    return new Promise((resolve, reject) => {
+        const query = 'DELETE FROM locations WHERE id = ?';
+        connection.query(query, [id],(error, results) => {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(results);
+            }
+        });
+    });
 }
 
 function updateLocation(location) {

@@ -1,5 +1,5 @@
 const express = require("express")
-const getAllLocations = require("./views/list");
+const getAllLocations = require("./views/overview");
 const router = express.Router();
 const db = require('./database')
 const path = require("path");
@@ -26,8 +26,15 @@ router.get("/addLocation", (req, res) => {
 router.get("/updateLocation", (req, res) => {
     //TODO implement updateLocation
 });
-router.get("/deleteLocation", (req, res) => {
-    //TODO implement deleteLocation
+router.get("/deleteLocation/:id", (req, res) => {
+    const id = parseInt(req.params.id, 10);
+    db.removeLocation(id).then(
+        location => {
+            res.writeHead(302, {location: '/overview', 'content-type': 'text/plain'});
+            res.end('302 Redirecting to /overview');
+        },
+        error => res.send("error")
+    );
 });
 router.get("/detailLocation", (req, res) => {
     //TODO implement detailLocation
