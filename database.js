@@ -17,6 +17,16 @@ function getAllLocations() {
 }
 
 function getLocationByID(id) {
+    return new Promise((resolve, reject) => {
+        const query = 'SELECT * FROM locations WHERE id = ?';
+        connection.query(query, [id], (error, results) => {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(results);
+            }
+        });
+    });
 }
 
 function addLocation(location) {
