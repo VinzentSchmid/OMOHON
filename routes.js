@@ -3,6 +3,7 @@ const getAllLocations = require("./views/overview");
 const router = express.Router();
 const db = require('./database')
 const path = require("path");
+const {getLocationByID} = require("./database");
 
 router.use("/static", express.static('public'));
 
@@ -36,8 +37,14 @@ router.get("/deleteLocation/:id", (req, res) => {
         error => res.send("error")
     );
 });
-router.get("/detailLocation", (req, res) => {
-    //TODO implement detailLocation
+router.get("/detailLocation/:id", (req, res) => {
+    const id = parseInt(req.params.id, 10);
+    db.getLocationByID(id).then(
+        location => {
+            res.send(location);
+        },
+        error => res.send("error")
+    );
 });
 router.get("/public/images/:image", (req, res) => {
     const image = req.params.image;
