@@ -1,5 +1,6 @@
 const express = require("express")
 const getAllLocations = require("./views/overview");
+const getDetailLocation = require("./views/details");
 const router = express.Router();
 const db = require('./database')
 const path = require("path");
@@ -41,7 +42,7 @@ router.get("/detailLocation/:id", (req, res) => {
     const id = parseInt(req.params.id, 10);
     db.getLocationByID(id).then(
         location => {
-            res.send(location);
+            res.status(200).send(getDetailLocation(location));
         },
         error => res.send("error")
     );
