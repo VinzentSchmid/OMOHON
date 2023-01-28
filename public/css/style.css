@@ -1,0 +1,48 @@
+*{
+    font-family: "Roboto Light", sans-serif;
+    color: white;
+    text-decoration: none;
+}
+body{
+    background-color: #444755;
+}
+h1{
+    text-align: center;
+    background-color: #343440;
+    border-radius: 10px;
+    padding: 10px;
+}
+.icon{
+    border-radius: 5px;
+    background-color: #343440;
+    border: 1px solid #343440;
+    padding: 5px;
+}
+#row:hover{
+    background-color: #343440;
+    border-radius: 5px;
+    border: 1px solid #343440;
+}
+td{
+    text-align: center;
+}
+.headerTable > th{
+    margin-top: 30px;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #343440;
+}
+table{
+    width: 100%;
+    border-spacing: 10px;
+    border-collapse: separate;
+
+}
+#add{
+    display: flex;
+    align-items: center;
+}
+#addText{
+    margin-left: 20px;
+}

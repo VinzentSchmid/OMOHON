@@ -1,5 +1,7 @@
 // creates and returns complete overview page with HTML and CSS reference
 // TODO: manage which rows are shown
+const {getAllWaterEntries} = require("../database");
+
 function getAllLocations(locations) {
     console.log("getAllLocations")
     console.log(locations);
@@ -12,23 +14,36 @@ function getAllLocations(locations) {
     </head>
      <body>
         <h1>Locations Overview</h1>
+        <div id="add">
+            <a href="/new"><img class="icon" src="public/images/new.png" alt="new location" title="New Location" /></a>
+            <a href="/new"><span id="addText">Add Location</span></a>
+        </div>
+        
         <table>
-            <tr>
-                <th>id</th><th>Location</th><th>Amount</th><th colspan="2">actions</th>
+            <tr class="headerTable">
+                <th>street</th>
+                <th>housenumber</th>
+                <th>postalcode</th>
+                <th>city</th>
+                <th>country</th>
+                <th>delete</th>
+                <th>edit</th>
             </tr>
     
             ${locations.map(createRow).join('')}
     
         </table>
-        <a href="/new"><img class="icon" src="/public/images/new.png" alt="new location" title="New Location" /></a>
      </body>
  </html>`;
 }
-// TODO: add elements, which you like add to the table
 function createRow(location) {
-    return `<tr>
-                <td>${location.id}</td>
-                <td><a href="/delete/${location.id}"><img class="icon" src="/public/images/delete.png" alt="delete location" title="delete location"/></a></td>
+    return `<tr id="row" onclick="window.location='/detailLocation/${location.id}';">
+                <td>${location.street}</td>
+                <td>${location.housenumber}</td>
+                <td>${location.postalcode}</td>
+                <td>${location.city}</td>
+                <td>${location.country}</td>
+                <td><a href="/deleteLocation/${location.id}" onclick="return confirm('Are you sure you want to delete this location ?')"><img class="icon" src="/public/images/delete.png" alt="delete location" title="delete location"/></a></td>
                 <td><a href="/edit/${location.id}"><img class="icon" src="/public/images/edit.png" alt="edit location" title="edit location"/></a></td>
             </tr>`;
 }
@@ -74,7 +89,7 @@ src="/static/images/edit.png" alt="edit liquid" title="edit liquid"
 /></a></td>
  </tr>`;
 }
-
 module.exports = {
-    getWaterEntriesList,
-}
+    getAllWaterEntries,
+    getAllLocations
+};
