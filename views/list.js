@@ -32,3 +32,49 @@ function createRow(location) {
                 <td><a href="/edit/${location.id}"><img class="icon" src="/public/images/edit.png" alt="edit location" title="edit location"/></a></td>
             </tr>`;
 }
+
+function getWaterEntriesList(entry) {
+    return `<!DOCTYPE html>
+ <html>
+ <head>
+ <title>liquids Overview</title>
+ <meta charset="utf-8">
+ <link rel="stylesheet" href="/static/stylesheets/style.css" />
+ </head>
+ <body>
+ <h1>liquids Overview</h1>
+ <table>
+ <tr>
+ <th>id</th><th>Liquid</th><th>Amount</th><th>Location</th><th
+colspan="2">actions</th>
+ </tr>
+
+ ${entry.map(createWaterEntryRow).join('')}
+
+ </table>
+ <a href="/new"><img class="icon" src="/static/images/new.png"
+alt="new liquid" title="new liquid" /></a>
+ </body>
+ </html>`;
+}
+
+// create each row with TR and TD Elements
+function createWaterEntryRow(entry) {
+    console.log(entry)
+    return `<tr>
+ <td>${entry.id}</td>
+ <td>${entry.type}</td>
+ <td>${entry.ml}</td>
+ <td>${entry.location_id}</td>
+ <td><a href="/delete/${entry.id}"><img class="icon"
+src="/static/images/delete.png" alt="delete liquid" title="delete liquid"
+/></a></td>
+ <td><a href="/edit/${entry.id}"><img class="icon"
+src="/static/images/edit.png" alt="edit liquid" title="edit liquid"
+/></a></td>
+ </tr>`;
+}
+
+module.exports = {
+    getWaterEntriesList,
+}
