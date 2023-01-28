@@ -23,15 +23,15 @@ function getDetailLocation(location) {
         <script>
             function initMap() {
               // The location of Uluru
-              const uluru = { lat: ${location.map(value => value.latitude)}, lng: ${location.map(value => value.longitude)} };
+              const location = { lat: ${location.map(value => value.latitude)}, lng: ${location.map(value => value.longitude)} };
               // The map, centered at Uluru
               const map = new google.maps.Map(document.getElementById("map"), {
                 zoom: 20,
-                center: uluru,
+                center: location,
               });
               // The marker, positioned at Uluru
               const marker = new google.maps.Marker({
-                position: uluru,
+                position: location,
                 map: map,
               });
             }
