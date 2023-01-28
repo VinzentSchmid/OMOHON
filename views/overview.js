@@ -35,7 +35,7 @@ function getAllLocations(locations) {
  </html>`;
 }
 function createRow(location) {
-    return `<tr onclick="window.location='/detailLocation/${location.id}';">
+    return `<tr id="row" onclick="window.location='/detailLocation/${location.id}';">
                 <td>${location.street}</td>
                 <td>${location.housenumber}</td>
                 <td>${location.postalcode}</td>
