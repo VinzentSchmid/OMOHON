@@ -10,46 +10,42 @@ function getDetailLocation(location) {
             <title>Location Detail</title>
             <link rel="stylesheet" href="/public/css/style.css" />
             <meta charset="utf-8">
-            <style>
-                #map {
-                    height: 400px;
-                    width: 50%;
-                }
-            </style>
         </head>
         <body>
+        <h1>Location Detail</h1>
+        <div id="return">
+            <a href="/overview"><img class="icon" src="../public/images/return.png" alt="return" title="return" /></a>
+            <a href="/overview"><span id="returnText">Go Back</span></a>
+        </div>
         ${location.map(createRow).join('')}
         <div id="map"></div>
         <script>
             function initMap() {
-              // The location of Uluru
+              // The location
               const location = { lat: ${location.map(value => value.latitude)}, lng: ${location.map(value => value.longitude)} };
-              // The map, centered at Uluru
+              // The map, centered at location
               const map = new google.maps.Map(document.getElementById("map"), {
                 zoom: 20,
                 center: location,
               });
-              // The marker, positioned at Uluru
+              // The marker, positioned at location
               const marker = new google.maps.Marker({
                 position: location,
                 map: map,
               });
             }
-            
             window.initMap = initMap;
         </script>
         <script
           src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap&v=weekly"
           defer>
-              
         </script>
         </body>
     </html>`;
 }
 
 function createRow(location) {
-    return `<h1>Location Detail</h1>
-            <div id="Street">Street: ${location.street}</div>
+    return `<div id="Street">Street: ${location.street}</div>
             <div id="Housenumber">Housenumber: ${location.housenumber}</div>
             <div id="Postalcode">Postalcode: ${location.postalcode}</div>
             <div id="City">City: ${location.city}</div>

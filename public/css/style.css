@@ -46,3 +46,14 @@ table{
 #addText{
     margin-left: 20px;
 }
+#map {
+    height: 400px;
+    width: 50%;
+}
+#return{
+    display: flex;
+    align-items: center;
+}
+#returnText{
+    margin-left: 20px;
+}
