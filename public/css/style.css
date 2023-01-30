@@ -25,6 +25,7 @@ h1{
 }
 td{
     text-align: center;
+    margin: 5px;
 }
 .headerTable > th{
     margin-top: 30px;
@@ -44,5 +45,33 @@ table{
     align-items: center;
 }
 #addText{
+    margin-left: 20px;
+}
+#map {
+    height: 500px;
+    width: 30%;
+    margin: 0 auto; /* Center the map horizontally */
+    display: flex;
+    align-items: center;
+}
+
+#locationDetail {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 50px;
+}
+.locationLabel {
+    width: 150px;
+    font-weight: bold;
+}
+.locationValue {
+    width: 200px;
+}
+#return{
+    display: flex;
+    align-items: center;
+}
+#returnText{
     margin-left: 20px;
 }
