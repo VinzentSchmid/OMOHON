@@ -26,9 +26,25 @@ function removeLocation(id) {
 
 function updateLocation(location) {
 }
+function searchLocations(query) {
+    return new Promise((resolve, reject) => {
+        const sql = `SELECT * FROM locations WHERE street LIKE '%${query}%';`;
+        connection.query(sql, (error, results) => {
+            if (error) {
+                console.log(error);
+                reject(error);
+            } else {
+                console.log(results);
+                resolve(results);
+            }
+        });
+    });
+}
 
 module.exports = {
     getAllLocations,
+    searchLocations,
+
     getLocationByID(id){
         return getLocationByID(id)
     },
