@@ -8,7 +8,6 @@ function getAllLocations() {
                 console.log(error);
                 reject(error);
             } else {
-                console.log(results);
                 resolve(results);
             }
         });
@@ -49,7 +48,7 @@ function updateLocation(location) {
 
 function getAllWaterEntries() {
     return new Promise((resolve, reject) => {
-        const query = 'SELECT * FROM waterentries, locations WHERE "location.id" = "location_id"';
+        const query = 'SELECT * FROM `waterentries`, `locations` WHERE waterentries.locations_id = locations.id or locations.id IS NULL';
         connection.query(query, (error, results) => {
             if (error) {
                 console.log(error);

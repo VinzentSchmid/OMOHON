@@ -2,8 +2,6 @@
 //TODO
 
 function getDetailLocation(location) {
-    console.log("getDetailLocation")
-    console.log(location);
     return `<!DOCTYPE html>
     <html>
         <head>

@@ -1,10 +1,6 @@
-// creates and returns complete overview page with HTML and CSS reference
-// TODO: manage which rows are shown
 const {getAllWaterEntries} = require("../database");
 
 function getAllLocations(locations) {
-    console.log("getAllLocations")
-    console.log(locations);
     return `<!DOCTYPE html>
  <html>
     <head>
@@ -67,7 +63,7 @@ colspan="2">actions</th>
  ${entry.map(createWaterEntryRow).join('')}
 
  </table>
- <a href="/new"><img class="icon" src="/static/images/new.png"
+ <a href="/newWaterEntry"><img class="icon" src="/static/images/new.png"
 alt="new liquid" title="new liquid" /></a>
  </body>
  </html>`;
@@ -75,21 +71,21 @@ alt="new liquid" title="new liquid" /></a>
 
 // create each row with TR and TD Elements
 function createWaterEntryRow(entry) {
-    console.log(entry)
+    console.log(entry);
     return `<tr>
  <td>${entry.id}</td>
  <td>${entry.type}</td>
  <td>${entry.ml}</td>
- <td>${entry.location_id}</td>
- <td><a href="/delete/${entry.id}"><img class="icon"
+ <td>${entry.street} ${entry.housenumber} ${entry.postalcode} ${entry.city} ${entry.country}</td>
+ <td><a href="/removeWaterEntry/${entry.id}"><img class="icon"
 src="/static/images/delete.png" alt="delete liquid" title="delete liquid"
 /></a></td>
- <td><a href="/edit/${entry.id}"><img class="icon"
+ <td><a href="/editWaterEntry/${entry.id}"><img class="icon"
 src="/static/images/edit.png" alt="edit liquid" title="edit liquid"
 /></a></td>
  </tr>`;
 }
 module.exports = {
-    getAllWaterEntries,
+    getWaterEntriesList,
     getAllLocations
 };

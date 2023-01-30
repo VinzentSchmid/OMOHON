@@ -1,17 +1,18 @@
 const express = require("express")
 const formidable = require("formidable");
 const db = require('./database')
-const {getWaterEntriesList} = require("./views/list");
+const {getWaterEntriesList, getAllLocations} = require("./views/overview");
 const router = express.Router();
 const form = new formidable.IncomingForm();
-const getAllLocations = require("./views/overview");
 const getDetailLocation = require("./views/details");
 const path = require("path");
 const {getLocationByID} = require("./database");
+const {getWaterEntryForm} = require("./views/form")
 
 router.use("/static", express.static('public'));
 
 router.get("/", (req, res) => {
+    res.redirect('/waterEntries')
 });
 
 // ---------------------------- //
@@ -20,7 +21,7 @@ router.get("/", (req, res) => {
 router.get("/editWaterEntry/:id", (req, res) => {
     db.getWaterEntryByID(req.params.id).then(
         liquid => {
-            res.send('getForm(liquid)')
+            res.send(getWaterEntryForm(liquid))
         },
         error => {
             console.log("ERROR")
@@ -39,7 +40,7 @@ router.get("/removeWaterEntry/:id", (req, res) => {
     )
 });
 router.get("/newWaterEntry", (req, res) => {
-    res.send('getForm()')
+    res.send(getWaterEntryForm())
 });
 router.post("/addWaterEntry", (req, res) => {
     const form = new formidable.IncomingForm();
