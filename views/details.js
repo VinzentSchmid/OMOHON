@@ -34,6 +34,7 @@ function getDetailLocation(location) {
                 map: map,
               });
             }
+            
             window.initMap = initMap;
         </script>
         <script
@@ -45,6 +46,28 @@ function getDetailLocation(location) {
 }
 
 function createRow(location) {
+    return `<h1>Location Detail</h1>
+            <div id="locationDetail">
+                  <div class="locationLabel">Street:</div> 
+                  <div class="locationValue">${location.street}</div>
+  
+                  <div class="locationLabel">Housenumber: </div> 
+                  <div class="locationValue">${location.housenumber}</div>
+  
+                  <div class="locationLabel">Postalcode:</div> 
+                  <div class="locationValue">${location.postalcode}</div>
+  
+                  <div class="locationLabel">City:</div>
+                  <div class="locationValue"> ${location.city}</div>
+  
+                  <div class="locationLabel">Country: </div>
+                  <div class="locationValue">${location.country}</div>
+  
+                  ${location.latitude ? `<div class="locationLabel">Latitude: </div><div class="locationValue">${location.latitude}</div>` : ''}
+  
+                  ${location.longitude ? `<div class="locationLabel">Longitude: </div><div class="locationValue">${location.longitude}</div>` : ''}
+            </div>`;
+
     return `<div id="Street">Street: ${location.street}</div>
             <div id="Housenumber">Housenumber: ${location.housenumber}</div>
             <div id="Postalcode">Postalcode: ${location.postalcode}</div>
