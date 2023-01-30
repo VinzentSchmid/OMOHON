@@ -31,5 +31,17 @@ router.get("/deleteLocation", (req, res) => {
 router.get("/detailLocation", (req, res) => {
     //TODO implement detailLocation
 });
+router.get("/search", (req, res) => {
+    const query = req.query.q;
+    db.searchLocations(query).then(
+        locations => {
+            res.status(200).send(getAllLocations(locations));
+        },
+        error => {
+            console.log("Error", error);
+        }
+    );
+});
+
 
 module.exports = router;
