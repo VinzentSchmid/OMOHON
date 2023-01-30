@@ -8,6 +8,26 @@ function getDetailLocation(location) {
             <title>Location Detail</title>
             <link rel="stylesheet" href="/public/css/style.css" />
             <meta charset="utf-8">
+            <script src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap&v=weekly" defer>
+            </script>
+            <script>
+                function initMap() {
+                  // The location
+                  const location = { lat: ${location.map(value => value.latitude)}, lng: ${location.map(value => value.longitude)} };
+                  // The map, centered at location
+                  const map = new google.maps.Map(document.getElementById("map"), {
+                    zoom: 20,
+                    center: location,
+                  });
+                  // The marker, positioned at location
+                  const marker = new google.maps.Marker({
+                    position: location,
+                    map: map,
+                  });
+                }
+                
+                window.initMap = initMap;
+            </script>
         </head>
         <body>
         <h1>Location Detail</h1>
@@ -17,28 +37,6 @@ function getDetailLocation(location) {
         </div>
         ${location.map(createRow).join('')}
         <div id="map"></div>
-        <script>
-            function initMap() {
-              // The location
-              const location = { lat: ${location.map(value => value.latitude)}, lng: ${location.map(value => value.longitude)} };
-              // The map, centered at location
-              const map = new google.maps.Map(document.getElementById("map"), {
-                zoom: 20,
-                center: location,
-              });
-              // The marker, positioned at location
-              const marker = new google.maps.Marker({
-                position: location,
-                map: map,
-              });
-            }
-            
-            window.initMap = initMap;
-        </script>
-        <script
-          src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap&v=weekly"
-          defer>
-        </script>
         </body>
     </html>`;
 }

@@ -7,21 +7,19 @@ function getAllLocations(locations) {
         <title>Locations Overview</title>
         <meta charset="utf-8">
         <link rel="stylesheet" href="/public/css/style.css" />
-       
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const linkToDetailElements = document.getElementsByClassName("linkToDetail");
+                for (let i = 0; i < linkToDetailElements.length; i++) {
+                    let id = linkToDetailElements[i].parentElement.children[0].innerHTML;
+                    linkToDetailElements[i].addEventListener("click", function (event) {
+                        window.location = '/detailLocation/'+ id;
+                    });
+                }
+            });
+        </script>
     </head>
      <body>
-      <script>
-            document.addEventListener("DOMContentLoaded", function () {
-        const linkToDetailElements = document.getElementsByClassName("linkToDetail");
-        for (let i = 0; i < linkToDetailElements.length; i++) {
-            linkToDetailElements[i].addEventListener("click", function (event) {
-                console.log(event);
-                console.log(${locations});
-                window.location = '/detailLocation/' + location.map(value => i);
-            });
-        }
-    });
-        </script>
         <h1>Locations Overview</h1>
         <form action="/search" method="get">
           <input type="text" name="q" placeholder="Search locations...">
@@ -45,6 +43,7 @@ function getAllLocations(locations) {
 function createRow(location) {
 
     return `<tr id="row">
+                <td class="linkToDetail" hidden="hidden">${location.id}</td>
                 <td class="linkToDetail">${location.street}</td>
                 <td class="linkToDetail">${location.housenumber}</td>
                 <td class="linkToDetail">${location.postalcode}</td>
