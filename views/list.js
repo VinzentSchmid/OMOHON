@@ -29,6 +29,7 @@ function getAllLocations(locations) {
     
         </table>
         <a href="/new"><img class="icon" src="/public/images/new.png" alt="new location" title="New Location" /></a>
+        <a href="/export"><img class="icon" src="/public/images/export.png" alt="export" title="export locations" /></a>
      </body>
  </html>`;
 }
