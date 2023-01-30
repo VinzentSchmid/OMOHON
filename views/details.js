@@ -10,12 +10,6 @@ function getDetailLocation(location) {
             <title>Location Detail</title>
             <link rel="stylesheet" href="/public/css/style.css" />
             <meta charset="utf-8">
-            <style>
-                #map {
-                    height: 400px;
-                    width: 50%;
-                }
-            </style>
         </head>
         <body>
         ${location.map(createRow).join('')}
@@ -49,13 +43,27 @@ function getDetailLocation(location) {
 
 function createRow(location) {
     return `<h1>Location Detail</h1>
-            <div id="Street">Street: ${location.street}</div>
-            <div id="Housenumber">Housenumber: ${location.housenumber}</div>
-            <div id="Postalcode">Postalcode: ${location.postalcode}</div>
-            <div id="City">City: ${location.city}</div>
-            <div id="Country">Country: ${location.country}</div>
-            ${location.latitude ? `<div id="Latitude">Latitude: ${location.latitude}</div>` : ''}
-            ${location.longitude ? `<div id="Longitude">Longitude: ${location.longitude}</div>` : ''}`;
+            <div id="locationDetail">
+                  <div class="locationLabel">Street:</div> 
+                  <div class="locationValue">${location.street}</div>
+  
+                  <div class="locationLabel">Housenumber: </div> 
+                  <div class="locationValue">${location.housenumber}</div>
+  
+                  <div class="locationLabel">Postalcode:</div> 
+                  <div class="locationValue">${location.postalcode}</div>
+  
+                  <div class="locationLabel">City:</div>
+                  <div class="locationValue"> ${location.city}</div>
+  
+                  <div class="locationLabel">Country: </div>
+                  <div class="locationValue">${location.country}</div>
+  
+                  ${location.latitude ? `<div class="locationLabel">Latitude: </div><div class="locationValue">${location.latitude}</div>` : ''}
+  
+                  ${location.longitude ? `<div class="locationLabel">Longitude: </div><div class="locationValue">${location.longitude}</div>` : ''}
+            </div>`;
+
 }
 
 module.exports = getDetailLocation;
