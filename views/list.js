@@ -12,6 +12,10 @@ function getAllLocations(locations) {
     </head>
      <body>
         <h1>Locations Overview</h1>
+        <form action="/search" method="get">
+          <input type="text" name="q" placeholder="Search locations...">
+          <button type="submit">Search</button>
+        </form>
         <table>
             <tr>
                 <th>street</th>
