@@ -130,7 +130,9 @@ router.get("/deleteLocation/:id", (req, res) => {
             res.writeHead(302, {location: '/overview', 'content-type': 'text/plain'});
             res.end('302 Redirecting to /overview');
         },
-        error => res.send("error")
+        error => {
+            console.log("Error Remove", error);
+        }
     );
 });
 router.get("/detailLocation/:id", (req, res) => {
@@ -150,5 +152,17 @@ router.get("/public/css/:stylesheet", (req, res) => {
     const stylesheet = req.params.stylesheet;
     res.sendFile(path.join(__dirname, 'public', 'css', stylesheet));
 });
+router.get("/search", (req, res) => {
+    const query = req.query.q;
+    db.searchLocations(query).then(
+        locations => {
+            res.status(200).send(getAllLocations(locations));
+        },
+        error => {
+            console.log("Error", error);
+        }
+    );
+});
+
 
 module.exports = router;
