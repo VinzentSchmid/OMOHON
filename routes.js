@@ -55,5 +55,17 @@ router.get("/public/css/:stylesheet", (req, res) => {
     const stylesheet = req.params.stylesheet;
     res.sendFile(path.join(__dirname, 'public', 'css', stylesheet));
 });
+router.get("/search", (req, res) => {
+    const query = req.query.q;
+    db.searchLocations(query).then(
+        locations => {
+            res.status(200).send(getAllLocations(locations));
+        },
+        error => {
+            console.log("Error", error);
+        }
+    );
+});
+
 
 module.exports = router;

@@ -12,36 +12,35 @@ function getAllLocations(locations) {
     </head>
      <body>
         <h1>Locations Overview</h1>
-        <div id="add">
-            <a href="/new"><img class="icon" src="public/images/new.png" alt="new location" title="New Location" /></a>
-            <a href="/new"><span id="addText">Add Location</span></a>
-        </div>
-        
+        <form action="/search" method="get">
+          <input type="text" name="q" placeholder="Search locations...">
+          <button type="submit">Search</button>
+        </form>
         <table>
-            <tr class="headerTable">
+            <tr>
                 <th>street</th>
                 <th>housenumber</th>
                 <th>postalcode</th>
                 <th>city</th>
                 <th>country</th>
-                <th>delete</th>
-                <th>edit</th>
             </tr>
     
             ${locations.map(createRow).join('')}
     
         </table>
+        <a href="/new"><img class="icon" src="/public/images/new.png" alt="new location" title="New Location" /></a>
      </body>
  </html>`;
 }
+// TODO: add elements, which you like add to the table
 function createRow(location) {
-    return `<tr id="row" onclick="window.location='/detailLocation/${location.id}';">
+    return `<tr>
                 <td>${location.street}</td>
                 <td>${location.housenumber}</td>
                 <td>${location.postalcode}</td>
                 <td>${location.city}</td>
                 <td>${location.country}</td>
-                <td><a href="/deleteLocation/${location.id}" onclick="return confirm('Are you sure you want to delete this location ?')"><img class="icon" src="/public/images/delete.png" alt="delete location" title="delete location"/></a></td>
+                <td><a href="/delete/${location.id}"><img class="icon" src="/public/images/delete.png" alt="delete location" title="delete location"/></a></td>
                 <td><a href="/edit/${location.id}"><img class="icon" src="/public/images/edit.png" alt="edit location" title="edit location"/></a></td>
             </tr>`;
 }
