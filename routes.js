@@ -76,10 +76,10 @@ router.post("/addWaterEntry", (req, res) => {
         db.addWaterEntry(liquid).then(
             liquid => {
                 res.writeHead(302, {
-                    location: '/overview', 'content-type':
+                    location: '/waterentries', 'content-type':
                         'text/plain'
                 });
-                res.end('302 Redirecting to /overview');
+                res.end('302 Redirecting to /waterentries');
             },
             error => res.send("error")
         );
@@ -101,10 +101,6 @@ router.get("/waterentries", (req, res) => {
 //         Locations            //
 // ---------------------------- //
 router.get("/locations", (req, res) => {
-    //TODO implement overview
-    res.redirect('/overview');
-});
-router.get("/overview", (req, res) => {
     res.setHeader('Content-Type', 'text/html');
     db.getAllLocations().then(
         locations => {
@@ -127,8 +123,8 @@ router.get("/deleteLocation/:id", (req, res) => {
     const id = parseInt(req.params.id, 10);
     db.removeLocation(id).then(
         location => {
-            res.writeHead(302, {location: '/overview', 'content-type': 'text/plain'});
-            res.end('302 Redirecting to /overview');
+            res.writeHead(302, {location: '/locations', 'content-type': 'text/plain'});
+            res.end('302 Redirecting to /locations');
         },
         error => {
             console.log("Error Remove", error);

@@ -7,18 +7,21 @@ function getAllLocations(locations) {
         <title>Locations Overview</title>
         <meta charset="utf-8">
         <link rel="stylesheet" href="/public/css/style.css" />
-        <script>
+       
+    </head>
+     <body>
+      <script>
             document.addEventListener("DOMContentLoaded", function () {
         const linkToDetailElements = document.getElementsByClassName("linkToDetail");
         for (let i = 0; i < linkToDetailElements.length; i++) {
             linkToDetailElements[i].addEventListener("click", function (event) {
-                window.location = '/detailLocation/' + location.id;
+                console.log(event);
+                console.log(${locations});
+                window.location = '/detailLocation/' + location.map(value => i);
             });
         }
     });
         </script>
-    </head>
-     <body>
         <h1>Locations Overview</h1>
         <form action="/search" method="get">
           <input type="text" name="q" placeholder="Search locations...">
