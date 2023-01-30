@@ -35,7 +35,9 @@ router.get("/deleteLocation/:id", (req, res) => {
             res.writeHead(302, {location: '/overview', 'content-type': 'text/plain'});
             res.end('302 Redirecting to /overview');
         },
-        error => res.send("error")
+        error => {
+            console.log("Error Remove", error);
+        }
     );
 });
 router.get("/detailLocation/:id", (req, res) => {
