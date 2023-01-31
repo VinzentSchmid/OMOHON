@@ -22,11 +22,11 @@ function getAllLocations(locations) {
      <body>
         <h1>LOCATIONS</h1>
         ${createSidebar()}
-        <form action="/search" method="get">
         <a id="addLocation" href="/new"><img class="icon" src="/public/images/new.png" alt="new location" title="New Location" /><span>Add location</span></a>
         <form id="searchBar" action="/search" method="get">
           <input type="text" name="q" placeholder="Search locations...">
           <button type="submit">Search</button>
+          <button type="reset" onClick="window.location.href='/locations'">Reset</button>
         </form>
         <table>
             <tr>
