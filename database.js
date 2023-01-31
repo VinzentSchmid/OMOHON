@@ -12,7 +12,6 @@ function getAllLocations() {
             }
         });
     });
-
 }
 
 function getLocationByID(id) {
@@ -87,6 +86,19 @@ function getWaterEntryByID(id) {
     });
 }
 
+function getWaterEntryByID2(id) {
+    return new Promise((resolve, reject) => {
+        const query = 'SELECT * FROM `waterentries`, `locations` WHERE waterentries.id = ? AND waterentries.locations_id = locations.id OR locations.id IS NULL';
+        connection.query(query, [id],(error, results) => {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(results[0]);
+            }
+        });
+    });
+}
+
 function addWaterEntry(liquid) {
     return new Promise((resolve, reject) => {
         const query = 'INSERT INTO waterentries (ml, type, amount) VALUES (?, ?, 1)';
@@ -147,6 +159,9 @@ module.exports = {
     getAllWaterEntries,
     getWaterEntryByID(id){
         return getWaterEntryByID(id)
+    },
+    getWaterEntryByID2(id){
+        return getWaterEntryByID2(id)
     },
     removeWaterEntry(id){
         return removeWaterEntry(id)

@@ -61,4 +61,41 @@ function createRow(location) {
             </div>`;
 }
 
-module.exports = getDetailLocation;
+function getDetailWaterEntry(entry) {
+    return `<!DOCTYPE html>
+    <html>
+        <head>
+            <title>Water Entry Detail</title>
+            <link rel="stylesheet" href="/public/css/style.css" />
+            <meta charset="utf-8">
+        </head>
+        <body>
+        <h1>WATER ENTRY DETAIL</h1>
+        ${createSidebar()}
+        ${createRow2(entry)}
+        </body>
+    </html>`;
+}
+
+function createRow2(entry) {
+    return ` <div id="locationDetail">
+                  <div class="waterLabel">TYPE:</div> 
+                  <div class="waterValue">${entry.type}</div>
+  
+                  <div class="waterLabel">AMOUNT: </div> 
+                  <div class="waterValue">${entry.amount}</div>
+  
+                  <div class="waterLabel">ML:</div> 
+                  <div class="waterValue">${entry.ml}</div>
+  
+                  <div class="waterLabel">CREATED:</div>
+                  <div class="waterValue"> ${entry.created}</div>
+  
+                  <div class="waterLabel">LOCATION: </div>
+                  <div class="waterValue">${entry.street} ${entry.housenumber} ${entry.postalcode} ${entry.city} ${entry.country}</div>
+            </div>`;
+}
+module.exports = {
+    getDetailLocation,
+    getDetailWaterEntry
+};

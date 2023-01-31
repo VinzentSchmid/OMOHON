@@ -64,6 +64,17 @@ function getWaterEntriesList(entry) {
  <title>Water Entries Overview</title>
  <meta charset="utf-8">
  <link rel="stylesheet" href="/public/css/style.css" />
+         <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const linkToDetailElements = document.getElementsByClassName("linkToEntry");
+                for (let i = 0; i < linkToDetailElements.length; i++) {
+                    let id = linkToDetailElements[i].parentElement.children[0].innerHTML;
+                    linkToDetailElements[i].addEventListener("click", function (event) {
+                        window.location = '/detailWaterEntry/'+ id;
+                    });
+                }
+            });
+        </script>
  </head>
  <body>
  <h1>WATER ENTRIES</h1>
@@ -94,18 +105,17 @@ colspan="2">ACTIONS</th>
 function createWaterEntryRow(entry) {
     console.log(entry);
     return `<tr>
- <td hidden="true">${entry.id}</td>
- <td>${entry.type}</td>
- <td>${entry.ml}</td>
- <td>${entry.street} ${entry.housenumber} ${entry.postalcode} ${entry.city} ${entry.country}</td>
- <td><a href="/removeWaterEntry/${entry.id}"><img class="icon"
-src="/static/images/delete.png" alt="delete liquid" title="delete liquid"
-/></a></td>
- <td><a href="/editWaterEntry/${entry.id}"><img class="icon"
-src="/static/images/edit.png" alt="edit liquid" title="edit liquid"
-/></a></td>
- </tr>`;
+                 <td class="linkToEntry" hidden="true">${entry.id}</td>
+                 <td class="linkToEntry">${entry.type}</td>
+                 <td class="linkToEntry">${entry.ml}</td>
+                 <td class="linkToEntry">${entry.street} ${entry.housenumber} ${entry.postalcode} ${entry.city} ${entry.country}</td>
+                 <td class="linkToEntry"><a href="/removeWaterEntry/${entry.id}"><img class="icon"
+                        src="/static/images/delete.png" alt="delete liquid" title="delete liquid"/></a></td>
+                 <td class="linkToEntry"><a href="/editWaterEntry/${entry.id}"><img class="icon"
+                        src="/static/images/edit.png" alt="edit liquid" title="edit liquid"/></a></td>
+            </tr>`;
 }
+
 module.exports = {
     getWaterEntriesList,
     getAllLocations

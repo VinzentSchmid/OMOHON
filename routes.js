@@ -4,9 +4,8 @@ const db = require('./database')
 const {getWaterEntriesList, getAllLocations} = require("./views/overview");
 const router = express.Router();
 const form = new formidable.IncomingForm();
-const getDetailLocation = require("./views/details");
+const details = require("./views/details");
 const path = require("path");
-const {getLocationByID, getAllWaterEntries} = require("./database");
 const {getWaterEntryForm} = require("./views/form")
 
 router.use("/static", express.static('public'));
@@ -97,6 +96,16 @@ router.get("/waterentries", (req, res) => {
     )
 });
 
+router.get("/detailWaterEntry/:id", (req, res) => {
+    const id = parseInt(req.params.id, 10);
+    db.getWaterEntryByID2(id).then(
+        entry => {
+            res.status(200).send(details.getDetailWaterEntry(entry));
+        },
+        error => res.send("error")
+    );
+});
+
 // ---------------------------- //
 //         Locations            //
 // ---------------------------- //
@@ -135,7 +144,7 @@ router.get("/detailLocation/:id", (req, res) => {
     const id = parseInt(req.params.id, 10);
     db.getLocationByID(id).then(
         location => {
-            res.status(200).send(getDetailLocation(location));
+            res.status(200).send(details.getDetailLocation(location));
         },
         error => res.send("error")
     );
