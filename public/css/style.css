@@ -93,15 +93,15 @@ table{
 #searchBar > input{
     margin: 5px;
 }
-#addLocation {
+.add {
     display: flex;
     flex-direction: row;
     width: 50%;
 }
-#addLocation > span{
+.add > span{
     display: flex;
     align-items: center;
 }
-#addLocation > img{
+.add > img{
     margin-right: 10px;
 }
