@@ -68,10 +68,3 @@ table{
 .locationValue {
     width: 200px;
 }
-#return{
-    display: flex;
-    align-items: center;
-}
-#returnText{
-    margin-left: 20px;
-}

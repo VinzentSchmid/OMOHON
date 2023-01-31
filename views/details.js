@@ -31,10 +31,6 @@ function getDetailLocation(location) {
         </head>
         <body>
         <h1>Location Detail</h1>
-        <div id="return">
-            <a href="/locations"><img class="icon" src="../public/images/return.png" alt="return" title="return" /></a>
-            <a href="/locations"><span id="returnText">Go Back</span></a>
-        </div>
         ${location.map(createRow).join('')}
         <div id="map"></div>
         </body>
