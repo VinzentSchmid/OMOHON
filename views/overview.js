@@ -1,5 +1,5 @@
 const {getAllWaterEntries} = require("../database");
-
+const createSidebar = require('./sidebar');
 function getAllLocations(locations) {
     return `<!DOCTYPE html>
  <html>
@@ -21,6 +21,7 @@ function getAllLocations(locations) {
     </head>
      <body>
         <h1>Locations Overview</h1>
+        ${createSidebar()}
         <form action="/search" method="get">
           <input type="text" name="q" placeholder="Search locations...">
           <button type="submit">Search</button>
@@ -64,6 +65,7 @@ function getWaterEntriesList(entry) {
  </head>
  <body>
  <h1>liquids Overview</h1>
+ ${createSidebar()}
  <table>
  <tr>
  <th>id</th><th>Liquid</th><th>Amount</th><th>Location</th><th

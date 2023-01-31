@@ -1,6 +1,6 @@
 //Creates and return detail page with HTML and CSS reference
 //TODO
-
+const createSidebar = require('./sidebar');
 function getDetailLocation(location) {
     return `<!DOCTYPE html>
     <html>
@@ -31,6 +31,7 @@ function getDetailLocation(location) {
         </head>
         <body>
         <h1>Location Detail</h1>
+        ${createSidebar()}
         ${location.map(createRow).join('')}
         <div id="map"></div>
         </body>
