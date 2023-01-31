@@ -22,7 +22,8 @@ function getAllLocations(locations) {
     </head>
      <body>
         <h1>Locations Overview</h1>
-        <form action="/search" method="get">
+        <a id="addLocation" href="/new"><img class="icon" src="/public/images/new.png" alt="new location" title="New Location" /><span>Add location</span></a>
+        <form id="searchBar" action="/search" method="get">
           <input type="text" name="q" placeholder="Search locations...">
           <button type="submit">Search</button>
         </form>
@@ -36,7 +37,6 @@ function getAllLocations(locations) {
             </tr>
             ${locations.map(createRow).join('')}
         </table>
-        <a href="/new"><img class="icon" src="/public/images/new.png" alt="new location" title="New Location" /></a>
      </body>
  </html>`;
 }
