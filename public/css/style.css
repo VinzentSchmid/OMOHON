@@ -68,3 +68,40 @@ table{
 .locationValue {
     width: 200px;
 }
+#return{
+    display: flex;
+    align-items: center;
+}
+#returnText{
+    margin-left: 20px;
+}
+#searchBar{
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    padding-bottom: 10px;
+}
+#searchBar > * {
+    background-color: #343440;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #343440;
+}
+#searchBar > input{
+    margin: 5px;
+}
+#addLocation {
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+}
+#addLocation > span{
+    display: flex;
+    align-items: center;
+}
+#addLocation > img{
+    margin-right: 10px;
+}
