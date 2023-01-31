@@ -1,7 +1,6 @@
 //create a sidebar
 
 function createSidebar(){
-    console.log("sidebar");
     return `<div id="sidebar">
                 <ul>
                     <li><a href="/waterEntries">Water Entries</a></li>

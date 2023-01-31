@@ -30,7 +30,7 @@ function getDetailLocation(location) {
             </script>
         </head>
         <body>
-        <h1>Location Detail</h1>
+        <h1>LOCATION DETAIL</h1>
         ${createSidebar()}
         ${location.map(createRow).join('')}
         <div id="map"></div>
@@ -60,13 +60,13 @@ function createRow(location) {
                   ${location.longitude ? `<div class="locationLabel">Longitude: </div><div class="locationValue">${location.longitude}</div>` : ''}
             </div>`;
 
-    return `<div id="Street">Street: ${location.street}</div>
-            <div id="Housenumber">Housenumber: ${location.housenumber}</div>
-            <div id="Postalcode">Postalcode: ${location.postalcode}</div>
-            <div id="City">City: ${location.city}</div>
-            <div id="Country">Country: ${location.country}</div>
-            ${location.latitude ? `<div id="Latitude">Latitude: ${location.latitude}</div>` : ''}
-            ${location.longitude ? `<div id="Longitude">Longitude: ${location.longitude}</div>` : ''}`;
+    return `<div id="STREET">Street: ${location.street}</div>
+            <div id="HOUSENUMBER">Housenumber: ${location.housenumber}</div>
+            <div id="POSTALCODE">Postalcode: ${location.postalcode}</div>
+            <div id="CITY">City: ${location.city}</div>
+            <div id="COUNTRY">Country: ${location.country}</div>
+            ${location.latitude ? `<div id="LATITUDE">Latitude: ${location.latitude}</div>` : ''}
+            ${location.longitude ? `<div id="LONGITUDE">Longitude: ${location.longitude}</div>` : ''}`;
 }
 
 module.exports = getDetailLocation;

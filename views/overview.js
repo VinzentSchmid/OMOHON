@@ -20,7 +20,7 @@ function getAllLocations(locations) {
         </script>
     </head>
      <body>
-        <h1>Locations Overview</h1>
+        <h1>LOCATIONS</h1>
         ${createSidebar()}
         <form action="/search" method="get">
         <a id="addLocation" href="/new"><img class="icon" src="/public/images/new.png" alt="new location" title="New Location" /><span>Add location</span></a>
@@ -30,11 +30,11 @@ function getAllLocations(locations) {
         </form>
         <table>
             <tr>
-                <th>street</th>
-                <th>housenumber</th>
-                <th>postalcode</th>
-                <th>city</th>
-                <th>country</th>
+                <th>STREET</th>
+                <th>HOUSENUMBER</th>
+                <th>POSTALCODE</th>
+                <th>CITY</th>
+                <th>COUNTRY</th>
             </tr>
             ${locations.map(createRow).join('')}
         </table>
@@ -60,17 +60,17 @@ function getWaterEntriesList(entry) {
     return `<!DOCTYPE html>
  <html>
  <head>
- <title>liquids Overview</title>
+ <title>Water Entries Overview</title>
  <meta charset="utf-8">
  <link rel="stylesheet" href="/static/stylesheets/style.css" />
  </head>
  <body>
- <h1>liquids Overview</h1>
+ <h1>WATER ENTRIES</h1>
  ${createSidebar()}
  <table>
  <tr>
- <th>id</th><th>Liquid</th><th>Amount</th><th>Location</th><th
-colspan="2">actions</th>
+ <th>LIQUID</th><th>AMOUNT</th><th>LOCATION</th><th
+colspan="2">ACTIONS</th>
  </tr>
 
  ${entry.map(createWaterEntryRow).join('')}
@@ -86,7 +86,7 @@ alt="new liquid" title="new liquid" /></a>
 function createWaterEntryRow(entry) {
     console.log(entry);
     return `<tr>
- <td>${entry.id}</td>
+ <td hidden="true">${entry.id}</td>
  <td>${entry.type}</td>
  <td>${entry.ml}</td>
  <td>${entry.street} ${entry.housenumber} ${entry.postalcode} ${entry.city} ${entry.country}</td>
