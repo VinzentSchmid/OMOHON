@@ -25,6 +25,7 @@ function getAllLocations(locations) {
         <form id="searchBar" action="/search" method="get">
           <input type="text" name="q" placeholder="Search locations...">
           <button type="submit">Search</button>
+          <button type="reset" onClick="window.location.href='/locations'">Reset</button>
         </form>
         <table>
             <tr>
