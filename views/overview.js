@@ -24,7 +24,8 @@ function getAllLocations(locations) {
         ${createSidebar()}
         <a class="add" href="/new"><img class="icon" src="/public/images/new.png" alt="new location" title="New Location" /><span>Add location</span></a>
         <form id="searchBar" action="/search" method="get">
-          <input type="text" name="q" placeholder="Search locations...">
+          <input type="text" name="q" placeholder="Search Locations...">
+          <input type="hidden" name="type" value="location">
           <button type="submit">Search</button>
           <button type="reset" onClick="window.location.href='/locations'">Reset</button>
         </form>
@@ -69,6 +70,12 @@ function getWaterEntriesList(entry) {
  ${createSidebar()}
   <a class="add" href="/newWaterEntry"><img class="icon" src="../public/images/new.png"
 alt="new liquid" title="new liquid" /><span>Add New Drink</span></a>
+<form id="searchBar" action="/search" method="get">
+  <input type="text" name="q" placeholder="Search Drinks...">
+  <input type="hidden" name="type" value="water">
+  <button type="submit">Search</button>
+  <button type="reset" onClick="window.location.href='/waterEntries'">Reset</button>
+</form>
  <table>
  <tr>
  <th>LIQUID</th><th>AMOUNT</th><th>LOCATION</th><th

@@ -6,7 +6,7 @@ const router = express.Router();
 const form = new formidable.IncomingForm();
 const getDetailLocation = require("./views/details");
 const path = require("path");
-const {getLocationByID} = require("./database");
+const {getLocationByID, getAllWaterEntries} = require("./database");
 const {getWaterEntryForm} = require("./views/form")
 
 router.use("/static", express.static('public'));
@@ -149,15 +149,31 @@ router.get("/public/css/:stylesheet", (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'css', stylesheet));
 });
 router.get("/search", (req, res) => {
-    const query = req.query.q;
-    db.searchLocations(query).then(
-        locations => {
-            res.status(200).send(getAllLocations(locations));
-        },
-        error => {
-            console.log("Error", error);
-        }
-    );
+    let query;
+    switch (req.query.type) {
+        case "location":
+            query = `SELECT * FROM locations WHERE street LIKE '%${req.query.q}%';`;
+            db.search(query).then(
+                locations => {
+                    res.status(200).send(getAllLocations(locations));
+                },
+                error => {
+                    console.log("Error", error);
+                }
+            );
+            break;
+        case "water":
+            query = `SELECT * FROM waterentries, locations WHERE type LIKE '%${req.query.q}%' AND waterentries.locations_id = locations.id or locations.id IS NULL;`;
+            db.search(query).then(
+                waterentries => {
+                    res.status(200).send(getWaterEntriesList(waterentries));
+                },
+                error => {
+                    console.log("Error", error);
+                }
+            );
+            break;
+    }
 });
 
 

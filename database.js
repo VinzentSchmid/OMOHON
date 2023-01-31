@@ -45,10 +45,9 @@ function removeLocation(id) {
 
 function updateLocation(location) {
 }
-function searchLocations(query) {
+function search(query) {
     return new Promise((resolve, reject) => {
-        const sql = `SELECT * FROM locations WHERE street LIKE '%${query}%';`;
-        connection.query(sql, (error, results) => {
+        connection.query(query, (error, results) => {
             if (error) {
                 console.log(error);
                 reject(error);
@@ -130,7 +129,7 @@ function updateWaterEntry(liquid) {
 
 module.exports = {
     getAllLocations,
-    searchLocations,
+    search,
 
     getLocationByID(id){
         return getLocationByID(id)
