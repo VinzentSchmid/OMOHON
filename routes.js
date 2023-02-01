@@ -6,7 +6,7 @@ const router = express.Router();
 const form = new formidable.IncomingForm();
 const details = require("./views/details");
 const path = require("path");
-const {getWaterEntryForm} = require("./views/form")
+const {getWaterEntryForm, getNewLocationForm} = require("./views/form")
 
 router.use("/static", express.static('public'));
 
@@ -120,9 +120,76 @@ router.get("/locations", (req, res) => {
     );
 });
 router.get("/newLocation", (req, res) => {
+    res.send(getNewLocationForm())
 });
-router.get("/addLocation", (req, res) => {
-    //TODO implement addLocation
+router.post("/addLocation", (req, res) => {
+    const form = new formidable.IncomingForm();
+    // TODO: Add Image
+
+    // TODO: Backend Validation
+
+    form.on("event", function (name, value) {
+
+        if (name === "street" && value.trim() === "") {
+            form._error("Street name must be entered!")
+        }
+
+        if (name === "housenumber") {
+            if (value.trim() === "") {
+                form._error("housenumber name must be entered!")
+                form._error()
+                form.error
+            }
+            try {
+                Number.parseInt(value)
+            } catch (e) {
+                form._error("housenumber name must be an Integer!")
+            }
+        }
+
+        if (name === "postalcode") {
+            if (value.trim() === "") {
+                form._error("Postal Code must be entered!")
+            }
+            try {
+                Number.parseInt(value)
+            } catch (e) {
+                form._error("Postal Code must be an Integer!")
+            }
+        }
+
+        if (name === "city") {
+            if (value.trim() === "") {
+                form._error("City must be entered!")
+            }
+        }
+
+        if (name === "country") {
+            if (value.trim() === "") {
+                form._error("Country must be entered!")
+            }
+        }
+
+    });
+
+    form.parse(req, (err, location) => {
+        if (err) {
+            res.send(err);
+            return;
+        }
+
+        // TODO: Add location added, kein Future, deswegen Then False.
+        db.addLocation(location).then(
+            location => {
+                res.writeHead(302, {
+                    location: '/locations', 'content-type': 'text/plain'
+                });
+                res.end('302 Redirecting to /locations');
+            },
+            error => res.send(err)
+        );
+    });
+
 });
 router.get("/editLocation:id", (req, res) => {
     //TODO implement updateLocation
