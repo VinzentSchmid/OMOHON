@@ -40,6 +40,7 @@ function getAllLocations(locations) {
                 </tr>
                 ${locations.map(createRow).join('')}
             </table>
+            <a href="/newLocation"><img class="icon" src="/public/images/new.png" alt="new location" title="New Location" /></a>
         </div>
      </body>
  </html>`;

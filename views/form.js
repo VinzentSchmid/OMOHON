@@ -66,4 +66,71 @@ class="form-check-input" ` + (liquid.ml === 500 ? 'checked' : '') + `>
     return form;
 }
 
-module.exports = {getWaterEntryForm};
+// TODO: Check location Object (edit)
+
+// TODO: Front End validation
+
+function getNewLocationForm(location){
+    // if (location == undefined) {
+    //     liquid = {
+    //         id: '',
+    //         ml: 0,
+    //         type: ''
+    //     };
+    // }
+    // define different header(s)
+    let header = "Add new location";
+    // check if alredy exists and fill object
+
+    // if (location.id) {// note = notes.find(nte => nte.id === parseInt(id));
+    //     header = "Edit location";
+    // }
+
+    // build form within javascript
+    const form = `<!DOCTYPE html>
+<html>
+ <head> 
+ <title>${header}</title>
+ <meta charset="utf-8">
+ </head>
+ <body>
+ <h1>${header}</h1>
+ 
+ <form action="/addLocation" method="POST">
+<!--TODO: See other add form (location.id)-->
+<!-- TODO: Form Check Validation, Regex, ...-->
+
+ <div>
+<!-- Note: For -> id --> 
+   <div>
+ <label class="form-label" for="street">Street:</label>
+ <input type="text" id="street" name="street"></div>
+ 
+    <div>
+ <label class="form-label" for="housenumber">Housenumber:</label>
+ <input type="text" id="housenumber" name="housenumber"></div>
+ 
+     <div>
+ <label class="form-label" for="postalcode">Postal Code:</label>
+ <input type="text" id="postalcode" name="postalcode"></div>
+ 
+     <div>
+ <label class="form-label" for="city">City:</label>
+ <input type="text" id="city" name="city"></div>
+ 
+      <div>
+ <label class="form-label" for="country">Country:</label>
+ <input type="text" id="country" name="country"></div>
+ 
+<!-- TODO: Image-->
+
+
+ <button type="submit">save</button>
+
+ </form>
+ </body>
+</html>`;
+    return form;
+}
+
+module.exports = {getWaterEntryForm, getNewLocationForm};
