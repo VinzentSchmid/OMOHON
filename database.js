@@ -50,16 +50,15 @@ function removeLocation(id) {
 }
 
 function updateLocation(location) {
+    
 }
-function searchLocations(query) {
+function search(query) {
     return new Promise((resolve, reject) => {
-        const sql = `SELECT * FROM locations WHERE street LIKE '%${query}%';`;
-        connection.query(sql, (error, results) => {
+        connection.query(query, (error, results) => {
             if (error) {
                 console.log(error);
                 reject(error);
             } else {
-                console.log(results);
                 resolve(results);
             }
         });
@@ -84,6 +83,19 @@ function getAllWaterEntries() {
 function getWaterEntryByID(id) {
     return new Promise((resolve, reject) => {
         const query = 'SELECT * FROM waterentries WHERE id = ?';
+        connection.query(query, [id],(error, results) => {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(results[0]);
+            }
+        });
+    });
+}
+
+function getWaterEntryByID2(id) {
+    return new Promise((resolve, reject) => {
+        const query = 'SELECT * FROM `waterentries`, `locations` WHERE waterentries.id = ? AND waterentries.locations_id = locations.id OR locations.id IS NULL';
         connection.query(query, [id],(error, results) => {
             if (error) {
                 reject(error);
@@ -136,7 +148,7 @@ function updateWaterEntry(liquid) {
 
 module.exports = {
     getAllLocations,
-    searchLocations,
+    search,
 
     getLocationByID(id){
         return getLocationByID(id)
@@ -154,6 +166,9 @@ module.exports = {
     getAllWaterEntries,
     getWaterEntryByID(id){
         return getWaterEntryByID(id)
+    },
+    getWaterEntryByID2(id){
+        return getWaterEntryByID2(id)
     },
     removeWaterEntry(id){
         return removeWaterEntry(id)

@@ -2,9 +2,11 @@
     font-family: "Roboto Light", sans-serif;
     color: white;
     text-decoration: none;
+    list-style-type: none;
 }
 body{
     background-color: #444755;
+    height: 100%;
 }
 h1{
     text-align: center;
@@ -75,3 +77,58 @@ table{
 #returnText{
     margin-left: 20px;
 }
+#searchBar{
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    padding-bottom: 10px;
+}
+#searchBar > * {
+    background-color: #343440;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #343440;
+}
+#searchBar > input{
+    margin: 5px;
+}
+.add {
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+}
+.add > span{
+    display: flex;
+    align-items: center;
+}
+.add > img{
+    margin-right: 10px;
+}
+#searchBar > button{
+    margin-right: 5px;
+}
+#sidebar {
+    float: left;
+    width: 200px;
+    background-color: #343440;
+    height: 500px;
+    border-radius: 10px;
+}
+#main {
+    margin-left: 220px;
+    padding: 20px;
+}
+#sidebar > ul > li{
+    padding: 10px;
+    margin: 5px;
+}
+#sidebar > ul{
+    padding: 0;
+}
+#sidebar ul li.active {
+    background-color: #444755;
+}
+

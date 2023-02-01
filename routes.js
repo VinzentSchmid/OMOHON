@@ -4,10 +4,9 @@ const db = require('./database')
 const {getWaterEntriesList, getAllLocations} = require("./views/overview");
 const router = express.Router();
 const form = new formidable.IncomingForm();
-const getDetailLocation = require("./views/details");
+const details = require("./views/details");
 const path = require("path");
-const {getLocationByID} = require("./database");
-const {getWaterEntryForm} = require("./views/form")
+const {getWaterEntryForm, getNewLocationForm} = require("./views/form")
 
 router.use("/static", express.static('public'));
 
@@ -72,7 +71,6 @@ router.post("/addWaterEntry", (req, res) => {
             return
         }
 
-        console.log()
         db.addWaterEntry(liquid).then(
             liquid => {
                 res.writeHead(302, {
@@ -97,6 +95,16 @@ router.get("/waterentries", (req, res) => {
     )
 });
 
+router.get("/detailWaterEntry/:id", (req, res) => {
+    const id = parseInt(req.params.id, 10);
+    db.getWaterEntryByID2(id).then(
+        entry => {
+            res.status(200).send(details.getDetailWaterEntry(entry));
+        },
+        error => res.send("error")
+    );
+});
+
 // ---------------------------- //
 //         Locations            //
 // ---------------------------- //
@@ -112,9 +120,76 @@ router.get("/locations", (req, res) => {
     );
 });
 router.get("/newLocation", (req, res) => {
+    res.send(getNewLocationForm())
 });
-router.get("/addLocation", (req, res) => {
-    db.addLocation(location);
+router.post("/addLocation", (req, res) => {
+    const form = new formidable.IncomingForm();
+    // TODO: Add Image
+
+    // TODO: Backend Validation
+
+    form.on("event", function (name, value) {
+
+        if (name === "street" && value.trim() === "") {
+            form._error("Street name must be entered!")
+        }
+
+        if (name === "housenumber") {
+            if (value.trim() === "") {
+                form._error("housenumber name must be entered!")
+                form._error()
+                form.error
+            }
+            try {
+                Number.parseInt(value)
+            } catch (e) {
+                form._error("housenumber name must be an Integer!")
+            }
+        }
+
+        if (name === "postalcode") {
+            if (value.trim() === "") {
+                form._error("Postal Code must be entered!")
+            }
+            try {
+                Number.parseInt(value)
+            } catch (e) {
+                form._error("Postal Code must be an Integer!")
+            }
+        }
+
+        if (name === "city") {
+            if (value.trim() === "") {
+                form._error("City must be entered!")
+            }
+        }
+
+        if (name === "country") {
+            if (value.trim() === "") {
+                form._error("Country must be entered!")
+            }
+        }
+
+    });
+
+    form.parse(req, (err, location) => {
+        if (err) {
+            res.send(err);
+            return;
+        }
+
+        // TODO: Add location added, kein Future, deswegen Then False.
+        db.addLocation(location).then(
+            location => {
+                res.writeHead(302, {
+                    location: '/locations', 'content-type': 'text/plain'
+                });
+                res.end('302 Redirecting to /locations');
+            },
+            error => res.send(err)
+        );
+    });
+
 });
 router.get("/editLocation:id", (req, res) => {
     //TODO implement updateLocation
@@ -135,7 +210,7 @@ router.get("/detailLocation/:id", (req, res) => {
     const id = parseInt(req.params.id, 10);
     db.getLocationByID(id).then(
         location => {
-            res.status(200).send(getDetailLocation(location));
+            res.status(200).send(details.getDetailLocation(location));
         },
         error => res.send("error")
     );
@@ -149,15 +224,31 @@ router.get("/public/css/:stylesheet", (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'css', stylesheet));
 });
 router.get("/search", (req, res) => {
-    const query = req.query.q;
-    db.searchLocations(query).then(
-        locations => {
-            res.status(200).send(getAllLocations(locations));
-        },
-        error => {
-            console.log("Error", error);
-        }
-    );
+    let query;
+    switch (req.query.type) {
+        case "location":
+            query = `SELECT * FROM locations WHERE street LIKE '%${req.query.q}%';`;
+            db.search(query).then(
+                locations => {
+                    res.status(200).send(getAllLocations(locations));
+                },
+                error => {
+                    console.log("Error", error);
+                }
+            );
+            break;
+        case "water":
+            query = `SELECT * FROM waterentries, locations WHERE type LIKE '%${req.query.q}%' AND waterentries.locations_id = locations.id or locations.id IS NULL;`;
+            db.search(query).then(
+                waterentries => {
+                    res.status(200).send(getWaterEntriesList(waterentries));
+                },
+                error => {
+                    console.log("Error", error);
+                }
+            );
+            break;
+    }
 });
 
 
