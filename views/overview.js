@@ -24,6 +24,7 @@ function getAllLocations(locations) {
         ${createSidebar('/locations')}
         <div id="main">
             <a class="add" href="/new"><img class="icon" src="/public/images/new.png" alt="new location" title="New Location" /><span>Add location</span></a>
+             <a id="csv-download" class="add" href="/export"><img class="icon" src="/public/images/export.png" alt="export all locations" title="download Locations dataset" /><span>Export</span></a>
             <form id="searchBar" action="/search" method="get">
               <input type="text" name="q" placeholder="Search Locations...">
               <input type="hidden" name="type" value="location">
