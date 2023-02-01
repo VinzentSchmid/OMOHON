@@ -43,6 +43,7 @@ function removeLocation(id) {
 }
 
 function updateLocation(location) {
+    
 }
 function search(query) {
     return new Promise((resolve, reject) => {
