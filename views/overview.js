@@ -80,7 +80,7 @@ function getWaterEntriesList(entry) {
         
  </head>
  <body>
- <h1>liquids Overview</h1>
+ <h1>Water Entries</h1>
  ${createSidebar("/waterEntries")}
  <a class="add" href="/newWaterEntry"><img class="icon" src="../public/images/new.png"
 alt="new liquid" title="new liquid" /><span>Add New Drink</span></a>
