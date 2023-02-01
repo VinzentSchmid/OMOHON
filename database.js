@@ -59,12 +59,13 @@ function search(query) {
 
 function getAllWaterEntries() {
     return new Promise((resolve, reject) => {
-        const query = 'SELECT * FROM `waterentries`, `locations` WHERE waterentries.locations_id = locations.id or locations.id IS NULL';
+        const query = 'SELECT * FROM `locations`, `waterentries` WHERE (waterentries.locations_id = locations.id or locations.id IS NULL)';
         connection.query(query, (error, results) => {
             if (error) {
                 console.log(error);
                 reject(error);
             } else {
+                console.log(results);
                 resolve(results);
             }
         });
