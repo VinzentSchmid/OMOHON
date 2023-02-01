@@ -93,7 +93,7 @@ function createRow2(entry) {
                   <div class="waterValue"> ${entry.created}</div>
   
                   <div class="waterLabel">LOCATION: </div>
-                  ${entry.street ? `<div class="waterValue">${entry.street} ${entry.housenumber} ${entry.postalcode} ${entry.city} ${entry.country}</div>` : '<div class="waterValue">No location</div>'}
+                  ${entry.street ? `<div class="waterValue">${entry.street} ${entry.housenumber} ${entry.postalcode} ${entry.city} ${entry.country}</div>` : '<a class="add" href="/newLocation"><img class="icon" src="/public/images/new.png" alt="new location" title="New Location" /><span>Add location</span></a>'}
             </div>`;
 }
 module.exports = {
