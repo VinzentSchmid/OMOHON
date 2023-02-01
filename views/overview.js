@@ -22,7 +22,7 @@ function getAllLocations(locations) {
      <body>
         <h1>LOCATIONS</h1>
         ${createSidebar('/locations')}
-        <div id="main">
+        <div class="main">
             <a class="add" href="/new"><img class="icon" src="/public/images/new.png" alt="new location" title="New Location" /><span>Add location</span></a>
             <form id="searchBar" action="/search" method="get">
               <input type="text" name="q" placeholder="Search Locations...">
@@ -82,6 +82,7 @@ function getWaterEntriesList(entry) {
  <body>
  <h1>Water Entries</h1>
  ${createSidebar("/waterEntries")}
+ <div class="main">
  <a class="add" href="/newWaterEntry"><img class="icon" src="../public/images/new.png"
 alt="new liquid" title="new liquid" /><span>Add New Drink</span></a>
 <form id="searchBar" action="/search" method="get">
@@ -99,8 +100,7 @@ colspan="2">ACTIONS</th>
  ${entry.map(createWaterEntryRow).join('')}
 
  </table>
- <a href="/newWaterEntry"><img class="icon" src="/static/images/new.png"
-alt="new liquid" title="new liquid" /></a>
+</div>
  </body>
  </html>`;
 }

@@ -117,7 +117,7 @@ table{
     height: 500px;
     border-radius: 10px;
 }
-#main {
+.main {
     margin-left: 220px;
     padding: 20px;
 }
@@ -130,5 +130,8 @@ table{
 }
 #sidebar ul li.active {
     background-color: #444755;
+}
+input, button{
+    color: black;
 }
 
