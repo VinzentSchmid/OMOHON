@@ -51,7 +51,6 @@ function search(query) {
                 console.log(error);
                 reject(error);
             } else {
-                console.log(results);
                 resolve(results);
             }
         });

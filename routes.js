@@ -71,7 +71,6 @@ router.post("/addWaterEntry", (req, res) => {
             return
         }
 
-        console.log()
         db.addWaterEntry(liquid).then(
             liquid => {
                 res.writeHead(302, {
