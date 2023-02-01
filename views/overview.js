@@ -21,24 +21,26 @@ function getAllLocations(locations) {
     </head>
      <body>
         <h1>LOCATIONS</h1>
-        ${createSidebar()}
-        <a class="add" href="/new"><img class="icon" src="/public/images/new.png" alt="new location" title="New Location" /><span>Add location</span></a>
-        <form id="searchBar" action="/search" method="get">
-          <input type="text" name="q" placeholder="Search Locations...">
-          <input type="hidden" name="type" value="location">
-          <button type="submit">Search</button>
-          <button type="reset" onClick="window.location.href='/locations'">Reset</button>
-        </form>
-        <table>
-            <tr>
-                <th>STREET</th>
-                <th>HOUSENUMBER</th>
-                <th>POSTALCODE</th>
-                <th>CITY</th>
-                <th>COUNTRY</th>
-            </tr>
-            ${locations.map(createRow).join('')}
-        </table>
+        ${createSidebar('/locations')}
+        <div id="main">
+            <a class="add" href="/new"><img class="icon" src="/public/images/new.png" alt="new location" title="New Location" /><span>Add location</span></a>
+            <form id="searchBar" action="/search" method="get">
+              <input type="text" name="q" placeholder="Search Locations...">
+              <input type="hidden" name="type" value="location">
+              <button type="submit">Search</button>
+              <button type="reset" onClick="window.location.href='/locations'">Reset</button>
+            </form>
+            <table>
+                <tr>
+                    <th>STREET</th>
+                    <th>HOUSENUMBER</th>
+                    <th>POSTALCODE</th>
+                    <th>CITY</th>
+                    <th>COUNTRY</th>
+                </tr>
+                ${locations.map(createRow).join('')}
+            </table>
+        </div>
      </body>
  </html>`;
 }
@@ -61,42 +63,24 @@ function getWaterEntriesList(entry) {
     return `<!DOCTYPE html>
  <html>
  <head>
- <title>Water Entries Overview</title>
+ <title>liquids Overview</title>
  <meta charset="utf-8">
- <link rel="stylesheet" href="/public/css/style.css" />
-         <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                const linkToDetailElements = document.getElementsByClassName("linkToEntry");
-                for (let i = 0; i < linkToDetailElements.length; i++) {
-                    let id = linkToDetailElements[i].parentElement.children[0].innerHTML;
-                    linkToDetailElements[i].addEventListener("click", function (event) {
-                        window.location = '/detailWaterEntry/'+ id;
-                    });
-                }
-            });
-        </script>
+ <link rel="stylesheet" href="/static/stylesheets/style.css" />
  </head>
  <body>
- <h1>WATER ENTRIES</h1>
+ <h1>liquids Overview</h1>
  ${createSidebar()}
-  <a class="add" href="/newWaterEntry"><img class="icon" src="../public/images/new.png"
-alt="new liquid" title="new liquid" /><span>Add New Drink</span></a>
-<form id="searchBar" action="/search" method="get">
-  <input type="text" name="q" placeholder="Search Drinks...">
-  <input type="hidden" name="type" value="water">
-  <button type="submit">Search</button>
-  <button type="reset" onClick="window.location.href='/waterEntries'">Reset</button>
-</form>
  <table>
  <tr>
- <th>LIQUID</th><th>AMOUNT</th><th>LOCATION</th><th
-colspan="2">ACTIONS</th>
+ <th>id</th><th>Liquid</th><th>Amount</th><th>Location</th><th
+colspan="2">actions</th>
  </tr>
 
  ${entry.map(createWaterEntryRow).join('')}
 
  </table>
-
+ <a href="/newWaterEntry"><img class="icon" src="/static/images/new.png"
+alt="new liquid" title="new liquid" /></a>
  </body>
  </html>`;
 }
@@ -105,17 +89,18 @@ colspan="2">ACTIONS</th>
 function createWaterEntryRow(entry) {
     console.log(entry);
     return `<tr>
-                 <td class="linkToEntry" hidden="true">${entry.id}</td>
-                 <td class="linkToEntry">${entry.type}</td>
-                 <td class="linkToEntry">${entry.ml}</td>
-                 <td class="linkToEntry">${entry.street} ${entry.housenumber} ${entry.postalcode} ${entry.city} ${entry.country}</td>
-                 <td class="linkToEntry"><a href="/removeWaterEntry/${entry.id}"><img class="icon"
-                        src="/static/images/delete.png" alt="delete liquid" title="delete liquid"/></a></td>
-                 <td class="linkToEntry"><a href="/editWaterEntry/${entry.id}"><img class="icon"
-                        src="/static/images/edit.png" alt="edit liquid" title="edit liquid"/></a></td>
-            </tr>`;
+ <td>${entry.id}</td>
+ <td>${entry.type}</td>
+ <td>${entry.ml}</td>
+ <td>${entry.street} ${entry.housenumber} ${entry.postalcode} ${entry.city} ${entry.country}</td>
+ <td><a href="/removeWaterEntry/${entry.id}"><img class="icon"
+src="/static/images/delete.png" alt="delete liquid" title="delete liquid"
+/></a></td>
+ <td><a href="/editWaterEntry/${entry.id}"><img class="icon"
+src="/static/images/edit.png" alt="edit liquid" title="edit liquid"
+/></a></td>
+ </tr>`;
 }
-
 module.exports = {
     getWaterEntriesList,
     getAllLocations
