@@ -112,7 +112,7 @@ function createWaterEntryRow(entry) {
                   <td class="linkToEntry" hidden="true">${entry.id}</td>
                  <td class="linkToEntry">${entry.type}</td>
                  <td class="linkToEntry">${entry.ml}</td>
-                 <td class="linkToEntry">${entry.street} ${entry.housenumber} ${entry.postalcode} ${entry.city} ${entry.country}</td>
+                 ${entry.street ? `<td class="linkToEntry">${entry.street} ${entry.housenumber} ${entry.postalcode} ${entry.city} ${entry.country}</td>` : `<td class="linkToEntry">No Location</td>`}
                  <td class="linkToEntry"><a href="/removeWaterEntry/${entry.id}"><img class="icon"
                         src="/static/images/delete.png" alt="delete liquid" title="delete liquid"/></a></td>
                  <td class="linkToEntry"><a href="/editWaterEntry/${entry.id}"><img class="icon"

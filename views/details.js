@@ -78,6 +78,7 @@ function getDetailWaterEntry(entry) {
 }
 
 function createRow2(entry) {
+    console.log(entry);
     return ` <div id="locationDetail">
                   <div class="waterLabel">TYPE:</div> 
                   <div class="waterValue">${entry.type}</div>
@@ -92,7 +93,7 @@ function createRow2(entry) {
                   <div class="waterValue"> ${entry.created}</div>
   
                   <div class="waterLabel">LOCATION: </div>
-                  <div class="waterValue">${entry.street} ${entry.housenumber} ${entry.postalcode} ${entry.city} ${entry.country}</div>
+                  ${entry.street ? `<div class="waterValue">${entry.street} ${entry.housenumber} ${entry.postalcode} ${entry.city} ${entry.country}</div>` : '<div class="waterValue">No location</div>'}
             </div>`;
 }
 module.exports = {
