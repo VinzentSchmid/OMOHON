@@ -8,6 +8,10 @@ const details = require("./views/details");
 const path = require("path");
 const {getWaterEntryForm, getNewLocationForm} = require("./views/form")
 const csv = require('fast-csv');
+const options = {
+    headers: true,
+    delimiter: ';'  // Change the delimiter to ';'
+};
 
 router.use("/static", express.static('public'));
 
@@ -263,7 +267,7 @@ router.get('/export', (req, res) => {
             res.setHeader('Content-Disposition', 'attachment; filename="locations.csv"');
 
             // Stream the data to the response object
-            csv.write(results, {headers: true}).pipe(res);
+            csv.write(results, options).pipe(res);
             // Listen to the finish event of the response object
             // res.on('finish', () => {
             //     // Show the toaster message
