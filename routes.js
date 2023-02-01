@@ -4,9 +4,8 @@ const db = require('./database')
 const {getWaterEntriesList, getAllLocations} = require("./views/overview");
 const router = express.Router();
 const form = new formidable.IncomingForm();
-const getDetailLocation = require("./views/details");
+const details = require("./views/details");
 const path = require("path");
-const {getLocationByID} = require("./database");
 const {getWaterEntryForm} = require("./views/form")
 
 router.use("/static", express.static('public'));
@@ -72,7 +71,6 @@ router.post("/addWaterEntry", (req, res) => {
             return
         }
 
-        console.log()
         db.addWaterEntry(liquid).then(
             liquid => {
                 res.writeHead(302, {
@@ -95,6 +93,16 @@ router.get("/waterentries", (req, res) => {
             console.log("ERROR")
         }
     )
+});
+
+router.get("/detailWaterEntry/:id", (req, res) => {
+    const id = parseInt(req.params.id, 10);
+    db.getWaterEntryByID2(id).then(
+        entry => {
+            res.status(200).send(details.getDetailWaterEntry(entry));
+        },
+        error => res.send("error")
+    );
 });
 
 // ---------------------------- //
@@ -135,7 +143,7 @@ router.get("/detailLocation/:id", (req, res) => {
     const id = parseInt(req.params.id, 10);
     db.getLocationByID(id).then(
         location => {
-            res.status(200).send(getDetailLocation(location));
+            res.status(200).send(details.getDetailLocation(location));
         },
         error => res.send("error")
     );
@@ -149,15 +157,31 @@ router.get("/public/css/:stylesheet", (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'css', stylesheet));
 });
 router.get("/search", (req, res) => {
-    const query = req.query.q;
-    db.searchLocations(query).then(
-        locations => {
-            res.status(200).send(getAllLocations(locations));
-        },
-        error => {
-            console.log("Error", error);
-        }
-    );
+    let query;
+    switch (req.query.type) {
+        case "location":
+            query = `SELECT * FROM locations WHERE street LIKE '%${req.query.q}%';`;
+            db.search(query).then(
+                locations => {
+                    res.status(200).send(getAllLocations(locations));
+                },
+                error => {
+                    console.log("Error", error);
+                }
+            );
+            break;
+        case "water":
+            query = `SELECT * FROM waterentries, locations WHERE type LIKE '%${req.query.q}%' AND waterentries.locations_id = locations.id or locations.id IS NULL;`;
+            db.search(query).then(
+                waterentries => {
+                    res.status(200).send(getWaterEntriesList(waterentries));
+                },
+                error => {
+                    console.log("Error", error);
+                }
+            );
+            break;
+    }
 });
 
 

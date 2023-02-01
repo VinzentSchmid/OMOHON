@@ -17,6 +17,7 @@ function getWaterEntryForm(liquid) {
 <html>
  <head> 
  <title>${header}</title>
+  <link rel="stylesheet" href="/public/css/style.css" />
  <meta charset="utf-8">
  </head>
  <body>
