@@ -1,5 +1,6 @@
 const {getAllWaterEntries} = require("../database");
 const createSidebar = require('./sidebar');
+
 function getAllLocations(locations) {
     return `<!DOCTYPE html>
  <html>
@@ -21,26 +22,29 @@ function getAllLocations(locations) {
     </head>
      <body>
         <h1>Locations Overview</h1>
-        ${createSidebar()}
-        <a id="addLocation" href="/new"><img class="icon" src="/public/images/new.png" alt="new location" title="New Location" /><span>Add location</span></a>
-        <form id="searchBar" action="/search" method="get">
-          <input type="text" name="q" placeholder="Search locations...">
-          <button type="submit">Search</button>
-          <button type="reset" onClick="window.location.href='/locations'">Reset</button>
-        </form>
-        <table>
-            <tr>
-                <th>street</th>
-                <th>housenumber</th>
-                <th>postalcode</th>
-                <th>city</th>
-                <th>country</th>
-            </tr>
-            ${locations.map(createRow).join('')}
-        </table>
+        ${createSidebar('/locations')}
+        <div id="main">
+            <a id="addLocation" href="/new"><img class="icon" src="/public/images/new.png" alt="new location" title="New Location" /><span>Add location</span></a>
+            <form id="searchBar" action="/search" method="get">
+              <input type="text" name="q" placeholder="Search locations...">
+              <button type="submit">Search</button>
+              <button type="reset" onClick="window.location.href='/locations'">Reset</button>
+            </form>
+            <table>
+                <tr>
+                    <th>street</th>
+                    <th>housenumber</th>
+                    <th>postalcode</th>
+                    <th>city</th>
+                    <th>country</th>
+                </tr>
+                ${locations.map(createRow).join('')}
+            </table>
+        </div>  
      </body>
  </html>`;
 }
+
 // TODO: add elements, which you like add to the table
 function createRow(location) {
 
@@ -66,19 +70,20 @@ function getWaterEntriesList(entry) {
  </head>
  <body>
  <h1>liquids Overview</h1>
- ${createSidebar()}
- <table>
- <tr>
- <th>id</th><th>Liquid</th><th>Amount</th><th>Location</th><th
-colspan="2">actions</th>
- </tr>
-
- ${entry.map(createWaterEntryRow).join('')}
-
- </table>
- <a href="/newWaterEntry"><img class="icon" src="/static/images/new.png"
-alt="new liquid" title="new liquid" /></a>
- </body>
+ ${createSidebar('/waterEntries')}
+     <div id="main">
+         <table>
+         <tr>
+         <th>id</th><th>Liquid</th><th>Amount</th><th>Location</th><th
+        colspan="2">actions</th>
+         </tr>
+        
+         ${entry.map(createWaterEntryRow).join('')}
+        
+         </table>
+         <a href="/newWaterEntry"><img class="icon" src="/static/images/new.png" alt="new liquid" title="new liquid" /></a>
+    </div>
+</body>
  </html>`;
 }
 
@@ -98,6 +103,7 @@ src="/static/images/edit.png" alt="edit liquid" title="edit liquid"
 /></a></td>
  </tr>`;
 }
+
 module.exports = {
     getWaterEntriesList,
     getAllLocations

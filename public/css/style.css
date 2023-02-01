@@ -2,9 +2,11 @@
     font-family: "Roboto Light", sans-serif;
     color: white;
     text-decoration: none;
+    list-style-type: none;
 }
 body{
     background-color: #444755;
+    height: 100%;
 }
 h1{
     text-align: center;
@@ -105,3 +107,28 @@ table{
 #addLocation > img{
     margin-right: 10px;
 }
+#searchBar > button{
+    margin-right: 5px;
+}
+#sidebar {
+    float: left;
+    width: 200px;
+    background-color: #343440;
+    height: 500px;
+    border-radius: 10px;
+}
+#main {
+    margin-left: 220px;
+    padding: 20px;
+}
+#sidebar > ul > li{
+    padding: 10px;
+    margin: 5px;
+}
+#sidebar > ul{
+    padding: 0;
+}
+#sidebar ul li.active {
+    background-color: #444755;
+}
+
