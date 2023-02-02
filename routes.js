@@ -7,6 +7,11 @@ const form = new formidable.IncomingForm();
 const details = require("./views/details");
 const path = require("path");
 const {getWaterEntryForm, getNewLocationForm} = require("./views/form")
+const csv = require('fast-csv');
+const options = {
+    headers: true,
+    delimiter: ';'  // Change the delimiter to ';'
+};
 
 router.use("/static", express.static('public'));
 
@@ -249,6 +254,30 @@ router.get("/search", (req, res) => {
             );
             break;
     }
+});
+
+
+
+router.get('/export', (req, res) => {
+    // Query the database to get the locations
+    db.getAllLocations()
+        .then((results) => {
+            // Set the response headers
+            res.setHeader('Content-Type', 'text/csv');
+            res.setHeader('Content-Disposition', 'attachment; filename="locations.csv"');
+
+            // Stream the data to the response object
+            csv.write(results, options).pipe(res);
+            // Listen to the finish event of the response object
+            // res.on('finish', () => {
+            //     // Show the toaster message
+            //     alert("Download completed");
+            // });
+        })
+        .catch((error) => {
+            console.error(error);
+            res.status(500).send(error);
+        });
 });
 
 

@@ -27,6 +27,7 @@ h1{
 }
 td{
     text-align: center;
+    vertical-align: middle;
     margin: 5px;
 }
 .headerTable > th{
@@ -86,7 +87,7 @@ table{
     color: black;
     padding-bottom: 10px;
 }
-#searchBar > * {
+input, button {
     background-color: #343440;
     padding: 10px;
     border-radius: 5px;
@@ -117,7 +118,7 @@ table{
     height: 500px;
     border-radius: 10px;
 }
-#main {
+.main {
     margin-left: 220px;
     padding: 20px;
 }
@@ -131,4 +132,52 @@ table{
 #sidebar ul li.active {
     background-color: #444755;
 }
+.waterEntryForm{
+    width: 50%;
+    margin: 50px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.form-group{
+    width: 50%;
+    margin: 10px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 50px;
+}
+.form-label{
+    margin-bottom: 20px;
+}
+.form-group > div{
+    margin-bottom: 20px;
+}
+input[type="radio"] {
+    background-color: #343440;
+    border-radius: 50%;
+    border: 2px solid #343440;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    top: 5px;
+    margin-right: 10px;
+}
+
+input[type="radio"]:checked::before {
+    content: "";
+    background-color: #343440;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 10px;
+}
+.save{
+    width: 382px;
+}
+
+
 

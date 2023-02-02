@@ -17,11 +17,16 @@
   },
   "homepage": "https://github.com/VinzentSchmid/sprint_location#readme",
   "dependencies": {
+    "csv": "^6.2.6",
+    "csv-parser": "^3.0.0",
+    "csv-stringify": "^6.2.3",
     "express": "4.18.2",
+    "fast-csv": "^4.3.6",
     "formidable": "^2.1.1",
     "inquirer": "9.1.4",
     "mysql2": "3.0.1",
     "nodemon": "^2.0.20",
-    "prompt": "1.3.0"
+    "prompt": "1.3.0",
+    "toastr": "^2.1.4"
   }
 }

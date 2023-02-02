@@ -22,7 +22,7 @@ function getWaterEntryForm(liquid) {
  </head>
  <body>
  <h1>${header}</h1>
- <form action="/addWaterEntry" method="POST">
+ <form class="waterEntryForm" action="/addWaterEntry" method="POST">
  <input type="hidden" id="id" name="id" value="${liquid.id}" />
  <div class="form-group">
 
@@ -41,24 +41,21 @@ server logic -->
  </div>
 
  <div class="form-group border">
- Welche Menge hast du getrunken?
+ <div>Welche Menge hast du getrunken?</div>
  <!-- will be extended by future lessons, add additional amount
 by other form -->
- <div class="form-check">
- <input type="radio" id="amount300ml" name="ml" value="300"
-class="form-check-input" ` + (!liquid.ml || liquid.ml === 300 ? 'checked' : '') + ` >
- <label class="form-label" for="amount300ml" >Glas
-300ml</label>
- </div>
- <div class="form-check">
- <input type="radio" id="amount500ml" name="ml" value="500"
-class="form-check-input" ` + (liquid.ml === 500 ? 'checked' : '') + `>
- <label class="form-check-label" for="amount500ml">Krug
-500ml</label>
- </div>
+     <div class="form-check">
+     <input type="radio" id="amount300ml" name="ml" value="300"
+    class="form-check-input" ` + (!liquid.ml || liquid.ml === 300 ? 'checked' : '') + ` >
+     <label class="form-label" for="amount300ml" >Glas 300ml</label>
+     </div>
+     <div class="form-check">
+     <input type="radio" id="amount500ml" name="ml" value="500" class="form-check-input" ` + (liquid.ml === 500 ? 'checked' : '') + `>
+     <label class="form-check-label" for="amount500ml">Krug 500ml</label>
+     </div>
  </div>
 
- <button type="submit">save</button>
+ <button class="save" type="submit">save</button>
 
  </form>
  </body>

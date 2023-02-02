@@ -67,12 +67,13 @@ function search(query) {
 
 function getAllWaterEntries() {
     return new Promise((resolve, reject) => {
-        const query = 'SELECT * FROM `waterentries`, `locations` WHERE waterentries.locations_id = locations.id or locations.id IS NULL';
+        const query = 'SELECT * FROM locations RIGHT JOIN waterentries ON waterentries.locations_id = locations.id;';
         connection.query(query, (error, results) => {
             if (error) {
                 console.log(error);
                 reject(error);
             } else {
+                console.log(results);
                 resolve(results);
             }
         });
@@ -95,7 +96,7 @@ function getWaterEntryByID(id) {
 
 function getWaterEntryByID2(id) {
     return new Promise((resolve, reject) => {
-        const query = 'SELECT * FROM `waterentries`, `locations` WHERE waterentries.id = ? AND waterentries.locations_id = locations.id OR locations.id IS NULL';
+        const query = 'SELECT * FROM locations RIGHT JOIN waterentries ON waterentries.id = ? AND waterentries.locations_id = locations.id';
         connection.query(query, [id],(error, results) => {
             if (error) {
                 reject(error);
