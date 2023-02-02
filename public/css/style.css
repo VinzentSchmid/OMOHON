@@ -30,6 +30,11 @@ td{
     vertical-align: middle;
     margin: 5px;
 }
+.newLocation{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .headerTable > th{
     margin-top: 30px;
     margin-bottom: 15px;
@@ -99,7 +104,8 @@ input, button {
 .add {
     display: flex;
     flex-direction: row;
-    width: 50%;
+    margin-right: 20px;
+
 }
 .add > span{
     display: flex;
@@ -132,7 +138,7 @@ input, button {
 #sidebar ul li.active {
     background-color: #444755;
 }
-.waterEntryForm{
+.waterEntryForm, .locationEntryForm{
     width: 50%;
     margin: 50px auto;
     display: flex;
@@ -178,6 +184,11 @@ input[type="radio"]:checked::before {
 .save{
     width: 382px;
 }
+.action{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
 
+}
 
 

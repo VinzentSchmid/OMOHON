@@ -89,40 +89,41 @@ function getNewLocationForm(location){
  <head> 
  <title>${header}</title>
  <meta charset="utf-8">
+ <link rel="stylesheet" href="/public/css/style.css" />
  </head>
  <body>
  <h1>${header}</h1>
  
- <form action="/addLocation" method="POST">
+ <form class="locationEntryForm" action="/addLocation" method="POST">
 <!--TODO: See other add form (location.id)-->
 <!-- TODO: Form Check Validation, Regex, ...-->
 
  <div>
 <!-- Note: For -> id --> 
-   <div>
+   <div class="form-group">
  <label class="form-label" for="street">Street:</label>
  <input type="text" id="street" name="street"></div>
  
-    <div>
+    <div class="form-group">
  <label class="form-label" for="housenumber">Housenumber:</label>
  <input type="text" id="housenumber" name="housenumber"></div>
  
-     <div>
+     <div class="form-group">
  <label class="form-label" for="postalcode">Postal Code:</label>
  <input type="text" id="postalcode" name="postalcode"></div>
  
-     <div>
+     <div class="form-group">
  <label class="form-label" for="city">City:</label>
  <input type="text" id="city" name="city"></div>
  
-      <div>
+      <div class="form-group">
  <label class="form-label" for="country">Country:</label>
  <input type="text" id="country" name="country"></div>
  
 <!-- TODO: Image-->
 
 
- <button type="submit">save</button>
+ <button class="save" type="submit">save</button>
 
  </form>
  </body>
