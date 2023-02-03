@@ -50,7 +50,7 @@ function getAllLocations(locations) {
 // TODO: add elements, which you like add to the table
 function createRow(location) {
 
-    return `<tr id="row">
+    return `<tr class="row">
                 <td class="linkToDetail" hidden="hidden">${location.id}</td>
                 <td class="linkToDetail">${location.street}</td>
                 <td class="linkToDetail">${location.housenumber}</td>
@@ -110,7 +110,7 @@ colspan="2">ACTIONS</th>
 
 // create each row with TR and TD Elements
 function createWaterEntryRow(entry) {
-    return `<tr>
+    return `<tr class="row">
                   <td class="linkToEntry" hidden="true">${entry.id}</td>
                  <td class="linkToEntry">${entry.type}</td>
                  <td class="linkToEntry">${entry.ml}</td>

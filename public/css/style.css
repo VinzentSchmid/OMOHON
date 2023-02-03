@@ -20,10 +20,11 @@ h1{
     border: 1px solid #343440;
     margin: 5px;
 }
-#row:hover{
+.row:hover{
     background-color: #343440;
     border-radius: 5px;
     border: 1px solid #343440;
+    cursor: pointer;
 }
 td{
     text-align: center;
@@ -63,14 +64,22 @@ table{
     align-items: center;
 }
 
-#locationDetail {
+.locationDetail {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-bottom: 50px;
+    padding-left: 100px;
+}
+.locationPair{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    margin-bottom: 50px;
+    justify-content: flex-start;
+    margin-bottom: 20px;
 }
-.locationLabel {
+.locationLabel , .waterLabel{
     width: 150px;
+    padding-right: 20px;
     font-weight: bold;
 }
 .locationValue {
@@ -137,6 +146,7 @@ input, button {
 }
 #sidebar ul li.active {
     background-color: #444755;
+    border-radius: 5px;
 }
 .waterEntryForm, .locationEntryForm{
     width: 50%;
