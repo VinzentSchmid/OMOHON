@@ -140,10 +140,18 @@ function updateWaterEntry(liquid) {
     });
 }
 
+const insertImage = (image, callback) => {
+    connection.query('INSERT INTO locations SET images = ?', { image: image }, (error, results) => {
+        if (error) return callback(error);
+        callback(null, results);
+    });
+};
+
+
 module.exports = {
     getAllLocations,
     search,
-
+    insertImage,
     getLocationByID(id){
         return getLocationByID(id)
     },

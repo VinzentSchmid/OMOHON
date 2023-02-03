@@ -121,7 +121,10 @@ function getNewLocationForm(location){
  <input type="text" id="country" name="country"></div>
  
 <!-- TODO: Image-->
-
+<form action="/upload" method="post" enctype="multipart/form-data">
+  <input type="file" name="image">
+  <input type="submit" value="Upload Image">
+</form>
 
  <button class="save" type="submit">save</button>
 

@@ -8,6 +8,10 @@ const details = require("./views/details");
 const path = require("path");
 const {getWaterEntryForm, getNewLocationForm} = require("./views/form")
 const csv = require('fast-csv');
+const multer = require('multer');
+const {insertImage} = require("./database");
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 const options = {
     headers: true,
     delimiter: ';'  // Change the delimiter to ';'
@@ -127,10 +131,14 @@ router.get("/locations", (req, res) => {
 router.get("/newLocation", (req, res) => {
     res.send(getNewLocationForm())
 });
-router.post("/addLocation", (req, res) => {
+router.post("/addLocation", upload.single('image'), (req, res) => {
     const form = new formidable.IncomingForm();
     // TODO: Add Image
-
+    const image = req.file.buffer;
+    insertImage(image, (error, results) => {
+        if (error) throw error;
+        console.log('Image inserted successfully:', results);
+    });
     // TODO: Backend Validation
 
     form.on("event", function (name, value) {
