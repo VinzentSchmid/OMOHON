@@ -27,7 +27,18 @@ function getLocationByID(id) {
     });
 }
 
-function addLocation(location) {
+function addLocation(location, image64){
+    return new Promise((resolve, reject) => {
+        console.log(location);
+        const query = 'INSERT INTO locations (street, housenumber, postalcode, city, country, image) VALUES (?, ?, ?, ?, ?, ?)';
+        connection.query(query, [location.street, Number(location.housenumber), Number(location.postalcode), location.city, location.country, image64], (error, results) => {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(results);
+            }
+        });
+    });
 }
 function removeLocation(id) {
     return new Promise((resolve, reject) => {
@@ -158,11 +169,11 @@ module.exports = {
     removeLocation(id){
         return removeLocation(id)
     },
-    addLocation(location){
+    addLocation(location, image64){
         if(!location.id){
-            return addLocation(location);
+            return addLocation(location, image64);
         } else {
-            return updateLocation(location);
+            return updateLocation(location, image64);
         }
     },
     getAllWaterEntries,

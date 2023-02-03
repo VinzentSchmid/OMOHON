@@ -16,6 +16,8 @@ const options = {
     headers: true,
     delimiter: ';'  // Change the delimiter to ';'
 };
+const fs = require('fs');
+
 
 router.use("/static", express.static('public'));
 
@@ -131,15 +133,8 @@ router.get("/locations", (req, res) => {
 router.get("/newLocation", (req, res) => {
     res.send(getNewLocationForm())
 });
-router.post("/addLocation", upload.single('image'), (req, res) => {
+router.post("/addLocation", (req, res) => {
     const form = new formidable.IncomingForm();
-    // TODO: Add Image
-    const image = req.file.buffer;
-    insertImage(image, (error, results) => {
-        if (error) throw error;
-        console.log('Image inserted successfully:', results);
-    });
-    // TODO: Backend Validation
 
     form.on("event", function (name, value) {
 
@@ -185,25 +180,28 @@ router.post("/addLocation", upload.single('image'), (req, res) => {
 
     });
 
-    form.parse(req, (err, location) => {
+    form.parse(req, (err, location, files) => {
         if (err) {
             res.send(err);
             return;
         }
-
-        // TODO: Add location added, kein Future, deswegen Then False.
-        db.addLocation(location).then(
-            location => {
-                res.writeHead(302, {
-                    location: '/locations', 'content-type': 'text/plain'
-                });
-                res.end('302 Redirecting to /locations');
-            },
-            error => res.send(err)
-        );
+        fs.readFile(files.image.filepath, (err, data) => {
+            if (err) {
+                res.send(err);
+            }
+            const image64 = data.toString('base64');
+            db.addLocation(location, image64).then(
+                location => {
+                    res.writeHead(302, {
+                        location: '/locations', 'content-type': 'text/plain'
+                    });
+                    res.end('302 Redirecting to /locations');
+                },
+                error => res.send(err));
+        });
     });
-
 });
+
 router.get("/editLocation:id", (req, res) => {
     //TODO implement updateLocation
 });
