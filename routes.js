@@ -13,8 +13,8 @@ const options = {
     delimiter: ';',  // Change the delimiter to ';'
     quoteColumns: true,
     encoding: 'utf8',
-
 };
+const nodeGeocoder = require('node-geocoder');
 
 router.use("/static", express.static('public'));
 
@@ -182,10 +182,7 @@ router.post("/addLocation", (req, res) => {
         if (name === "housenumber") {
             if (value.trim() === "") {
                 form._error("housenumber name must be entered!")
-                form._error()
-                form.error
-            }
-            try {
+            }try {
                 Number.parseInt(value)
             } catch (e) {
                 form._error("housenumber name must be an Integer!")
@@ -219,22 +216,37 @@ router.post("/addLocation", (req, res) => {
 
     form.parse(req, (err, location) => {
         if (err) {
-            res.send(err);
+            res.send(getNewLocationForm(location, err));
             return;
         }
 
-        // TODO: Add location added, kein Future, deswegen Then False.
-        db.addLocation(location).then(
-            location => {
-                res.writeHead(302, {
-                    location: '/locations', 'content-type': 'text/plain'
-                });
-                res.end('302 Redirecting to /locations');
-            },
-            error => res.send(err)
-        );
-    });
+        let optionsMap = {
+            provider: 'openstreetmap'
+        };
 
+        let geoCoder = nodeGeocoder(optionsMap);
+        geoCoder.geocode(location)
+            .then((geocode)=> {
+                if(geocode.length === 0){
+                    res.send(getNewLocationForm(location, "No Location found!"));
+                    return;
+                }
+                location.latitude = geocode[0].latitude;
+                location.longitude = geocode[0].longitude;
+                db.addLocation(location).then(
+                    location => {
+                        res.writeHead(302, {
+                            location: '/locations', 'content-type': 'text/plain'
+                        });
+                        res.end('302 Redirecting to /locations');
+                    },
+                    error => res.send(err)
+                );
+            })
+            .catch((err)=> {
+                res.send(err);
+            });
+    });
 });
 router.get("/editLocation/:id", (req, res) => {
     db.getLocationByID(req.params.id).then(

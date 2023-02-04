@@ -93,7 +93,9 @@ function getWaterEntryForm(liquid, locations) {
 
 // TODO: Front End validation
 
-function getNewLocationForm(location){
+function getNewLocationForm(location, err){
+    console.log(location);
+    console.log(err);
     if (location == undefined) {
         location = {
             id: '',
