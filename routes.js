@@ -19,12 +19,9 @@ const options = {
     encoding: 'utf8',
 
 };
-<<<<<<< HEAD
 const fs = require('fs');
 
-=======
 const nodeGeocoder = require('node-geocoder');
->>>>>>> dfa7fbab753939f488bbc37f30608db9b0d42bb9
 
 router.use("/static", express.static('public'));
 
@@ -227,43 +224,6 @@ router.post("/addLocation", (req, res) => {
             return;
         }
 
-<<<<<<< HEAD
-
-        fs.readFile(files.image.filepath, (err, data) => {
-            if (err) {
-                res.send(err);
-            }
-
-            if (files.image.originalFilename.endsWith(".png") || files.image.originalFilename.endsWith(".jpg") || files.image.originalFilename.endsWith(".jpeg")) {
-                const image64 = data.toString('base64');
-                db.addLocation(location, image64).then(
-                    location => {
-                        res.writeHead(302, {
-                            location: '/locations', 'content-type': 'text/plain'
-                        });
-                        res.end('302 Redirecting to /locations');
-                    },
-                    error => res.send(err));
-            } else {
-                // TODO Snackbar ODER Rückmeldung
-                console.log("pango");
-                db.addLocation(location, null).then(
-                    location => {
-                        res.writeHead(302, {
-                            location: '/locations', 'content-type': 'text/plain'
-                        });
-                        res.end('302 Redirecting to /locations');
-                    },
-                    error => res.send(err));            }
-
-
-        });
-    });
-});
-
-router.get("/editLocation:id", (req, res) => {
-    //TODO implement updateLocation
-=======
         let optionsMap = {
             provider: 'openstreetmap'
         };
@@ -277,15 +237,35 @@ router.get("/editLocation:id", (req, res) => {
                 }
                 location.latitude = geocode[0].latitude;
                 location.longitude = geocode[0].longitude;
-                db.addLocation(location).then(
-                    location => {
-                        res.writeHead(302, {
-                            location: '/locations', 'content-type': 'text/plain'
-                        });
-                        res.end('302 Redirecting to /locations');
-                    },
-                    error => res.send(err)
-                );
+                fs.readFile(files.image.filepath, (err, data) => {
+                    if (err) {
+                        res.send(err);
+                    }
+
+                    if (files.image.originalFilename.endsWith(".png") || files.image.originalFilename.endsWith(".jpg") || files.image.originalFilename.endsWith(".jpeg")) {
+                        const image64 = data.toString('base64');
+                        db.addLocation(location, image64).then(
+                            location => {
+                                res.writeHead(302, {
+                                    location: '/locations', 'content-type': 'text/plain'
+                                });
+                                res.end('302 Redirecting to /locations');
+                            },
+                            error => res.send(err));
+                    } else {
+                        // TODO Snackbar ODER Rückmeldung
+                        console.log("pango");
+                        db.addLocation(location, null).then(
+                            location => {
+                                res.writeHead(302, {
+                                    location: '/locations', 'content-type': 'text/plain'
+                                });
+                                res.end('302 Redirecting to /locations');
+                            },
+                            error => res.send(err));            }
+
+
+                });
             })
             .catch((err)=> {
                 res.send(err);
@@ -301,7 +281,6 @@ router.get("/editLocation/:id", (req, res) => {
             console.log("ERROR")
         }
     )
->>>>>>> dfa7fbab753939f488bbc37f30608db9b0d42bb9
 });
 router.get("/deleteLocation/:id", (req, res) => {
     const id = parseInt(req.params.id, 10);

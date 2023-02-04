@@ -123,18 +123,12 @@ function getNewLocationForm(location){
  </head>
  <body>
  <h1>${header}</h1>
-<<<<<<< HEAD
  
- <form class="locationEntryForm" action="/addLocation" method="POST" enctype="multipart/form-data">
-<!--TODO: See other add form (location.id)-->
-<!-- TODO: Form Check Validation, Regex, ...-->
-=======
 ${createSidebar()}
     <div class="main">
- <form class="locationEntryForm" action="/addLocation" method="POST">
+ <form class="locationEntryForm" action="/addLocation" method="POST" enctype="multipart/form-data">
  <input type="hidden" id="id" name="id" value="${location.id}">
->>>>>>> dfa7fbab753939f488bbc37f30608db9b0d42bb9
-
+ 
  <div>
    <div class="form-group">
  <label class="form-label" for="street">Street:</label>
@@ -157,15 +151,10 @@ ${createSidebar()}
  <input type="text" id="country" name="country" value="${location.country}"></div>
  
 <!-- TODO: Image-->
-<<<<<<< HEAD
   <input type="file" id="image" name="image" accept="image/png, image/jpeg"  multiple="false">
   
  <button class="save" type="submit">save</button>
-=======
 
-
- <button class="save" type="submit">SAVE</button>
->>>>>>> dfa7fbab753939f488bbc37f30608db9b0d42bb9
 
  </form>
  </div>

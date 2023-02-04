@@ -27,7 +27,6 @@ function getLocationByID(id) {
     });
 }
 
-<<<<<<< HEAD
 function addLocation(location, image64){
     return new Promise((resolve, reject) => {
         console.log(location);
@@ -40,22 +39,6 @@ function addLocation(location, image64){
             }
         });
     });
-=======
-function addLocation(location) {
-    return new Promise((resolve, reject) => {
-        const query = "INSERT INTO locations (street, housenumber, postalcode, city, country) VALUES (?,?,?,?,?);"
-        connection.query(query, [location.street, location.housenumber, location.postalcode, location.city, location.country], function (err, result) {
-            if (err) {
-                reject(err);
-                console.log("NO record inserted")
-            } else {
-                resolve(result);
-                console.log("1 record inserted")
-            }
-        })
-    });
-
->>>>>>> dfa7fbab753939f488bbc37f30608db9b0d42bb9
 }
 
 function removeLocation(id) {
@@ -193,27 +176,16 @@ const insertImage = (image, callback) => {
 module.exports = {
     getAllLocations,
     search,
-<<<<<<< HEAD
     insertImage,
     getLocationByID(id){
-=======
-
-    getLocationByID(id) {
->>>>>>> dfa7fbab753939f488bbc37f30608db9b0d42bb9
         return getLocationByID(id)
     },
     removeLocation(id) {
         return removeLocation(id)
     },
-<<<<<<< HEAD
     addLocation(location, image64){
         if(!location.id){
             return addLocation(location, image64);
-=======
-    addLocation(location) {
-        if (!location.id) {
-            return addLocation(location);
->>>>>>> dfa7fbab753939f488bbc37f30608db9b0d42bb9
         } else {
             return updateLocation(location, image64);
         }
