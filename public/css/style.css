@@ -4,15 +4,36 @@
     text-decoration: none;
     list-style-type: none;
 }
-body{
+html, body{
     background-color: #444755;
+    overflow: hidden;
     height: 100%;
+    margin: 0;
+    padding: 0;
+}
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #444755;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #343440;
 }
 h1{
     text-align: center;
     background-color: #343440;
-    border-radius: 10px;
-    padding: 10px;
+    padding: 30px;
+    margin: 0;
 }
 .icon{
     border-radius: 5px;
@@ -26,10 +47,21 @@ h1{
     border: 1px solid #343440;
     cursor: pointer;
 }
+.row, td{
+    height: 51px;
+    border-radius: 5px;
+    border: 1px solid #343440;
+}
+.no-hover {
+    background-color: #343440;
+}
+.no-hover:hover {
+    background-color: #444755;
+}
 td{
     text-align: center;
     vertical-align: middle;
-    margin: 5px;
+
 }
 .newLocation{
     display: flex;
@@ -48,6 +80,12 @@ table{
     border-spacing: 10px;
     border-collapse: separate;
 
+}
+th{
+    text-align: center;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #343440;
 }
 #add{
     display: flex;
@@ -68,6 +106,7 @@ table{
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    margin-top: 20px;
     margin-bottom: 50px;
     padding-left: 100px;
 }
@@ -105,7 +144,7 @@ input, button, select{
     background-color: #343440;
     padding: 10px;
     border-radius: 5px;
-    border: 1px solid #343440;
+    border: 1px solid #444755;
 }
 button:hover, .icon:hover{
     background-color: #444755;
@@ -137,11 +176,15 @@ button:hover, .icon:hover{
 #sidebar {
     float: left;
     width: 200px;
+    margin-top: 20px;
     background-color: #343440;
-    height: 500px;
-    border-radius: 10px;
+    height: calc(100% - 87px);
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    overflow: hidden;
 }
 .main {
+    height: 100%;
     margin-left: 200px;
     padding: 20px;
 }
