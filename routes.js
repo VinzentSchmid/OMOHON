@@ -177,13 +177,18 @@ router.post("/addLocation", (req, res) => {
 
     form.on("event", function (name, value) {
 
-        if (name === "street" && value.trim() === "") {
-            form._error("Street name must be entered!")
+        if (name === "street") {
+            // Checks, if NOT number
+            const regexStreet = /^([^0-9]*)$/;
+            if (value.trim() === "" || !regexStreet.test(value)){
+                form._error("Street name wrong!")
+            }
         }
 
         if (name === "housenumber") {
-            if (value.trim() === "") {
-                form._error("housenumber name must be entered!")
+            const regexHousenumber = /[\d]+/;
+            if (value.trim() === "" || !regexHousenumber.test(value)) {
+                form._error("Housenumber wrong!")
             }
             try {
                 Number.parseInt(value)
@@ -193,7 +198,8 @@ router.post("/addLocation", (req, res) => {
         }
 
         if (name === "postalcode") {
-            if (value.trim() === "") {
+            const regexHousenumber = /[\d]+/;
+            if (value.trim() === "" || !regexHousenumber.test(value)) {
                 form._error("Postal Code must be entered!")
             }
             try {
@@ -204,13 +210,15 @@ router.post("/addLocation", (req, res) => {
         }
 
         if (name === "city") {
-            if (value.trim() === "") {
+            const regexStreet = /^([^0-9]*)$/;
+            if (value.trim() === "" || regexStreet.test(value)) {
                 form._error("City must be entered!")
             }
         }
 
         if (name === "country") {
-            if (value.trim() === "") {
+            const regexCountry = /^([^0-9]*)$/;
+            if (value.trim() === "" || regexCountry.test(value)) {
                 form._error("Country must be entered!")
             }
         }
@@ -275,7 +283,7 @@ router.post("/addLocation", (req, res) => {
 router.get("/editLocation/:id", (req, res) => {
     db.getLocationByID(req.params.id).then(
         location => {
-            res.send(getNewLocationForm(location))
+            res.send(getNewLocationForm(location[0]))
         },
         error => {
             console.log("ERROR")
