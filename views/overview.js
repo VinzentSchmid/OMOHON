@@ -56,8 +56,8 @@ function createRow(location) {
                 <td class="linkToDetail">${location.postalcode}</td>
                 <td class="linkToDetail">${location.city}</td>
                 <td class="linkToDetail">${location.country}</td>
-                <td><a href="/deleteLocation/${location.id}" onclick="return confirm('Are you sure you want to delete this location ?')"><img class="icon" src="/public/images/delete.png" alt="delete location" title="delete location"/></a></td>
-                <td><a href="/edit/${location.id}"><img class="icon" src="/public/images/edit.png" alt="edit location" title="edit location"/></a></td>
+                <td class="no-hover"><a href="/deleteLocation/${location.id}" onclick="return confirm('Are you sure you want to delete this location ?')"><img class="icon" src="/public/images/delete.png" alt="delete location" title="delete location"/></a></td>
+                <td class="no-hover"><a href="/edit/${location.id}"><img class="icon" src="/public/images/edit.png" alt="edit location" title="edit location"/></a></td>
             </tr>`;
 }
 
@@ -97,6 +97,7 @@ function getWaterEntriesList(entries, locations) {
                  optionSubmit.value = 'submit';
                  optionSubmit.id = 'submitOption';
                  optionSubmit.textContent = 'Create New';
+                 optionSubmit.classList.add('submitOption');
                  select.appendChild(optionSubmit);
                  
                   select.addEventListener("change", function() {
@@ -144,12 +145,22 @@ alt="new liquid" title="new liquid" /><span>Add water entry</span></a>
 }
 
 function createWaterEntryRow(entry) {
+<<<<<<< HEAD
     return `<tr class="row" id="${entry.id}">
                  <td class="linkToEntry">${entry.type}</td>
                  <td class="linkToEntry">${entry.ml}</td>
                  ${entry.street ? `<td class="linkToEntry">${entry.street} ${entry.housenumber} ${entry.postalcode} ${entry.city} ${entry.country}</td>` : `<td class="newLocation"><select name="location" id="${entry.id}select"></select></td>`}
                  <td><a href="/removeWaterEntry/${entry.id} "onclick="return confirm('Are you sure you want to delete this location ?')"><img class="icon" src="/public/images/delete.png" alt="delete liquid" title="delete liquid"/></a></td>
                  <td><a href="/editWaterEntry/${entry.id}"><img class="icon" src="/public/images/edit.png" alt="edit liquid" title="edit liquid"/></a></td>
+=======
+    return `<tr class="row">
+                 <td class="linkToEntry" hidden="true">${entry.id}</td>
+                 <td class="linkToEntry">${entry.type}</td>
+                 <td class="linkToEntry">${entry.ml}</td>
+                 ${entry.street ? `<td class="linkToEntry">${entry.street} ${entry.housenumber} ${entry.postalcode} ${entry.city} ${entry.country}</td>` : `<td class="newLocation no-hover"><select name="location" id="location"></select></td>`}
+                 <td class="no-hover"><a href="/removeWaterEntry/${entry.id} "onclick="return confirm('Are you sure you want to delete this location ?')"><img class="icon" src="/public/images/delete.png" alt="delete liquid" title="delete liquid"/></a></td>
+                 <td class="no-hover"><a href="/editWaterEntry/${entry.id}"><img class="icon" src="/public/images/edit.png" alt="edit liquid" title="edit liquid"/></a></td>
+>>>>>>> cafdd5edf04c76b6f77ce60a5b2d0ef0271775a8
             </tr>`;
 }
 module.exports = {
