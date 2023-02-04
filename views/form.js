@@ -98,25 +98,29 @@ function getWaterEntryForm(liquid, locations) {
 </html>`;
 }
 
-// TODO: Check location Object (edit)
-
-// TODO: Front End validation
-
 function getNewLocationForm(location){
-    // if (location == undefined) {
-    //     liquid = {
-    //         id: '',
-    //         ml: 0,
-    //         type: ''
-    //     };
-    // }
+    if (location === undefined) {
+        location = {
+            id: '',
+            latitude: '',
+            longitude: '',
+            street: '',
+            housenumber: '',
+            postalcode: '',
+            city: '',
+            country: ''
+        };
+    } else {
+        // Edit: Get Object from Json (List) -> easier handling.
+        location = location[0];
+    }
     // define different header(s)
     let header = "Add new location";
     // check if alredy exists and fill object
 
-    // if (location.id) {// note = notes.find(nte => nte.id === parseInt(id));
-    //     header = "Edit location";
-    // }
+    if (location.id) {
+        header = "Edit location";
+    }
 
     // build form within javascript
     const form = `<!DOCTYPE html>
@@ -128,38 +132,38 @@ function getNewLocationForm(location){
  </head>
  <body>
  <h1>${header}</h1>
+ 
 ${createSidebar()}
     <div class="main">
- <form class="locationEntryForm" action="/addLocation" method="POST">
-<!--TODO: See other add form (location.id)-->
-<!-- TODO: Form Check Validation, Regex, ...-->
-
+ <form class="locationEntryForm" action="/addLocation" method="POST" enctype="multipart/form-data">
+ <input type="hidden" id="id" name="id" value="${location.id}">
+ 
  <div>
-<!-- Note: For -> id --> 
    <div class="form-group">
  <label class="form-label" for="street">Street:</label>
- <input type="text" id="street" name="street"></div>
+ <input type="text" id="street" name="street" value="${location.street}"></div>
  
     <div class="form-group">
  <label class="form-label" for="housenumber">Housenumber:</label>
- <input type="text" id="housenumber" name="housenumber"></div>
+ <input type="text" id="housenumber" name="housenumber" value="${location.housenumber}"></div>
  
      <div class="form-group">
  <label class="form-label" for="postalcode">Postal Code:</label>
- <input type="text" id="postalcode" name="postalcode"></div>
+ <input type="text" id="postalcode" name="postalcode" value="${location.postalcode}"></div>
  
      <div class="form-group">
  <label class="form-label" for="city">City:</label>
- <input type="text" id="city" name="city"></div>
+ <input type="text" id="city" name="city" value="${location.city}"></div>
  
       <div class="form-group">
  <label class="form-label" for="country">Country:</label>
- <input type="text" id="country" name="country"></div>
+ <input type="text" id="country" name="country" value="${location.country}"></div>
  
 <!-- TODO: Image-->
+  <input type="file" id="image" name="image" accept="image/png, image/jpeg"  multiple="false">
+  
+ <button class="save" type="submit">save</button>
 
-
- <button class="save" type="submit">SAVE</button>
 
  </form>
  </div>
