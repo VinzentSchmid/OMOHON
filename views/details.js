@@ -110,7 +110,7 @@ function createRow2(entry) {
                   
                   <div class="locationPair">
                       <div class="waterLabel">LOCATION: </div>
-                      ${entry.street ? `<div class="waterValue">${entry.street} ${entry.housenumber} ${entry.postalcode} ${entry.city} ${entry.country}</div>` : '<a class="add" href="/newLocation"><img class="icon" src="/public/images/new.png" alt="new location" title="New Location" /><span>Add location</span></a>'}
+                      ${entry.street ? `<div class="waterValue">${entry.street} ${entry.housenumber} ${entry.postalcode} ${entry.city} ${entry.country}</div>` : `<span>No location entered<span>`}
                   </div>
             </div>`;
 }

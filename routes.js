@@ -109,8 +109,6 @@ router.post("/addWaterEntry", (req, res) => {
 });
 
 router.get("/mapLocationToWaterEntry/:entryID/:locationID", (req, res) => {
-    console.log(req.params.entryID)
-    console.log(req.params.locationID)
     db.mapLocationToWaterEntry(req.params.entryID, req.params.locationID).then(
         success => {
             res.writeHead(302, {

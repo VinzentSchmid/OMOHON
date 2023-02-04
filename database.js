@@ -76,7 +76,7 @@ function getAllWaterEntries() {
 
 function getWaterEntryByID(id) {
     return new Promise((resolve, reject) => {
-        const query = 'SELECT * FROM locations RIGHT JOIN waterentries ON waterentries.id = ? AND waterentries.locations_id = locations.id';
+        const query = 'SELECT * FROM locations RIGHT JOIN waterentries ON waterentries.locations_id = locations.id WHERE waterentries.id = ?;';
         connection.query(query, [id],(error, results) => {
             if (error) {
                 reject(error);
@@ -89,8 +89,9 @@ function getWaterEntryByID(id) {
 
 function addWaterEntry(liquid) {
     return new Promise((resolve, reject) => {
-        const query = 'INSERT INTO waterentries (ml, type, amount) VALUES (?, ?, 1)';
-        connection.query(query, [liquid.ml, liquid.type],(error, results) => {
+        const query = 'INSERT INTO waterentries (ml, type, amount, locations_id) VALUES (?, ?, 1, ?)';
+        const location = Number(liquid.location);
+        connection.query(query, [liquid.ml, liquid.type,location===-1||isNaN(location)?null:location, liquid.location],(error, results) => {
             if (error) {
                 reject(error);
             } else {
@@ -114,8 +115,9 @@ function removeWaterEntry(id) {
 
 function updateWaterEntry(liquid) {
     return new Promise((resolve, reject) => {
-        const query = 'UPDATE waterentries SET ml = ?, type = ? WHERE id = ?';
-        connection.query(query, [liquid.ml, liquid.type, liquid.id],(error,
+        const query = 'UPDATE waterentries SET ml = ?, type = ?, locations_id = ? WHERE id = ?';
+        const location = Number(liquid.location);
+        connection.query(query, [liquid.ml, liquid.type, location===-1||isNaN(location)?null:location, liquid.id],(error,
                                                                      results) => {
             if (error) {
                 console.log(error);

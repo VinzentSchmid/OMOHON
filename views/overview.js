@@ -86,6 +86,10 @@ function getWaterEntriesList(entries, locations) {
                  if(!select){
                      continue;
                  }
+                  const selectOption = document.createElement('option');
+                      selectOption.textContent = 'Select Location';
+                      select.appendChild(selectOption);
+                      
                  data.forEach(location => { 
                       const option = document.createElement('option');
                       option.value = location.id;
@@ -101,7 +105,6 @@ function getWaterEntriesList(entries, locations) {
                  select.appendChild(optionSubmit);
                  
                   select.addEventListener("change", function() {
-                      console.log('EVENTLISTENER ')
                     if (select.value === "submit") {
                         //TODO Übergabe von ID mittels (newLocation/1) -> Location erstellen und der WaterEntry zuweisen
                       window.location = "/newLocation/"+id;
@@ -148,7 +151,7 @@ function createWaterEntryRow(entry) {
     return `<tr class="row" id="${entry.id}">
                  <td class="linkToEntry">${entry.type}</td>
                  <td class="linkToEntry">${entry.ml}</td>
-                 ${entry.street ? `<td class="linkToEntry">${entry.street} ${entry.housenumber} ${entry.postalcode} ${entry.city} ${entry.country}</td>` : `<td class="newLocation no-hover"><select name="location" id="${entry.id}select"></select></td>`}
+                 ${entry.street ? `<td class="linkToEntry">${entry.street} ${entry.housenumber} ${entry.postalcode} ${entry.city} ${entry.country}</td>` : `<td class="newLocation"><select value="" name="location" id="${entry.id}select"></select></td>`}
                  <td class="no-hover"><a href="/removeWaterEntry/${entry.id} "onclick="return confirm('Are you sure you want to delete this location ?')"><img class="icon" src="/public/images/delete.png" alt="delete liquid" title="delete liquid"/></a></td>
                  <td class="no-hover"><a href="/editWaterEntry/${entry.id}"><img class="icon" src="/public/images/edit.png" alt="edit liquid" title="edit liquid"/></a></td>
 

@@ -12,6 +12,7 @@ function getWaterEntryForm(liquid, locations) {
     if (liquid.id) {
         header = "Edit water entry";
     }
+
     return `<!DOCTYPE html>
 <html>
  <head> 
@@ -22,11 +23,19 @@ function getWaterEntryForm(liquid, locations) {
  document.addEventListener('DOMContentLoaded', function() {
   const data = ${JSON.stringify(locations)};
  const select = document.getElementById('location');
+ const liquid = ${JSON.stringify(liquid)};
+ 
+ const selectOption = document.createElement('option');
+ selectOption.textContent = liquid.locations_id === undefined ? 'Select Location':'No Location';
+ select.appendChild(selectOption);
  data.forEach(location => { 
       const option = document.createElement('option');
       option.value = location.id;
       option.textContent = location.street + ' ' + location.housenumber + ' ' + location.postalcode + ' ' + location.city + ' ' + location.country;
       select.appendChild(option);
+     if(liquid.locations_id === location.id){
+          option.selected = true;
+      }
  });
  const option = document.createElement('option');
  option.value = 'submit';
@@ -77,9 +86,9 @@ function getWaterEntryForm(liquid, locations) {
      </div>
      <div class="form-group">
   <label class="form-label" for="location">Location</label>
-  <select name="location" id="location"></select>
+  <select name="location" id="location" value="${liquid.locations_id}"></select>
 </div>
-     <button class="save" type="submit">save</button>
+     <button class="save" type="submit">SAVE</button>
     
      </form>
  </div>
