@@ -14,10 +14,17 @@ const storage = multer.memoryStorage();
 const upload = multer({storage: storage});
 const options = {
     headers: true,
-    delimiter: ';'  // Change the delimiter to ';'
+    delimiter: ';',  // Change the delimiter to ';'
+    quoteColumns: true,
+    encoding: 'utf8',
+
 };
+<<<<<<< HEAD
 const fs = require('fs');
 
+=======
+const nodeGeocoder = require('node-geocoder');
+>>>>>>> dfa7fbab753939f488bbc37f30608db9b0d42bb9
 
 router.use("/static", express.static('public'));
 
@@ -31,7 +38,15 @@ router.get("/", (req, res) => {
 router.get("/editWaterEntry/:id", (req, res) => {
     db.getWaterEntryByID(req.params.id).then(
         liquid => {
-            res.send(getWaterEntryForm(liquid))
+            db.getAllLocations().then(
+                locations => {
+                    res.send(getWaterEntryForm(liquid, locations))
+                },
+                error => {
+                    console.log("ERROR")
+                }
+            )
+
         },
         error => {
             console.log("ERROR")
@@ -50,7 +65,14 @@ router.get("/removeWaterEntry/:id", (req, res) => {
     )
 });
 router.get("/newWaterEntry", (req, res) => {
-    res.send(getWaterEntryForm())
+    db.getAllLocations().then(
+        locations => {
+            res.send(getWaterEntryForm(undefined, locations))
+        },
+        error => {
+            console.log("ERROR")
+        }
+    )
 });
 router.post("/addWaterEntry", (req, res) => {
     const form = new formidable.IncomingForm();
@@ -95,10 +117,32 @@ router.post("/addWaterEntry", (req, res) => {
     });
 
 });
+
+router.get("/mapLocationToWaterEntry/:entryID/:locationID", (req, res) => {
+    console.log(req.params.entryID)
+    console.log(req.params.locationID)
+    db.mapLocationToWaterEntry(req.params.entryID, req.params.locationID).then(
+        success => {
+            res.writeHead(302, {
+                location: '/waterEntries', 'content-type': 'text/plain'
+            });
+            res.end('302 Redirecting to /waterEntries');
+        },
+        error => console.log("ERROR")
+    );
+});
 router.get("/waterentries", (req, res) => {
     db.getAllWaterEntries().then(
         liquids => {
-            res.send(getWaterEntriesList(liquids))
+            db.getAllLocations().then(
+                locations => {
+                    res.send(getWaterEntriesList(liquids, locations))
+                },
+                error => {
+                    console.log("ERROR");
+                }
+            )
+
         },
         error => {
             console.log("ERROR")
@@ -108,7 +152,7 @@ router.get("/waterentries", (req, res) => {
 
 router.get("/detailWaterEntry/:id", (req, res) => {
     const id = parseInt(req.params.id, 10);
-    db.getWaterEntryByID2(id).then(
+    db.getWaterEntryByID(id).then(
         entry => {
             res.status(200).send(details.getDetailWaterEntry(entry));
         },
@@ -145,10 +189,7 @@ router.post("/addLocation", (req, res) => {
         if (name === "housenumber") {
             if (value.trim() === "") {
                 form._error("housenumber name must be entered!")
-                form._error()
-                form.error
-            }
-            try {
+            }try {
                 Number.parseInt(value)
             } catch (e) {
                 form._error("housenumber name must be an Integer!")
@@ -182,10 +223,11 @@ router.post("/addLocation", (req, res) => {
 
     form.parse(req, (err, location, files) => {
         if (err) {
-            res.send(err);
+            res.send(getNewLocationForm(location, err));
             return;
         }
 
+<<<<<<< HEAD
 
         fs.readFile(files.image.filepath, (err, data) => {
             if (err) {
@@ -221,6 +263,45 @@ router.post("/addLocation", (req, res) => {
 
 router.get("/editLocation:id", (req, res) => {
     //TODO implement updateLocation
+=======
+        let optionsMap = {
+            provider: 'openstreetmap'
+        };
+
+        let geoCoder = nodeGeocoder(optionsMap);
+        geoCoder.geocode(location)
+            .then((geocode)=> {
+                if(geocode.length === 0){
+                    res.send(getNewLocationForm(location, "No Location found!"));
+                    return;
+                }
+                location.latitude = geocode[0].latitude;
+                location.longitude = geocode[0].longitude;
+                db.addLocation(location).then(
+                    location => {
+                        res.writeHead(302, {
+                            location: '/locations', 'content-type': 'text/plain'
+                        });
+                        res.end('302 Redirecting to /locations');
+                    },
+                    error => res.send(err)
+                );
+            })
+            .catch((err)=> {
+                res.send(err);
+            });
+    });
+});
+router.get("/editLocation/:id", (req, res) => {
+    db.getLocationByID(req.params.id).then(
+        location => {
+            res.send(getNewLocationForm(location))
+        },
+        error => {
+            console.log("ERROR")
+        }
+    )
+>>>>>>> dfa7fbab753939f488bbc37f30608db9b0d42bb9
 });
 router.get("/deleteLocation/:id", (req, res) => {
     const id = parseInt(req.params.id, 10);
@@ -255,7 +336,9 @@ router.get("/search", (req, res) => {
     let query;
     switch (req.query.type) {
         case "location":
-            query = `SELECT * FROM locations WHERE street LIKE '%${req.query.q}%';`;
+            query = `SELECT *
+                     FROM locations
+                     WHERE street LIKE '%${req.query.q}%';`;
             db.search(query).then(
                 locations => {
                     res.status(200).send(getAllLocations(locations));
@@ -266,7 +349,11 @@ router.get("/search", (req, res) => {
             );
             break;
         case "water":
-            query = `SELECT * FROM waterentries, locations WHERE type LIKE '%${req.query.q}%' AND waterentries.locations_id = locations.id or locations.id IS NULL;`;
+            query = `SELECT *
+                     FROM waterentries,
+                          locations
+                     WHERE type LIKE '%${req.query.q}%' AND waterentries.locations_id = locations.id
+                        or locations.id IS NULL;`;
             db.search(query).then(
                 waterentries => {
                     res.status(200).send(getWaterEntriesList(waterentries));
@@ -287,14 +374,20 @@ router.get('/export', (req, res) => {
             // Set the response headers
             res.setHeader('Content-Type', 'text/csv');
             res.setHeader('Content-Disposition', 'attachment; filename="locations.csv"');
-
+            const data = results.map((location) => {
+                return {
+                    id: location.id,
+                    latitude: location.latitude,
+                    longitude: location.longitude,
+                    street: location.street,
+                    housenumber: location.housenumber,
+                    postalcode: location.postalcode,
+                    city: location.city,
+                    country: location.country
+                };
+            });
             // Stream the data to the response object
-            csv.write(results, options).pipe(res);
-            // Listen to the finish event of the response object
-            // res.on('finish', () => {
-            //     // Show the toaster message
-            //     alert("Download completed");
-            // });
+            csv.write(data, options).pipe(res);
         })
         .catch((error) => {
             console.error(error);

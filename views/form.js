@@ -1,87 +1,117 @@
-function getWaterEntryForm(liquid) {
-    if (liquid == undefined) {
+
+const createSidebar = require('./sidebar');
+function getWaterEntryForm(liquid, locations) {
+    if (liquid === undefined) {
         liquid = {
             id: '',
             ml: 0,
             type: ''
         };
     }
-    // define different header(s)
-    let header = "Add new liquid";
-    // check if alredy exists and fill object
-    if (liquid.id) {// note = notes.find(nte => nte.id === parseInt(id));
-        header = "Edit liquid";
+    let header = "Add new water entry";
+    if (liquid.id) {
+        header = "Edit water entry";
     }
-    // build form within javascript
-    const form = `<!DOCTYPE html>
+    return `<!DOCTYPE html>
 <html>
  <head> 
  <title>${header}</title>
   <link rel="stylesheet" href="/public/css/style.css" />
  <meta charset="utf-8">
+ <script defer>
+ document.addEventListener('DOMContentLoaded', function() {
+  const data = ${JSON.stringify(locations)};
+ const select = document.getElementById('location');
+ data.forEach(location => { 
+      const option = document.createElement('option');
+      option.value = location.id;
+      option.textContent = location.street + ' ' + location.housenumber + ' ' + location.postalcode + ' ' + location.city + ' ' + location.country;
+      select.appendChild(option);
+ });
+ const option = document.createElement('option');
+ option.value = 'submit';
+ option.id = 'submitOption';
+ option.textContent = 'Create New';
+ select.appendChild(option);
+ 
+  select.addEventListener("change", function() {
+    if (select.value === "submit") {
+      window.location = "/newLocation";
+    }
+  });
+});
+</script>
  </head>
  <body>
+
  <h1>${header}</h1>
- <form class="waterEntryForm" action="/addWaterEntry" method="POST">
- <input type="hidden" id="id" name="id" value="${liquid.id}" />
- <div class="form-group">
-
- <label class="form-label" for="liquid-choice">Was hast du
-getrunken?:</label>
- <input list="liquid-list" id="liquid-choice" name="type"
-class="form-control" value="` + liquid.type + `" required pattern="[A-Za-z]*">
-
- <!-- current static list, later will be dynamic through
-server logic -->
- <datalist id="liquid-list">
- <option value="Kaffee">
-<option value="Wasser">
-<option value="Apfelsaft">
- </datalist>
- </div>
-
- <div class="form-group border">
- <div>Welche Menge hast du getrunken?</div>
- <!-- will be extended by future lessons, add additional amount
-by other form -->
-     <div class="form-check">
-     <input type="radio" id="amount300ml" name="ml" value="300"
-    class="form-check-input" ` + (!liquid.ml || liquid.ml === 300 ? 'checked' : '') + ` >
-     <label class="form-label" for="amount300ml" >Glas 300ml</label>
+ ${createSidebar()}
+ <div class="main">
+     <form class="waterEntryForm" action="/addWaterEntry" method="POST">
+     <input type="hidden" id="id" name="id" value="${liquid.id}" />
+     <div class="form-group">
+    
+     <label class="form-label" for="liquid-choice">Was hast du
+    getrunken?:</label>
+     <input list="liquid-list" id="liquid-choice" name="type"
+    class="form-control" value="` + liquid.type + `" required pattern="[A-Za-z]*">
+    
+     <datalist id="liquid-list">
+     <option value="Kaffee">
+    <option value="Wasser">
+    <option value="Apfelsaft">
+     </datalist>
      </div>
-     <div class="form-check">
-     <input type="radio" id="amount500ml" name="ml" value="500" class="form-check-input" ` + (liquid.ml === 500 ? 'checked' : '') + `>
-     <label class="form-check-label" for="amount500ml">Krug 500ml</label>
+    
+     <div class="form-group border">
+     <div>Welche Menge hast du getrunken?</div>
+         <div class="form-check">
+         <input type="radio" id="amount300ml" name="ml" value="300"
+        class="form-check-input" ` + (!liquid.ml || liquid.ml === 300 ? 'checked' : '') + ` >
+         <label class="form-label" for="amount300ml" >Glas 300ml</label>
+         </div>
+         <div class="form-check">
+         <input type="radio" id="amount500ml" name="ml" value="500" class="form-check-input" ` + (liquid.ml === 500 ? 'checked' : '') + `>
+         <label class="form-check-label" for="amount500ml">Krug 500ml</label>
+         </div>
      </div>
+     <div class="form-group">
+  <label class="form-label" for="location">Location</label>
+  <select name="location" id="location"></select>
+</div>
+     <button class="save" type="submit">save</button>
+    
+     </form>
  </div>
-
- <button class="save" type="submit">save</button>
 
  </form>
  </body>
 </html>`;
-    return form;
 }
 
-// TODO: Check location Object (edit)
-
-// TODO: Front End validation
-
 function getNewLocationForm(location){
-    // if (location == undefined) {
-    //     liquid = {
-    //         id: '',
-    //         ml: 0,
-    //         type: ''
-    //     };
-    // }
+    if (location === undefined) {
+        location = {
+            id: '',
+            latitude: '',
+            longitude: '',
+            street: '',
+            housenumber: '',
+            postalcode: '',
+            city: '',
+            country: ''
+        };
+    } else {
+        // Edit: Get Object from Json (List) -> easier handling.
+        location = location[0];
+    }
     // define different header(s)
     let header = "Add new location";
     // check if alredy exists and fill object
 
-    // if (location.id) {// note = notes.find(nte => nte.id === parseInt(id));
-    //     header = "Edit location";
-    // }
+    if (location.id) {
+        header = "Edit location";
+    }
 
     // build form within javascript
     const form = `<!DOCTYPE html>
@@ -93,39 +123,52 @@ function getNewLocationForm(location){
  </head>
  <body>
  <h1>${header}</h1>
+<<<<<<< HEAD
  
  <form class="locationEntryForm" action="/addLocation" method="POST" enctype="multipart/form-data">
 <!--TODO: See other add form (location.id)-->
 <!-- TODO: Form Check Validation, Regex, ...-->
+=======
+${createSidebar()}
+    <div class="main">
+ <form class="locationEntryForm" action="/addLocation" method="POST">
+ <input type="hidden" id="id" name="id" value="${location.id}">
+>>>>>>> dfa7fbab753939f488bbc37f30608db9b0d42bb9
 
  <div>
-<!-- Note: For -> id --> 
    <div class="form-group">
  <label class="form-label" for="street">Street:</label>
- <input type="text" id="street" name="street"></div>
+ <input type="text" id="street" name="street" value="${location.street}"></div>
  
     <div class="form-group">
  <label class="form-label" for="housenumber">Housenumber:</label>
- <input type="text" id="housenumber" name="housenumber"></div>
+ <input type="text" id="housenumber" name="housenumber" value="${location.housenumber}"></div>
  
      <div class="form-group">
  <label class="form-label" for="postalcode">Postal Code:</label>
- <input type="text" id="postalcode" name="postalcode"></div>
+ <input type="text" id="postalcode" name="postalcode" value="${location.postalcode}"></div>
  
      <div class="form-group">
  <label class="form-label" for="city">City:</label>
- <input type="text" id="city" name="city"></div>
+ <input type="text" id="city" name="city" value="${location.city}"></div>
  
       <div class="form-group">
  <label class="form-label" for="country">Country:</label>
- <input type="text" id="country" name="country"></div>
+ <input type="text" id="country" name="country" value="${location.country}"></div>
  
 <!-- TODO: Image-->
+<<<<<<< HEAD
   <input type="file" id="image" name="image" accept="image/png, image/jpeg"  multiple="false">
   
  <button class="save" type="submit">save</button>
+=======
+
+
+ <button class="save" type="submit">SAVE</button>
+>>>>>>> dfa7fbab753939f488bbc37f30608db9b0d42bb9
 
  </form>
+ </div>
  </body>
 </html>`;
     return form;

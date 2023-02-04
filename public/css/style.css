@@ -20,7 +20,7 @@ h1{
     border: 1px solid #343440;
     margin: 5px;
 }
-.row:hover{
+.row:hover td:not(.no-hover) {
     background-color: #343440;
     border-radius: 5px;
     border: 1px solid #343440;
@@ -101,11 +101,17 @@ table{
     color: black;
     padding-bottom: 10px;
 }
-input, button {
+input, button, select{
     background-color: #343440;
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #343440;
+}
+button:hover, .icon:hover{
+    background-color: #444755;
+    border: 2px solid #343440;
+    cursor: pointer;
+    border-radius: 5px;
 }
 #searchBar > input{
     margin: 5px;
@@ -113,12 +119,14 @@ input, button {
 .add {
     display: flex;
     flex-direction: row;
+    justify-content: flex-start;
     margin-right: 20px;
 
 }
 .add > span{
     display: flex;
     align-items: center;
+    justify-content: flex-start;
 }
 .add > img{
     margin-right: 10px;
@@ -134,7 +142,7 @@ input, button {
     border-radius: 10px;
 }
 .main {
-    margin-left: 220px;
+    margin-left: 200px;
     padding: 20px;
 }
 #sidebar > ul > li{
@@ -144,13 +152,17 @@ input, button {
 #sidebar > ul{
     padding: 0;
 }
+#sidebar li a {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
 #sidebar ul li.active {
     background-color: #444755;
     border-radius: 5px;
 }
 .waterEntryForm, .locationEntryForm{
-    width: 50%;
-    margin: 50px auto;
+    margin: 0 auto 0 -200px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -185,11 +197,15 @@ input[type="radio"]:checked::before {
     background-color: #343440;
     border-radius: 50%;
     position: absolute;
+    outline: 1px solid #343440;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 10px;
     height: 10px;
+}
+input[type="radio"]:checked {
+    border-color: #343440;
 }
 .save{
     width: 382px;
@@ -198,7 +214,11 @@ input[type="radio"]:checked::before {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-
 }
+.submitOption{
+    background-color: #444755;
+    text-align: center;
+}
+
 
 
