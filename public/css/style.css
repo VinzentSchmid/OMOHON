@@ -90,15 +90,8 @@ th{
     display: flex;
     align-items: center;
 }
-#addText{
+#addText {
     margin-left: 20px;
-}
-#map {
-    height: 500px;
-    width: 30%;
-    margin: 0 auto; /* Center the map horizontally */
-    display: flex;
-    align-items: center;
 }
 
 .locationDetail {
@@ -260,6 +253,23 @@ input[type="radio"]:checked {
 .submitOption{
     background-color: #444755;
     text-align: center;
+}
+.imageDetail{
+    width: 500px;
+    height: 500px;
+    margin-left: 20px;
+    border-radius: 10px;
+}
+
+#map {
+    height: 500px;
+    width: 30%;
+    border-radius: 10px;
+}
+.details {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 
