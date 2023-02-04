@@ -8,6 +8,10 @@ const details = require("./views/details");
 const path = require("path");
 const {getWaterEntryForm, getNewLocationForm} = require("./views/form")
 const csv = require('fast-csv');
+const multer = require('multer');
+const {insertImage} = require("./database");
+const storage = multer.memoryStorage();
+const upload = multer({storage: storage});
 const options = {
     headers: true,
     delimiter: ';',  // Change the delimiter to ';'
@@ -15,6 +19,12 @@ const options = {
     encoding: 'utf8',
 
 };
+<<<<<<< HEAD
+const fs = require('fs');
+
+=======
+const nodeGeocoder = require('node-geocoder');
+>>>>>>> dfa7fbab753939f488bbc37f30608db9b0d42bb9
 
 router.use("/static", express.static('public'));
 
@@ -169,9 +179,6 @@ router.get("/newLocation", (req, res) => {
 });
 router.post("/addLocation", (req, res) => {
     const form = new formidable.IncomingForm();
-    // TODO: Add Image
-
-    // TODO: Backend Validation
 
     form.on("event", function (name, value) {
 
@@ -182,10 +189,7 @@ router.post("/addLocation", (req, res) => {
         if (name === "housenumber") {
             if (value.trim() === "") {
                 form._error("housenumber name must be entered!")
-                form._error()
-                form.error
-            }
-            try {
+            }try {
                 Number.parseInt(value)
             } catch (e) {
                 form._error("housenumber name must be an Integer!")
@@ -217,24 +221,76 @@ router.post("/addLocation", (req, res) => {
 
     });
 
-    form.parse(req, (err, location) => {
+    form.parse(req, (err, location, files) => {
         if (err) {
-            res.send(err);
+            res.send(getNewLocationForm(location, err));
             return;
         }
 
-        // TODO: Add location added, kein Future, deswegen Then False.
-        db.addLocation(location).then(
-            location => {
-                res.writeHead(302, {
-                    location: '/locations', 'content-type': 'text/plain'
-                });
-                res.end('302 Redirecting to /locations');
-            },
-            error => res.send(err)
-        );
-    });
+<<<<<<< HEAD
 
+        fs.readFile(files.image.filepath, (err, data) => {
+            if (err) {
+                res.send(err);
+            }
+
+            if (files.image.originalFilename.endsWith(".png") || files.image.originalFilename.endsWith(".jpg") || files.image.originalFilename.endsWith(".jpeg")) {
+                const image64 = data.toString('base64');
+                db.addLocation(location, image64).then(
+                    location => {
+                        res.writeHead(302, {
+                            location: '/locations', 'content-type': 'text/plain'
+                        });
+                        res.end('302 Redirecting to /locations');
+                    },
+                    error => res.send(err));
+            } else {
+                // TODO Snackbar ODER Rückmeldung
+                console.log("pango");
+                db.addLocation(location, null).then(
+                    location => {
+                        res.writeHead(302, {
+                            location: '/locations', 'content-type': 'text/plain'
+                        });
+                        res.end('302 Redirecting to /locations');
+                    },
+                    error => res.send(err));            }
+
+
+        });
+    });
+});
+
+router.get("/editLocation:id", (req, res) => {
+    //TODO implement updateLocation
+=======
+        let optionsMap = {
+            provider: 'openstreetmap'
+        };
+
+        let geoCoder = nodeGeocoder(optionsMap);
+        geoCoder.geocode(location)
+            .then((geocode)=> {
+                if(geocode.length === 0){
+                    res.send(getNewLocationForm(location, "No Location found!"));
+                    return;
+                }
+                location.latitude = geocode[0].latitude;
+                location.longitude = geocode[0].longitude;
+                db.addLocation(location).then(
+                    location => {
+                        res.writeHead(302, {
+                            location: '/locations', 'content-type': 'text/plain'
+                        });
+                        res.end('302 Redirecting to /locations');
+                    },
+                    error => res.send(err)
+                );
+            })
+            .catch((err)=> {
+                res.send(err);
+            });
+    });
 });
 router.get("/editLocation/:id", (req, res) => {
     db.getLocationByID(req.params.id).then(
@@ -245,6 +301,7 @@ router.get("/editLocation/:id", (req, res) => {
             console.log("ERROR")
         }
     )
+>>>>>>> dfa7fbab753939f488bbc37f30608db9b0d42bb9
 });
 router.get("/deleteLocation/:id", (req, res) => {
     const id = parseInt(req.params.id, 10);
