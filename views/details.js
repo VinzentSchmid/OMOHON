@@ -58,6 +58,8 @@ function createRow(location) {
                   ${location.latitude ? `<div class="locationLabel">LATITUDE: </div><div class="locationValue">${location.latitude}</div>` : ''}
   
                   ${location.longitude ? `<div class="locationLabel">LONGITUDE: </div><div class="locationValue">${location.longitude}</div>` : ''}
+                  
+                  <img src="data:image/png;base64,${location.image}">
             </div>`;
 }
 
