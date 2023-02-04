@@ -29,7 +29,6 @@ function getLocationByID(id) {
 
 function addLocation(location, image64) {
     return new Promise((resolve, reject) => {
-        console.log(location);
         const query = 'INSERT INTO locations (street, housenumber, postalcode, city, country, image) VALUES (?, ?, ?, ?, ?, ?)';
         connection.query(query, [location.street, Number(location.housenumber), Number(location.postalcode), location.city, location.country, image64], (error, results) => {
             if (error) {
@@ -54,10 +53,10 @@ function removeLocation(id) {
     });
 }
 
-function updateLocation(location) {
+function updateLocation(location, image64) {
     return new Promise((resolve, reject) => {
         const query = "UPDATE locations SET street = ?, housenumber = ?, postalcode = ?, city = ?, country = ?, image = ? WHERE id = ?";
-        connection.query(query, [location.street, location.housenumber, location.postalcode, location.city, location.country, location.image, location.id], (error, results) => {
+        connection.query(query, [location.street, location.housenumber, location.postalcode, location.city, location.country, image64, location.id], (error, results) => {
             if (error) {
                 console.log(error);
                 reject(error);
@@ -112,9 +111,9 @@ function getWaterEntryByID(id) {
 
 function addWaterEntry(liquid) {
     return new Promise((resolve, reject) => {
-        const query = 'INSERT INTO waterentries (ml, type, amount, locations_id) VALUES (?, ?, 1, ?)';
+        const query = 'INSERT INTO waterentries (ml, type, amount, locations_id) VALUES (?, ?, ?, ?)';
         const location = Number(liquid.location);
-        connection.query(query, [liquid.ml, liquid.type, location === -1 || isNaN(location) ? null : location, liquid.location], (error, results) => {
+        connection.query(query, [liquid.ml, liquid.type, liquid.amount, location === -1 || isNaN(location) ? null : location], (error, results) => {
             if (error) {
                 reject(error);
             } else {

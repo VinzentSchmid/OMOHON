@@ -22,6 +22,7 @@ const options = {
 const fs = require('fs');
 
 const nodeGeocoder = require('node-geocoder');
+const addError = require("./views/errorview");
 
 router.use("/static", express.static('public'));
 
@@ -67,13 +68,13 @@ router.get("/newWaterEntry", (req, res) => {
             res.send(getWaterEntryForm(undefined, locations))
         },
         error => {
-            console.log("ERROR")
+
         }
     )
 });
 router.post("/addWaterEntry", (req, res) => {
     const form = new formidable.IncomingForm();
-    const requiredFields = ["type", "ml"];
+    const requiredFields = ["type", "ml", "amount"];
     form.on('field', function (name, value) {
 
         if (requiredFields.indexOf(name) > -1 && !value) {
@@ -92,12 +93,17 @@ router.post("/addWaterEntry", (req, res) => {
                 form._error('Please select 500ml or lower!');
             }
         }
+        if(name === "amount"){
+            if(value <= 1){
+                form._error('Please select a number!');
+            }
+        }
     });
 
     form.parse(req, (err, liquid, files) => {
 
         if (err) {
-            res.send('getError(err)')
+            res.send("addError(err)");
             return
         }
 
@@ -260,7 +266,7 @@ router.post("/addLocation", (req, res) => {
                             error => res.send(err));
                     } else {
                         // TODO Snackbar ODER Rückmeldung
-                        console.log("pango");
+
                         db.addLocation(location, null).then(
                             location => {
                                 res.writeHead(302, {

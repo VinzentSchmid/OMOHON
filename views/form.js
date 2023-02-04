@@ -71,7 +71,10 @@ function getWaterEntryForm(liquid, locations) {
     <option value="Apfelsaft">
      </datalist>
      </div>
-    
+     <div class="form-group">
+     <label class="form-label" for="amount">Welche Anzahl an Getränken hast du getruken?:</label>
+     <input type="number"  id="amount" name="amount" required>
+     </div>
      <div class="form-group border">
      <div>Welche Menge hast du getrunken?</div>
          <div class="form-check">
@@ -159,6 +162,7 @@ ${createSidebar()}
 <!-- TODO: Image-->
   <input type="file" id="image" name="image" accept="image/png, image/jpeg"  multiple="false">
   
+   ${location.image ? `<img class="imageDetail" src="data:image/png;base64,${location.image}">` : `<span></span>`}
  <button class="save" type="submit">SAVE</button>
 
 
