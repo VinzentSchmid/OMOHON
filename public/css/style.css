@@ -101,7 +101,7 @@ table{
     color: black;
     padding-bottom: 10px;
 }
-input, button {
+input, button, select{
     background-color: #343440;
     padding: 10px;
     border-radius: 5px;
