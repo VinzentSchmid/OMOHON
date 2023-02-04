@@ -137,13 +137,9 @@ function createWaterEntryRow(entry) {
                  <td class="linkToEntry" hidden="true">${entry.id}</td>
                  <td class="linkToEntry">${entry.type}</td>
                  <td class="linkToEntry">${entry.ml}</td>
-
-                 ${entry.street ? `<td class="linkToEntry">${entry.street} ${entry.housenumber} ${entry.postalcode} ${entry.city} ${entry.country}</td>` : `<td class="newLocation no-hover"><a class="add" href="/newLocation"><img class="icon" src="/public/images/new.png" alt="new location" title="New Location" /><span>Add location</span></a></td>`}
+                 ${entry.street ? `<td class="linkToEntry">${entry.street} ${entry.housenumber} ${entry.postalcode} ${entry.city} ${entry.country}</td>` : `<td class="newLocation no-hover"><select name="location" id="location"></select></td>`}
                  <td class="no-hover"><a href="/removeWaterEntry/${entry.id} "onclick="return confirm('Are you sure you want to delete this location ?')"><img class="icon" src="/public/images/delete.png" alt="delete liquid" title="delete liquid"/></a></td>
                  <td class="no-hover"><a href="/editWaterEntry/${entry.id}"><img class="icon" src="/public/images/edit.png" alt="edit liquid" title="edit liquid"/></a></td>
-                 ${entry.street ? `<td class="linkToEntry">${entry.street} ${entry.housenumber} ${entry.postalcode} ${entry.city} ${entry.country}</td>` : `<td class="newLocation"><select name="location" id="location"></select></td>`}
-                 <td><a href="/removeWaterEntry/${entry.id} "onclick="return confirm('Are you sure you want to delete this location ?')"><img class="icon" src="/public/images/delete.png" alt="delete liquid" title="delete liquid"/></a></td>
-                 <td><a href="/editWaterEntry/${entry.id}"><img class="icon" src="/public/images/edit.png" alt="edit liquid" title="edit liquid"/></a></td>
             </tr>`;
 }
 module.exports = {
