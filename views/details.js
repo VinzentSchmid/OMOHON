@@ -29,7 +29,7 @@ function getDetailLocation(location) {
         <h1>LOCATION DETAIL</h1>
         ${createSidebar()}
         ${location.map(createRow).join('')}
-        <div id="map"></div>
+        
         </body>
     </html>`;
 }
@@ -66,8 +66,10 @@ function createRow(location) {
                   <div class="locationPair">
                     ${location.longitude ? `<div class="locationLabel">LONGITUDE: </div><div class="locationValue">${location.longitude}</div>` : ''}
                   </div>
-                  
-                  <img src="data:image/png;base64,${location.image}">
+                  <div class="details">
+                      <div id="map"></div>
+                      <img class="imageDetail" src="data:image/png;base64,${location.image}">
+                  </div>
             </div>`;
 }
 

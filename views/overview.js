@@ -125,9 +125,10 @@ function getWaterEntriesList(entries, locations, filter) {
  <h1>Water Entries</h1>
  ${createSidebar("/waterEntries")}
  <div class="main">
-
+<div class="action">
  <a class="add" href="/newWaterEntry"><img class="icon" src="../public/images/new.png"
 alt="new liquid" title="new liquid" /><span>Add water entry</span></a>
+</div>
 
 <form id="searchBar" action="/search" method="get">
   <input type="text" name="q" placeholder="${filter ?? 'Search Drinks...'}">
