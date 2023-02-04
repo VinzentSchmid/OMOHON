@@ -1,27 +1,49 @@
+
 const createSidebar = require('./sidebar');
 function getWaterEntryForm(liquid, locations) {
-    if (liquid == undefined) {
+    if (liquid === undefined) {
         liquid = {
             id: '',
             ml: 0,
             type: ''
         };
     }
-    // define different header(s)
-    let header = "Add new liquid";
-    // check if alredy exists and fill object
-    if (liquid.id) {// note = notes.find(nte => nte.id === parseInt(id));
-        header = "Edit liquid";
+    let header = "Add new water entry";
+    if (liquid.id) {
+        header = "Edit water entry";
     }
-    // build form within javascript
-    const form = `<!DOCTYPE html>
+    return `<!DOCTYPE html>
 <html>
  <head> 
  <title>${header}</title>
   <link rel="stylesheet" href="/public/css/style.css" />
  <meta charset="utf-8">
+ <script defer>
+ document.addEventListener('DOMContentLoaded', function() {
+  const data = ${JSON.stringify(locations)};
+ const select = document.getElementById('location');
+ data.forEach(location => { 
+      const option = document.createElement('option');
+      option.value = location.id;
+      option.textContent = location.street + ' ' + location.housenumber + ' ' + location.postalcode + ' ' + location.city + ' ' + location.country;
+      select.appendChild(option);
+ });
+ const option = document.createElement('option');
+ option.value = 'submit';
+ option.id = 'submitOption';
+ option.textContent = 'Submit';
+ select.appendChild(option);
+ 
+  select.addEventListener("change", function() {
+    if (select.value === "submit") {
+      window.location = "/newLocation";
+    }
+  });
+});
+</script>
  </head>
  <body>
+
  <h1>${header}</h1>
  ${createSidebar()}
  <div class="main">
@@ -34,8 +56,6 @@ function getWaterEntryForm(liquid, locations) {
      <input list="liquid-list" id="liquid-choice" name="type"
     class="form-control" value="` + liquid.type + `" required pattern="[A-Za-z]*">
     
-     <!-- current static list, later will be dynamic through
-    server logic -->
      <datalist id="liquid-list">
      <option value="Kaffee">
     <option value="Wasser">
@@ -45,8 +65,6 @@ function getWaterEntryForm(liquid, locations) {
     
      <div class="form-group border">
      <div>Welche Menge hast du getrunken?</div>
-     <!-- will be extended by future lessons, add additional amount
-    by other form -->
          <div class="form-check">
          <input type="radio" id="amount300ml" name="ml" value="300"
         class="form-check-input" ` + (!liquid.ml || liquid.ml === 300 ? 'checked' : '') + ` >
@@ -57,14 +75,18 @@ function getWaterEntryForm(liquid, locations) {
          <label class="form-check-label" for="amount500ml">Krug 500ml</label>
          </div>
      </div>
-    
+     <div>
+  <label for="location">Location</label>
+  <select name="location" id="location"></select>
+</div>
      <button class="save" type="submit">save</button>
     
      </form>
  </div>
+
+ </form>
  </body>
 </html>`;
-    return form;
 }
 
 // TODO: Check location Object (edit)
@@ -128,7 +150,7 @@ ${createSidebar()}
 <!-- TODO: Image-->
 
 
- <button class="save" type="submit">save</button>
+ <button class="save" type="submit">SAVE</button>
 
  </form>
  </div>

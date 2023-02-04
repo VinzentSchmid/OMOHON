@@ -12,14 +12,12 @@ function getDetailLocation(location) {
             </script>
             <script>
                 function initMap() {
-                  // The location
-                  const location = { lat: ${location.map(value => value.latitude)}, lng: ${location.map(value => value.longitude)} };
-                  // The map, centered at location
+                const data = ${JSON.stringify(location[0])}
+                  const location = { lat: Number(data.latitude), lng: Number(data.longitude) };
                   const map = new google.maps.Map(document.getElementById("map"), {
                     zoom: 20,
                     center: location,
                   });
-                  // The marker, positioned at location
                   const marker = new google.maps.Marker({
                     position: location,
                     map: map,
@@ -89,7 +87,6 @@ function getDetailWaterEntry(entry) {
 }
 
 function createRow2(entry) {
-    console.log(entry);
     return ` <div class="locationDetail">
                   <div class="locationPair">
                       <div class="waterLabel">TYPE:</div> 

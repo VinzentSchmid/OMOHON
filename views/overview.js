@@ -61,7 +61,7 @@ function createRow(location) {
             </tr>`;
 }
 
-function getWaterEntriesList(entry) {
+function getWaterEntriesList(entries, locations) {
     return `<!DOCTYPE html>
  <html>
  <head>
@@ -78,6 +78,27 @@ function getWaterEntriesList(entry) {
                     });
                 }
             });
+            document.addEventListener('DOMContentLoaded', function() {
+  const data = ${JSON.stringify(locations)};
+ const select = document.getElementById('location');
+ data.forEach(location => { 
+      const option = document.createElement('option');
+      option.value = location.id;
+      option.textContent = location.street + ' ' + location.housenumber + ' ' + location.postalcode + ' ' + location.city + ' ' + location.country;
+      select.appendChild(option);
+ });
+ const option = document.createElement('option');
+ option.value = 'submit';
+ option.id = 'submitOption';
+ option.textContent = 'Submit';
+ select.appendChild(option);
+ 
+  select.addEventListener("change", function() {
+    if (select.value === "submit") {
+      window.location = "/newLocation";
+    }
+  });
+});
         </script>
         
  </head>
@@ -85,10 +106,10 @@ function getWaterEntriesList(entry) {
  <h1>Water Entries</h1>
  ${createSidebar("/waterEntries")}
  <div class="main">
- <div class="action">
-     <a class="add" href="/newWaterEntry"><img class="icon" src="../public/images/new.png"
-    alt="new liquid" title="new liquid" /><span>Add New Drink</span></a>
- </div>
+
+ <a class="add" href="/newWaterEntry"><img class="icon" src="../public/images/new.png"
+alt="new liquid" title="new liquid" /><span>Add water entry</span></a>
+
 <form id="searchBar" action="/search" method="get">
   <input type="text" name="q" placeholder="Search Drinks...">
   <input type="hidden" name="type" value="water">
@@ -102,7 +123,7 @@ function getWaterEntriesList(entry) {
     <th>LOCATION</th> 
  </tr>
 
- ${entry.map(createWaterEntryRow).join('')}
+ ${entries.map(createWaterEntryRow).join('')}
 
  </table>
 </div>
@@ -116,9 +137,13 @@ function createWaterEntryRow(entry) {
                  <td class="linkToEntry" hidden="true">${entry.id}</td>
                  <td class="linkToEntry">${entry.type}</td>
                  <td class="linkToEntry">${entry.ml}</td>
+
                  ${entry.street ? `<td class="linkToEntry">${entry.street} ${entry.housenumber} ${entry.postalcode} ${entry.city} ${entry.country}</td>` : `<td class="newLocation no-hover"><a class="add" href="/newLocation"><img class="icon" src="/public/images/new.png" alt="new location" title="New Location" /><span>Add location</span></a></td>`}
                  <td class="no-hover"><a href="/removeWaterEntry/${entry.id} "onclick="return confirm('Are you sure you want to delete this location ?')"><img class="icon" src="/public/images/delete.png" alt="delete liquid" title="delete liquid"/></a></td>
                  <td class="no-hover"><a href="/editWaterEntry/${entry.id}"><img class="icon" src="/public/images/edit.png" alt="edit liquid" title="edit liquid"/></a></td>
+                 ${entry.street ? `<td class="linkToEntry">${entry.street} ${entry.housenumber} ${entry.postalcode} ${entry.city} ${entry.country}</td>` : `<td class="newLocation"><select name="location" id="location"></select></td>`}
+                 <td><a href="/removeWaterEntry/${entry.id} "onclick="return confirm('Are you sure you want to delete this location ?')"><img class="icon" src="/public/images/delete.png" alt="delete liquid" title="delete liquid"/></a></td>
+                 <td><a href="/editWaterEntry/${entry.id}"><img class="icon" src="/public/images/edit.png" alt="edit liquid" title="edit liquid"/></a></td>
             </tr>`;
 }
 module.exports = {
