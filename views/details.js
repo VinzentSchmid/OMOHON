@@ -39,6 +39,7 @@ function getDetailLocation(location) {
 }
 
 function createRow(location) {
+
     return ` <div class="locationDetail">
                   <div class="locationPair">
                       <div class="locationLabel">STREET:</div> 

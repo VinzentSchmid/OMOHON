@@ -94,7 +94,7 @@ function getNewLocationForm(location){
  <body>
  <h1>${header}</h1>
  
- <form class="locationEntryForm" action="/addLocation" method="POST">
+ <form class="locationEntryForm" action="/addLocation" method="POST" enctype="multipart/form-data">
 <!--TODO: See other add form (location.id)-->
 <!-- TODO: Form Check Validation, Regex, ...-->
 
@@ -121,8 +121,8 @@ function getNewLocationForm(location){
  <input type="text" id="country" name="country"></div>
  
 <!-- TODO: Image-->
-
-
+  <input type="file" id="image" name="image" accept="image/png, image/jpeg"  multiple="false">
+  
  <button class="save" type="submit">save</button>
 
  </form>
