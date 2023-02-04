@@ -124,7 +124,6 @@ function getNewLocationForm(location, error, waterEntryID){
     if (location.id) {
         header = "Edit location";
     }
-
     return `<!DOCTYPE html>
 <html>
  <head> 
@@ -137,7 +136,7 @@ function getNewLocationForm(location, error, waterEntryID){
  
 ${createSidebar()}
     <div class="main">
- <form class="locationEntryForm" action="/addLocation/${waterEntryID}" method="POST" enctype="multipart/form-data">
+ <form class="locationEntryForm" action="${waterEntryID!==undefined?'/addLocation/'+waterEntryID:'/addLocation'}" method="POST" enctype="multipart/form-data">
  <input type="hidden" id="id" name="id" value="${location.id}">
  
  <div>
