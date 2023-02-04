@@ -121,7 +121,7 @@ function getNewLocationForm(location){
  <input type="text" id="country" name="country"></div>
  
 <!-- TODO: Image-->
-  <input type="file" id="image" name="image" accept="image/png, image/jpeg">
+  <input type="file" id="image" name="image" accept="image/png, image/jpeg"  multiple="false">
   
  <button class="save" type="submit">save</button>
 

@@ -11,7 +11,7 @@ const csv = require('fast-csv');
 const multer = require('multer');
 const {insertImage} = require("./database");
 const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
+const upload = multer({storage: storage});
 const options = {
     headers: true,
     delimiter: ';'  // Change the delimiter to ';'
@@ -185,19 +185,36 @@ router.post("/addLocation", (req, res) => {
             res.send(err);
             return;
         }
+
+
         fs.readFile(files.image.filepath, (err, data) => {
             if (err) {
                 res.send(err);
             }
-            const image64 = data.toString('base64');
-            db.addLocation(location, image64).then(
-                location => {
-                    res.writeHead(302, {
-                        location: '/locations', 'content-type': 'text/plain'
-                    });
-                    res.end('302 Redirecting to /locations');
-                },
-                error => res.send(err));
+
+            if (files.image.originalFilename.endsWith(".png") || files.image.originalFilename.endsWith(".jpg") || files.image.originalFilename.endsWith(".jpeg")) {
+                const image64 = data.toString('base64');
+                db.addLocation(location, image64).then(
+                    location => {
+                        res.writeHead(302, {
+                            location: '/locations', 'content-type': 'text/plain'
+                        });
+                        res.end('302 Redirecting to /locations');
+                    },
+                    error => res.send(err));
+            } else {
+                // TODO Snackbar ODER Rückmeldung
+                console.log("pango");
+                db.addLocation(location, null).then(
+                    location => {
+                        res.writeHead(302, {
+                            location: '/locations', 'content-type': 'text/plain'
+                        });
+                        res.end('302 Redirecting to /locations');
+                    },
+                    error => res.send(err));            }
+
+
         });
     });
 });
@@ -261,7 +278,6 @@ router.get("/search", (req, res) => {
             break;
     }
 });
-
 
 
 router.get('/export', (req, res) => {
