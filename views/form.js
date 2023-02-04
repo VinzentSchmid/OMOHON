@@ -75,8 +75,8 @@ function getWaterEntryForm(liquid, locations) {
          <label class="form-check-label" for="amount500ml">Krug 500ml</label>
          </div>
      </div>
-     <div>
-  <label for="location">Location</label>
+     <div class="form-group">
+  <label class="form-label" for="location">Location</label>
   <select name="location" id="location"></select>
 </div>
      <button class="save" type="submit">save</button>

@@ -91,6 +91,8 @@ function getWaterEntriesList(entries, locations) {
  option.value = 'submit';
  option.id = 'submitOption';
  option.textContent = 'Submit';
+ option.classList.add('submitOption');
+
  select.appendChild(option);
  
   select.addEventListener("change", function() {

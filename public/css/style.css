@@ -197,11 +197,15 @@ input[type="radio"]:checked::before {
     background-color: #343440;
     border-radius: 50%;
     position: absolute;
+    outline: 1px solid #343440;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 10px;
     height: 10px;
+}
+input[type="radio"]:checked {
+    border-color: #343440;
 }
 .save{
     width: 382px;
@@ -210,7 +214,11 @@ input[type="radio"]:checked::before {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-
 }
+.submitOption{
+    background-color: #444755;
+    text-align: center;
+}
+
 
 
