@@ -1,5 +1,6 @@
 
 const createSidebar = require('./sidebar');
+const stream = require("stream");
 function getWaterEntryForm(liquid, locations) {
     if (liquid === undefined) {
         liquid = {
@@ -89,12 +90,8 @@ function getWaterEntryForm(liquid, locations) {
 </html>`;
 }
 
-// TODO: Check location Object (edit)
-
-// TODO: Front End validation
-
 function getNewLocationForm(location){
-    if (location == undefined) {
+    if (location === undefined) {
         location = {
             id: '',
             latitude: '',
@@ -105,6 +102,9 @@ function getNewLocationForm(location){
             city: '',
             country: ''
         };
+    } else {
+        // Edit: Get Object from Json (List) -> easier handling.
+        location = location[0];
     }
     // define different header(s)
     let header = "Add new location";
@@ -128,29 +128,27 @@ ${createSidebar()}
     <div class="main">
  <form class="locationEntryForm" action="/addLocation" method="POST">
  <input type="hidden" id="id" name="id" value="${location.id}">
-<!-- TODO: Form Check Validation, Regex, ...-->
 
  <div>
-<!-- Note: For -> id --> 
    <div class="form-group">
  <label class="form-label" for="street">Street:</label>
- <input type="text" id="street" name="street"></div>
+ <input type="text" id="street" name="street" value="${location.street}"></div>
  
     <div class="form-group">
  <label class="form-label" for="housenumber">Housenumber:</label>
- <input type="text" id="housenumber" name="housenumber"></div>
+ <input type="text" id="housenumber" name="housenumber" value="${location.housenumber}"></div>
  
      <div class="form-group">
  <label class="form-label" for="postalcode">Postal Code:</label>
- <input type="text" id="postalcode" name="postalcode"></div>
+ <input type="text" id="postalcode" name="postalcode" value="${location.postalcode}"></div>
  
      <div class="form-group">
  <label class="form-label" for="city">City:</label>
- <input type="text" id="city" name="city"></div>
+ <input type="text" id="city" name="city" value="${location.city}"></div>
  
       <div class="form-group">
  <label class="form-label" for="country">Country:</label>
- <input type="text" id="country" name="country"></div>
+ <input type="text" id="country" name="country" value="${location.country}"></div>
  
 <!-- TODO: Image-->
 

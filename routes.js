@@ -223,7 +223,7 @@ router.post("/addLocation", (req, res) => {
             return;
         }
 
-        // TODO: Add location added, kein Future, deswegen Then False.
+        // Add location added, kein Future, deswegen Then False (Db Methode muss implementiert sein).
         db.addLocation(location).then(
             location => {
                 res.writeHead(302, {
