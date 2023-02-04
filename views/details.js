@@ -39,25 +39,36 @@ function getDetailLocation(location) {
 }
 
 function createRow(location) {
-    return ` <div id="locationDetail">
-                  <div class="locationLabel">STREET:</div> 
-                  <div class="locationValue">${location.street}</div>
-  
-                  <div class="locationLabel">HOUSENUMBER: </div> 
-                  <div class="locationValue">${location.housenumber}</div>
-  
-                  <div class="locationLabel">POSTALCODE:</div> 
-                  <div class="locationValue">${location.postalcode}</div>
-  
-                  <div class="locationLabel">CITY:</div>
-                  <div class="locationValue"> ${location.city}</div>
-  
-                  <div class="locationLabel">COUNTRY: </div>
-                  <div class="locationValue">${location.country}</div>
-  
-                  ${location.latitude ? `<div class="locationLabel">LATITUDE: </div><div class="locationValue">${location.latitude}</div>` : ''}
-  
-                  ${location.longitude ? `<div class="locationLabel">LONGITUDE: </div><div class="locationValue">${location.longitude}</div>` : ''}
+    return ` <div class="locationDetail">
+                  <div class="locationPair">
+                      <div class="locationLabel">STREET:</div> 
+                      <div class="locationValue">${location.street}</div>
+                  </div>  
+                  <div class="locationPair">
+                      <div class="locationLabel">HOUSENUMBER: </div> 
+                      <div class="locationValue">${location.housenumber}</div>
+                  </div>
+                  
+                  <div class="locationPair">
+                      <div class="locationLabel">POSTALCODE:</div> 
+                      <div class="locationValue">${location.postalcode}</div>
+                  </div>
+                   
+                  <div class="locationPair">
+                      <div class="locationLabel">CITY:</div>
+                      <div class="locationValue"> ${location.city}</div>
+                  </div>
+                  
+                  <div class="locationPair">
+                      <div class="locationLabel">COUNTRY: </div>
+                      <div class="locationValue">${location.country}</div>
+                  </div>
+                  <div class="locationPair">
+                    ${location.latitude ? `<div class="locationLabel">LATITUDE: </div><div class="locationValue">${location.latitude}</div>` : ''}
+                  </div>
+                  <div class="locationPair">
+                    ${location.longitude ? `<div class="locationLabel">LONGITUDE: </div><div class="locationValue">${location.longitude}</div>` : ''}
+                  </div>
             </div>`;
 }
 
@@ -79,21 +90,31 @@ function getDetailWaterEntry(entry) {
 
 function createRow2(entry) {
     console.log(entry);
-    return ` <div id="locationDetail">
-                  <div class="waterLabel">TYPE:</div> 
-                  <div class="waterValue">${entry.type}</div>
-  
-                  <div class="waterLabel">AMOUNT: </div> 
-                  <div class="waterValue">${entry.amount}</div>
-  
-                  <div class="waterLabel">ML:</div> 
-                  <div class="waterValue">${entry.ml}</div>
-  
-                  <div class="waterLabel">CREATED:</div>
-                  <div class="waterValue"> ${entry.created}</div>
-  
-                  <div class="waterLabel">LOCATION: </div>
-                  ${entry.street ? `<div class="waterValue">${entry.street} ${entry.housenumber} ${entry.postalcode} ${entry.city} ${entry.country}</div>` : '<a class="add" href="/newLocation"><img class="icon" src="/public/images/new.png" alt="new location" title="New Location" /><span>Add location</span></a>'}
+    return ` <div class="locationDetail">
+                  <div class="locationPair">
+                      <div class="waterLabel">TYPE:</div> 
+                      <div class="waterValue">${entry.type}</div>
+                  </div>
+                  
+                  <div class="locationPair">
+                      <div class="waterLabel">AMOUNT: </div> 
+                      <div class="waterValue">${entry.amount}</div>
+                  </div>
+                  
+                  <div class="locationPair">
+                      <div class="waterLabel">ML:</div> 
+                      <div class="waterValue">${entry.ml}</div>
+                  </div>
+                  
+                  <div class="locationPair">
+                      <div class="waterLabel">CREATED:</div>
+                      <div class="waterValue"> ${entry.created}</div>
+                  </div>
+                  
+                  <div class="locationPair">
+                      <div class="waterLabel">LOCATION: </div>
+                      ${entry.street ? `<div class="waterValue">${entry.street} ${entry.housenumber} ${entry.postalcode} ${entry.city} ${entry.country}</div>` : '<a class="add" href="/newLocation"><img class="icon" src="/public/images/new.png" alt="new location" title="New Location" /><span>Add location</span></a>'}
+                  </div>
             </div>`;
 }
 module.exports = {
