@@ -138,7 +138,7 @@ ${createSidebar()}
  <div>
    <div class="form-group">
  <label class="form-label" for="street">Street:</label>
- <input type="text" id="street" name="street" value="${location.street}" required pattern="^([^0-9]*)$"></div>
+ <input type="text" id="street" name="street" value="${location.street}" required pattern="^[a-zA-ZßöäüÖÄÜ]*$"></div>
  
     <div class="form-group">
  <label class="form-label" for="housenumber">Housenumber:</label>
@@ -150,11 +150,11 @@ ${createSidebar()}
  
      <div class="form-group">
  <label class="form-label" for="city">City:</label>
- <input type="text" id="city" name="city" value="${location.city}" required pattern="^([^0-9]*)$"></div>
+ <input type="text" id="city" name="city" value="${location.city}" required pattern="^[a-zA-ZßöäüÖÄÜ]*$"></div>
  
       <div class="form-group">
  <label class="form-label" for="country">Country:</label>
- <input type="text" id="country" name="country" value="${location.country}" required pattern="^([^0-9]*)$"></div>
+ <input type="text" id="country" name="country" value="${location.country}" required pattern="^[a-zA-ZßöäüÖÄÜ]*$"></div>
  
 <!-- TODO: Image-->
   <input type="file" id="image" name="image" accept="image/png, image/jpeg"  multiple="false">

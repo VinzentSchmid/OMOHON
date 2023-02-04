@@ -178,8 +178,7 @@ router.post("/addLocation", (req, res) => {
     form.on("event", function (name, value) {
 
         if (name === "street") {
-            // Checks, if NOT number
-            const regexStreet = /^([^0-9]*)$/;
+            const regexStreet = /^[a-zA-ZßöäüÖÄÜ]*$/;
             if (value.trim() === "" || !regexStreet.test(value)){
                 form._error("Street name wrong!")
             }
@@ -198,8 +197,8 @@ router.post("/addLocation", (req, res) => {
         }
 
         if (name === "postalcode") {
-            const regexHousenumber = /[\d]+/;
-            if (value.trim() === "" || !regexHousenumber.test(value)) {
+            const regexPostalcode = /[\d]+/;
+            if (value.trim() === "" || !regexPostalcode.test(value)) {
                 form._error("Postal Code must be entered!")
             }
             try {
@@ -210,15 +209,15 @@ router.post("/addLocation", (req, res) => {
         }
 
         if (name === "city") {
-            const regexStreet = /^([^0-9]*)$/;
-            if (value.trim() === "" || regexStreet.test(value)) {
+            const regexCity = /^[a-zA-ZßöäüÖÄÜ]*$/;
+            if (value.trim() === "" || !regexCity.test(value)) {
                 form._error("City must be entered!")
             }
         }
 
         if (name === "country") {
-            const regexCountry = /^([^0-9]*)$/;
-            if (value.trim() === "" || regexCountry.test(value)) {
+            const regexCountry = /^[a-zA-ZßöäüÖÄÜ]*$/;
+            if (value.trim() === "" || !regexCountry.test(value)) {
                 form._error("Country must be entered!")
             }
         }
