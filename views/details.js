@@ -12,6 +12,7 @@ function getDetailLocation(location) {
                 function initMap() {
                 const data = ${JSON.stringify(location[0])}
                   const location = { lat: Number(data.latitude), lng: Number(data.longitude) };
+                console.log(data);
                   const map = new google.maps.Map(document.getElementById("map"), {
                     zoom: 20,
                     center: location,
@@ -23,6 +24,7 @@ function getDetailLocation(location) {
                 }
                 
                 window.initMap = initMap;
+           
             </script>
         </head>
         <body>
