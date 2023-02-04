@@ -122,7 +122,7 @@ function getNewLocationForm(location, error, waterEntryID){
         header = "Edit location";
     }
 
-    const form = `<!DOCTYPE html>
+    return `<!DOCTYPE html>
 <html>
  <head> 
  <title>${header}</title>
@@ -168,7 +168,6 @@ ${createSidebar()}
  </div>
  </body>
 </html>`;
-    return form;
 }
 
 module.exports = {getWaterEntryForm, getNewLocationForm};

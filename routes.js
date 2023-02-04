@@ -3,18 +3,13 @@ const formidable = require("formidable");
 const db = require('./database')
 const {getWaterEntriesList, getAllLocations} = require("./views/overview");
 const router = express.Router();
-const form = new formidable.IncomingForm();
 const details = require("./views/details");
 const path = require("path");
 const {getWaterEntryForm, getNewLocationForm} = require("./views/form")
 const csv = require('fast-csv');
-const multer = require('multer');
-const {insertImage} = require("./database");
-const storage = multer.memoryStorage();
-const upload = multer({storage: storage});
 const options = {
     headers: true,
-    delimiter: ';',  // Change the delimiter to ';'
+    delimiter: ';',
     quoteColumns: true,
     encoding: 'utf8',
 
@@ -60,7 +55,7 @@ router.get("/editWaterEntry/:id", (req, res) => {
 });
 router.get("/removeWaterEntry/:id", (req, res) => {
     db.removeWaterEntry(req.params.id).then(
-        liquids => {
+        () => {
             res.redirect('/waterEntries')
         },
         error => {
@@ -109,7 +104,7 @@ router.post("/addWaterEntry", (req, res) => {
         }
     });
 
-    form.parse(req, (err, liquid, files) => {
+    form.parse(req, (err, liquid) => {
 
         if (err) {
             res.send('getError(err)')
@@ -117,7 +112,7 @@ router.post("/addWaterEntry", (req, res) => {
         }
 
         db.addWaterEntry(liquid).then(
-            liquid => {
+            () => {
                 res.writeHead(302, {
                     location: '/waterentries', 'content-type':
                         'text/plain'
@@ -132,7 +127,7 @@ router.post("/addWaterEntry", (req, res) => {
 
 router.get("/mapLocationToWaterEntry/:entryID/:locationID", (req, res) => {
     db.mapLocationToWaterEntry(req.params.entryID, req.params.locationID).then(
-        success => {
+        () => {
             res.writeHead(302, {
                 location: '/waterEntries', 'content-type': 'text/plain'
             });
@@ -274,7 +269,7 @@ router.post("/addLocation/:id", (req, res) => {
                         location => {
                             if (req.params.id) {
                                 db.mapLocationToWaterEntry(req.params.id, location.insertId).then(
-                                    success => {
+                                    () => {
                                         res.writeHead(302, {
                                             location: '/waterentries', 'content-type': 'text/plain'
                                         });
@@ -312,7 +307,7 @@ router.get("/editLocation/:id", (req, res) => {
 router.get("/deleteLocation/:id", (req, res) => {
     const id = parseInt(req.params.id, 10);
     db.removeLocation(id).then(
-        location => {
+        () => {
             res.writeHead(302, {location: '/locations', 'content-type': 'text/plain'});
             res.end('302 Redirecting to /locations');
         },
