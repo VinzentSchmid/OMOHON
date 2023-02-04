@@ -98,7 +98,7 @@ function getWaterEntryForm(liquid, locations) {
 </html>`;
 }
 
-function getNewLocationForm(location){
+function getNewLocationForm(location, error){
     if (location === undefined) {
         location = {
             id: '',
@@ -110,9 +110,6 @@ function getNewLocationForm(location){
             city: '',
             country: ''
         };
-    } else {
-        // Edit: Get Object from Json (List) -> easier handling.
-        location = location[0];
     }
     // define different header(s)
     let header = "Add new location";
@@ -141,23 +138,23 @@ ${createSidebar()}
  <div>
    <div class="form-group">
  <label class="form-label" for="street">Street:</label>
- <input type="text" id="street" name="street" value="${location.street}"></div>
+ <input type="text" id="street" name="street" value="${location.street}" required pattern="^[a-zA-ZßöäüÖÄÜ]*$"></div>
  
     <div class="form-group">
  <label class="form-label" for="housenumber">Housenumber:</label>
- <input type="text" id="housenumber" name="housenumber" value="${location.housenumber}"></div>
+ <input type="text" id="housenumber" name="housenumber" value="${location.housenumber}" required pattern="[\\d]+"></div>
  
      <div class="form-group">
  <label class="form-label" for="postalcode">Postal Code:</label>
- <input type="text" id="postalcode" name="postalcode" value="${location.postalcode}"></div>
+ <input type="text" id="postalcode" name="postalcode" value="${location.postalcode}" required pattern="[\\d]+"></div>
  
      <div class="form-group">
  <label class="form-label" for="city">City:</label>
- <input type="text" id="city" name="city" value="${location.city}"></div>
+ <input type="text" id="city" name="city" value="${location.city}" required pattern="^[a-zA-ZßöäüÖÄÜ]*$"></div>
  
       <div class="form-group">
  <label class="form-label" for="country">Country:</label>
- <input type="text" id="country" name="country" value="${location.country}"></div>
+ <input type="text" id="country" name="country" value="${location.country}" required pattern="^[a-zA-ZßöäüÖÄÜ]*$"></div>
  
 <!-- TODO: Image-->
   <input type="file" id="image" name="image" accept="image/png, image/jpeg"  multiple="false">

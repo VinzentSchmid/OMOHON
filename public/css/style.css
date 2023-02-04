@@ -16,12 +16,12 @@ html, body{
 
 /* Track */
 ::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: #444755;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #444755;
+    background: #343440;
 }
 
 /* Handle on hover */
@@ -37,7 +37,7 @@ h1{
 .icon{
     border-radius: 5px;
     background-color: #343440;
-    border: 1px solid #343440;
+    outline: 1px solid #343440;
     margin: 5px;
 }
 .row:hover td:not(.no-hover) {
@@ -138,9 +138,9 @@ input, button, select{
     border-radius: 5px;
     border: 1px solid #444755;
 }
-button:hover, .icon:hover{
+button:hover, .icon:hover, button:disabled{
     background-color: #444755;
-    border: 2px solid #343440;
+    outline: 2px solid #343440;
     cursor: pointer;
     border-radius: 5px;
 }
@@ -271,6 +271,18 @@ input[type="radio"]:checked {
     justify-content: center;
     align-items: center;
 }
-
+td.no-hover a {
+    width: 100%;
+    height: 100%;
+}
+td.no-hover a img {
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+}
+td.no-hover a img:hover {
+    outline: none;
+    border: none;
+}
 
 

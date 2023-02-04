@@ -2,7 +2,7 @@ const connection = require('./config')
 
 function getAllLocations() {
     return new Promise((resolve, reject) => {
-        const query = 'SELECT * FROM locations;';
+        const query = 'SELECT * FROM locations ORDER BY street;';
         connection.query(query, (error, results) => {
             if (error) {
                 console.log(error);
@@ -83,7 +83,7 @@ function search(query) {
 
 function getAllWaterEntries() {
     return new Promise((resolve, reject) => {
-        const query = 'SELECT * FROM locations RIGHT JOIN waterentries ON waterentries.locations_id = locations.id;';
+        const query = 'SELECT * FROM locations RIGHT JOIN waterentries ON waterentries.locations_id = locations.id ORDER BY type;';
         connection.query(query, (error, results) => {
             if (error) {
                 console.log(error);
