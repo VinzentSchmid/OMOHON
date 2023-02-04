@@ -22,9 +22,10 @@ h1{
 }
 .row:hover{
     background-color: #343440;
-    border-radius: 5px;
+    border-radius: 100px;
     border: 1px solid #343440;
     cursor: pointer;
+
 }
 td{
     text-align: center;
@@ -107,18 +108,26 @@ input, button {
     border-radius: 5px;
     border: 1px solid #343440;
 }
+button:hover, .icon:hover{
+    background-color: #444755;
+    border: 2px solid #343440;
+    cursor: pointer;
+    border-radius: 5px;
+}
 #searchBar > input{
     margin: 5px;
 }
 .add {
     display: flex;
     flex-direction: row;
+    justify-content: flex-start;
     margin-right: 20px;
 
 }
 .add > span{
     display: flex;
     align-items: center;
+    justify-content: flex-start;
 }
 .add > img{
     margin-right: 10px;
@@ -134,7 +143,7 @@ input, button {
     border-radius: 10px;
 }
 .main {
-    margin-left: 220px;
+    margin-left: 200px;
     padding: 20px;
 }
 #sidebar > ul > li{
@@ -149,8 +158,7 @@ input, button {
     border-radius: 5px;
 }
 .waterEntryForm, .locationEntryForm{
-    width: 50%;
-    margin: 50px auto;
+    margin: 0 auto 0 -200px;
     display: flex;
     flex-direction: column;
     align-items: center;

@@ -49,7 +49,6 @@ function getAllLocations(locations) {
 }
 // TODO: add elements, which you like add to the table
 function createRow(location) {
-
     return `<tr class="row">
                 <td class="linkToDetail" hidden="hidden">${location.id}</td>
                 <td class="linkToDetail">${location.street}</td>
@@ -107,8 +106,15 @@ function getWaterEntriesList(entries, locations) {
  <h1>Water Entries</h1>
  ${createSidebar("/waterEntries")}
  <div class="main">
+<<<<<<< HEAD
  <a class="add" href="/newWaterEntry"><img class="icon" src="../public/images/new.png"
 alt="new liquid" title="new liquid" /><span>Add water entry</span></a>
+=======
+ <div class="action">
+     <a class="add" href="/newWaterEntry"><img class="icon" src="../public/images/new.png"
+    alt="new liquid" title="new liquid" /><span>Add New Drink</span></a>
+ </div>
+>>>>>>> cf4e77db88021592bc5ba9660d47e3d556dca07a
 <form id="searchBar" action="/search" method="get">
   <input type="text" name="q" placeholder="Search Drinks...">
   <input type="hidden" name="type" value="water">
@@ -117,8 +123,9 @@ alt="new liquid" title="new liquid" /><span>Add water entry</span></a>
 </form>
  <table>
  <tr>
- <th>LIQUID</th><th>AMOUNT</th><th>LOCATION</th><th
-colspan="2">ACTIONS</th>
+    <th>LIQUID</th>
+    <th>AMOUNT</th>
+    <th>LOCATION</th> 
  </tr>
 
  ${entries.map(createWaterEntryRow).join('')}
@@ -135,11 +142,9 @@ function createWaterEntryRow(entry) {
                   <td class="linkToEntry" hidden="true">${entry.id}</td>
                  <td class="linkToEntry">${entry.type}</td>
                  <td class="linkToEntry">${entry.ml}</td>
-                 ${entry.street ? `<td class="linkToEntry">${entry.street} ${entry.housenumber} ${entry.postalcode} ${entry.city} ${entry.country}</td>` : `<td class="newLocation">  <select name="location" id="location"></select></td>`}
-                 <td class="linkToEntry"><a href="/removeWaterEntry/${entry.id}"><img class="icon"
-                        src="/static/images/delete.png" alt="delete liquid" title="delete liquid"/></a></td>
-                 <td class="linkToEntry"><a href="/editWaterEntry/${entry.id}"><img class="icon"
-                        src="/static/images/edit.png" alt="edit liquid" title="edit liquid"/></a></td>
+                 ${entry.street ? `<td class="linkToEntry">${entry.street} ${entry.housenumber} ${entry.postalcode} ${entry.city} ${entry.country}</td>` : `<td class="newLocation"><select name="location" id="location"></select></td>`}
+                 <td><a href="/removeWaterEntry/${entry.id} "onclick="return confirm('Are you sure you want to delete this location ?')"><img class="icon" src="/public/images/delete.png" alt="delete liquid" title="delete liquid"/></a></td>
+                 <td><a href="/editWaterEntry/${entry.id}"><img class="icon" src="/public/images/edit.png" alt="edit liquid" title="edit liquid"/></a></td>
             </tr>`;
 }
 module.exports = {
