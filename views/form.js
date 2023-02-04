@@ -94,20 +94,25 @@ function getWaterEntryForm(liquid, locations) {
 // TODO: Front End validation
 
 function getNewLocationForm(location){
-    // if (location == undefined) {
-    //     liquid = {
-    //         id: '',
-    //         ml: 0,
-    //         type: ''
-    //     };
-    // }
+    if (location == undefined) {
+        location = {
+            id: '',
+            latitude: '',
+            longitude: '',
+            street: '',
+            housenumber: '',
+            postalcode: '',
+            city: '',
+            country: ''
+        };
+    }
     // define different header(s)
     let header = "Add new location";
     // check if alredy exists and fill object
 
-    // if (location.id) {// note = notes.find(nte => nte.id === parseInt(id));
-    //     header = "Edit location";
-    // }
+    if (location.id) {
+        header = "Edit location";
+    }
 
     // build form within javascript
     const form = `<!DOCTYPE html>
@@ -122,7 +127,7 @@ function getNewLocationForm(location){
 ${createSidebar()}
     <div class="main">
  <form class="locationEntryForm" action="/addLocation" method="POST">
-<!--TODO: See other add form (location.id)-->
+ <input type="hidden" id="id" name="id" value="${location.id}">
 <!-- TODO: Form Check Validation, Regex, ...-->
 
  <div>

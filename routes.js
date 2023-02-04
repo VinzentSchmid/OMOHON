@@ -236,8 +236,15 @@ router.post("/addLocation", (req, res) => {
     });
 
 });
-router.get("/editLocation:id", (req, res) => {
-    //TODO implement updateLocation
+router.get("/editLocation/:id", (req, res) => {
+    db.getLocationByID(req.params.id).then(
+        location => {
+            res.send(getNewLocationForm(location))
+        },
+        error => {
+            console.log("ERROR")
+        }
+    )
 });
 router.get("/deleteLocation/:id", (req, res) => {
     const id = parseInt(req.params.id, 10);

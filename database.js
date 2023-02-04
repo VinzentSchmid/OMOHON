@@ -27,19 +27,26 @@ function getLocationByID(id) {
     });
 }
 
-// function addLocation(location) {
 function addLocation(location) {
-    const query = "INSERT INTO `locations` (`id`, `latitude`, `longitude`, `street`, `housenumber`, `postalcode`, `city`, `country`) VALUES (NULL, location.latitude, location.longitude, location.street, location.housenumber, location.postalcode, location.city, location.country);"
-    connection.query(query, function (err, result) {
-        if (err) throw err;
-        console.log("1 record inserted")
-    })
+    return new Promise((resolve, reject) => {
+        const query = "INSERT INTO locations (street, housenumber, postalcode, city, country) VALUES (?,?,?,?,?);"
+        connection.query(query, [location.street, location.housenumber, location.postalcode, location.city, location.country],function (err, result) {
+            if (err) {
+                reject(err);
+                console.log("NO record inserted")
+            } else{
+                resolve(result);
+                console.log("1 record inserted")
+            }
+        })
+    });
+
 }
 
 function removeLocation(id) {
     return new Promise((resolve, reject) => {
         const query = 'DELETE FROM locations WHERE id = ?';
-        connection.query(query, [id],(error, results) => {
+        connection.query(query, [id], (error, results) => {
             if (error) {
                 reject(error);
             } else {
@@ -50,7 +57,9 @@ function removeLocation(id) {
 }
 
 function updateLocation(location) {
-    
+    // return new Promise((resolve, reject) => {
+    //     const query =
+    // })
 }
 function search(query) {
     return new Promise((resolve, reject) => {
