@@ -31,7 +31,7 @@ function getWaterEntryForm(liquid, locations) {
  const option = document.createElement('option');
  option.value = 'submit';
  option.id = 'submitOption';
- option.textContent = 'Submit';
+ option.textContent = 'Create New';
  select.appendChild(option);
  
   select.addEventListener("change", function() {

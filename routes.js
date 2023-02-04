@@ -107,6 +107,20 @@ router.post("/addWaterEntry", (req, res) => {
     });
 
 });
+
+router.get("/mapLocationToWaterEntry/:entryID/:locationID", (req, res) => {
+    console.log(req.params.entryID)
+    console.log(req.params.locationID)
+    db.mapLocationToWaterEntry(req.params.entryID, req.params.locationID).then(
+        success => {
+            res.writeHead(302, {
+                location: '/waterEntries', 'content-type': 'text/plain'
+            });
+            res.end('302 Redirecting to /waterEntries');
+        },
+        error => console.log("ERROR")
+    );
+});
 router.get("/waterentries", (req, res) => {
     db.getAllWaterEntries().then(
         liquids => {
@@ -128,7 +142,7 @@ router.get("/waterentries", (req, res) => {
 
 router.get("/detailWaterEntry/:id", (req, res) => {
     const id = parseInt(req.params.id, 10);
-    db.getWaterEntryByID2(id).then(
+    db.getWaterEntryByID(id).then(
         entry => {
             res.status(200).send(details.getDetailWaterEntry(entry));
         },

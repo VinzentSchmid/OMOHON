@@ -73,20 +73,8 @@ function getAllWaterEntries() {
 
 }
 
-function getWaterEntryByID(id) {
-    return new Promise((resolve, reject) => {
-        const query = 'SELECT * FROM waterentries WHERE id = ?';
-        connection.query(query, [id],(error, results) => {
-            if (error) {
-                reject(error);
-            } else {
-                resolve(results[0]);
-            }
-        });
-    });
-}
 
-function getWaterEntryByID2(id) {
+function getWaterEntryByID(id) {
     return new Promise((resolve, reject) => {
         const query = 'SELECT * FROM locations RIGHT JOIN waterentries ON waterentries.id = ? AND waterentries.locations_id = locations.id';
         connection.query(query, [id],(error, results) => {
@@ -138,7 +126,19 @@ function updateWaterEntry(liquid) {
         });
     });
 }
-
+function mapLocationToWaterEntry(entryID, locationID) {
+    return new Promise((resolve, reject) => {
+        const query = 'UPDATE waterentries SET locations_id = ? WHERE id = ?';
+        connection.query(query, [Number(locationID), Number(entryID)],(error, results) => {
+            if (error) {
+                console.log(error);
+                reject(error);
+            } else {
+                resolve(results);
+            }
+        });
+    });
+}
 module.exports = {
     getAllLocations,
     search,
@@ -160,9 +160,6 @@ module.exports = {
     getWaterEntryByID(id){
         return getWaterEntryByID(id)
     },
-    getWaterEntryByID2(id){
-        return getWaterEntryByID2(id)
-    },
     removeWaterEntry(id){
         return removeWaterEntry(id)
     },
@@ -172,5 +169,8 @@ module.exports = {
         } else {
             return updateWaterEntry(waterEntry);
         }
+    },
+    mapLocationToWaterEntry(entryID, locationID){
+        return mapLocationToWaterEntry(entryID, locationID);
     }
 }

@@ -69,36 +69,48 @@ function getWaterEntriesList(entries, locations) {
  <meta charset="utf-8">
  <link rel="stylesheet" href="/public/css/style.css" />
          <script>
+          const data = ${JSON.stringify(locations)};
             document.addEventListener("DOMContentLoaded", function () {
                 const linkToDetailElements = document.getElementsByClassName("linkToEntry");
+                const rows = document.getElementsByClassName('row');
+                
                 for (let i = 0; i < linkToDetailElements.length; i++) {
-                    let id = linkToDetailElements[i].parentElement.children[0].innerHTML;
-                    linkToDetailElements[i].addEventListener("click", function (event) {
+                    let id = linkToDetailElements[i].parentElement.id;
+                    linkToDetailElements[i].addEventListener("click", function (_) {
                         window.location = '/detailWaterEntry/'+ id;
                     });
                 }
-            });
-            document.addEventListener('DOMContentLoaded', function() {
-  const data = ${JSON.stringify(locations)};
- const select = document.getElementById('location');
- data.forEach(location => { 
-      const option = document.createElement('option');
-      option.value = location.id;
-      option.textContent = location.street + ' ' + location.housenumber + ' ' + location.postalcode + ' ' + location.city + ' ' + location.country;
-      select.appendChild(option);
- });
- const option = document.createElement('option');
- option.value = 'submit';
- option.id = 'submitOption';
- option.textContent = 'Submit';
- select.appendChild(option);
- 
-  select.addEventListener("change", function() {
-    if (select.value === "submit") {
-      window.location = "/newLocation";
-    }
-  });
-});
+                for(let i = 0; i < rows.length; i++) {
+                  let id = rows[i].id;
+                  const select = document.getElementById(id+'select');
+                 if(!select){
+                     continue;
+                 }
+                 data.forEach(location => { 
+                      const option = document.createElement('option');
+                      option.value = location.id;
+                      option.textContent = location.street + ' ' + location.housenumber + ' ' + location.postalcode + ' ' + location.city + ' ' + location.country;
+                      select.appendChild(option);
+                 });
+
+                 const optionSubmit = document.createElement('option');
+                 optionSubmit.value = 'submit';
+                 optionSubmit.id = 'submitOption';
+                 optionSubmit.textContent = 'Create New';
+                 select.appendChild(optionSubmit);
+                 
+                  select.addEventListener("change", function() {
+                      console.log('EVENTLISTENER ')
+                    if (select.value === "submit") {
+                        //TODO Übergabe von ID mittels (newLocation/1) -> Location erstellen und der WaterEntry zuweisen
+                      window.location = "/newLocation/"+id;
+                    }
+                    else{
+                        window.location = "/mapLocationToWaterEntry/" + id + '/' + select.value;
+                    }
+                  });
+                }  
+            });   
         </script>
         
  </head>
@@ -131,13 +143,11 @@ alt="new liquid" title="new liquid" /><span>Add water entry</span></a>
  </html>`;
 }
 
-// create each row with TR and TD Elements
 function createWaterEntryRow(entry) {
-    return `<tr class="row">
-                  <td class="linkToEntry" hidden="true">${entry.id}</td>
+    return `<tr class="row" id="${entry.id}">
                  <td class="linkToEntry">${entry.type}</td>
                  <td class="linkToEntry">${entry.ml}</td>
-                 ${entry.street ? `<td class="linkToEntry">${entry.street} ${entry.housenumber} ${entry.postalcode} ${entry.city} ${entry.country}</td>` : `<td class="newLocation"><select name="location" id="location"></select></td>`}
+                 ${entry.street ? `<td class="linkToEntry">${entry.street} ${entry.housenumber} ${entry.postalcode} ${entry.city} ${entry.country}</td>` : `<td class="newLocation"><select name="location" id="${entry.id}select"></select></td>`}
                  <td><a href="/removeWaterEntry/${entry.id} "onclick="return confirm('Are you sure you want to delete this location ?')"><img class="icon" src="/public/images/delete.png" alt="delete liquid" title="delete liquid"/></a></td>
                  <td><a href="/editWaterEntry/${entry.id}"><img class="icon" src="/public/images/edit.png" alt="edit liquid" title="edit liquid"/></a></td>
             </tr>`;
