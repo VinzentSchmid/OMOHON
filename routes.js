@@ -10,7 +10,10 @@ const {getWaterEntryForm, getNewLocationForm} = require("./views/form")
 const csv = require('fast-csv');
 const options = {
     headers: true,
-    delimiter: ';'  // Change the delimiter to ';'
+    delimiter: ';',  // Change the delimiter to ';'
+    quoteColumns: true,
+    encoding: 'utf8',
+
 };
 
 router.use("/static", express.static('public'));
@@ -257,7 +260,6 @@ router.get("/search", (req, res) => {
 });
 
 
-
 router.get('/export', (req, res) => {
     // Query the database to get the locations
     db.getAllLocations()
@@ -265,14 +267,20 @@ router.get('/export', (req, res) => {
             // Set the response headers
             res.setHeader('Content-Type', 'text/csv');
             res.setHeader('Content-Disposition', 'attachment; filename="locations.csv"');
-
+            const data = results.map((location) => {
+                return {
+                    id: location.id,
+                    latitude: location.latitude,
+                    longitude: location.longitude,
+                    street: location.street,
+                    housenumber: location.housenumber,
+                    postalcode: location.postalcode,
+                    city: location.city,
+                    country: location.country
+                };
+            });
             // Stream the data to the response object
-            csv.write(results, options).pipe(res);
-            // Listen to the finish event of the response object
-            // res.on('finish', () => {
-            //     // Show the toaster message
-            //     alert("Download completed");
-            // });
+            csv.write(data, options).pipe(res);
         })
         .catch((error) => {
             console.error(error);
