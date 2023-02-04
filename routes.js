@@ -22,7 +22,7 @@ const options = {
 const fs = require('fs');
 
 const nodeGeocoder = require('node-geocoder');
-const addError = require("./views/errorview");
+const errorView = require("./views/errorview");
 
 router.use("/static", express.static('public'));
 
@@ -103,7 +103,7 @@ router.post("/addWaterEntry", (req, res) => {
     form.parse(req, (err, liquid, files) => {
 
         if (err) {
-            res.send("addError(err)");
+            res.send("errorView(err)");
             return
         }
 
