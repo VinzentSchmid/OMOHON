@@ -25,7 +25,15 @@ router.get("/", (req, res) => {
 router.get("/editWaterEntry/:id", (req, res) => {
     db.getWaterEntryByID(req.params.id).then(
         liquid => {
-            res.send(getWaterEntryForm(liquid))
+            db.getAllLocations().then(
+                locations => {
+                    res.send(getWaterEntryForm(liquid, locations))
+                },
+                error => {
+                    console.log("ERROR")
+                }
+            )
+
         },
         error => {
             console.log("ERROR")
@@ -44,7 +52,14 @@ router.get("/removeWaterEntry/:id", (req, res) => {
     )
 });
 router.get("/newWaterEntry", (req, res) => {
-    res.send(getWaterEntryForm())
+    db.getAllLocations().then(
+        locations => {
+            res.send(getWaterEntryForm(undefined, locations))
+        },
+        error => {
+            console.log("ERROR")
+        }
+    )
 });
 router.post("/addWaterEntry", (req, res) => {
     const form = new formidable.IncomingForm();
@@ -92,7 +107,15 @@ router.post("/addWaterEntry", (req, res) => {
 router.get("/waterentries", (req, res) => {
     db.getAllWaterEntries().then(
         liquids => {
-            res.send(getWaterEntriesList(liquids))
+            db.getAllLocations().then(
+                locations => {
+                    res.send(getWaterEntriesList(liquids, locations))
+                },
+                error => {
+                    console.log("ERROR");
+                }
+            )
+
         },
         error => {
             console.log("ERROR")
@@ -232,7 +255,9 @@ router.get("/search", (req, res) => {
     let query;
     switch (req.query.type) {
         case "location":
-            query = `SELECT * FROM locations WHERE street LIKE '%${req.query.q}%';`;
+            query = `SELECT *
+                     FROM locations
+                     WHERE street LIKE '%${req.query.q}%';`;
             db.search(query).then(
                 locations => {
                     res.status(200).send(getAllLocations(locations));
@@ -243,7 +268,11 @@ router.get("/search", (req, res) => {
             );
             break;
         case "water":
-            query = `SELECT * FROM waterentries, locations WHERE type LIKE '%${req.query.q}%' AND waterentries.locations_id = locations.id or locations.id IS NULL;`;
+            query = `SELECT *
+                     FROM waterentries,
+                          locations
+                     WHERE type LIKE '%${req.query.q}%' AND waterentries.locations_id = locations.id
+                        or locations.id IS NULL;`;
             db.search(query).then(
                 waterentries => {
                     res.status(200).send(getWaterEntriesList(waterentries));
@@ -255,7 +284,6 @@ router.get("/search", (req, res) => {
             break;
     }
 });
-
 
 
 router.get('/export', (req, res) => {
