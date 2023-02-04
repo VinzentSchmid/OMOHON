@@ -49,7 +49,6 @@ function getAllLocations(locations) {
 }
 // TODO: add elements, which you like add to the table
 function createRow(location) {
-
     return `<tr id="row">
                 <td class="linkToDetail" hidden="hidden">${location.id}</td>
                 <td class="linkToDetail">${location.street}</td>
@@ -115,10 +114,8 @@ function createWaterEntryRow(entry) {
                  <td class="linkToEntry">${entry.type}</td>
                  <td class="linkToEntry">${entry.ml}</td>
                  ${entry.street ? `<td class="linkToEntry">${entry.street} ${entry.housenumber} ${entry.postalcode} ${entry.city} ${entry.country}</td>` : `<td class="newLocation"><a class="add" href="/newLocation"><img class="icon" src="/public/images/new.png" alt="new location" title="New Location" /><span>Add location</span></a></td>`}
-                 <td class="linkToEntry"><a href="/removeWaterEntry/${entry.id}"><img class="icon"
-                        src="/static/images/delete.png" alt="delete liquid" title="delete liquid"/></a></td>
-                 <td class="linkToEntry"><a href="/editWaterEntry/${entry.id}"><img class="icon"
-                        src="/static/images/edit.png" alt="edit liquid" title="edit liquid"/></a></td>
+                 <td><a href="/removeWaterEntry/${entry.id} "onclick="return confirm('Are you sure you want to delete this location ?')"><img class="icon" src="/public/images/delete.png" alt="delete liquid" title="delete liquid"/></a></td>
+                 <td><a href="/editWaterEntry/${entry.id}"><img class="icon" src="/public/images/edit.png" alt="edit liquid" title="edit liquid"/></a></td>
             </tr>`;
 }
 module.exports = {
