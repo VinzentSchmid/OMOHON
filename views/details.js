@@ -68,7 +68,7 @@ function createRow(location) {
                   </div>
                   <div class="details">
                       <div id="map"></div>
-                      <img class="imageDetail" src="data:image/png;base64,${location.image}">
+                      ${location.image ? `<img class="imageDetail" src="data:image/png;base64,${location.image}">` : `<span class="imageDetail">No image provided</span>`}  
                   </div>
             </div>`;
 }
@@ -81,6 +81,25 @@ function getDetailWaterEntry(entry) {
             <link rel="stylesheet" href="/public/css/style.css" />
             <meta charset="utf-8">
         </head>
+         <script src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap&v=weekly" defer>
+            </script>
+            <script>
+                function initMap() {
+                const data = ${JSON.stringify(entry)}
+                console.log(data);
+                  const location = { lat: Number(data.latitude), lng: Number(data.longitude) };
+                  const map = new google.maps.Map(document.getElementById("map"), {
+                    zoom: 20,
+                    center: location,
+                  });
+                  const marker = new google.maps.Marker({
+                    position: location,
+                    map: map,
+                  });
+                }
+                
+                window.initMap = initMap;
+            </script>
         <body>
         <h1>WATER ENTRY DETAIL</h1>
         ${createSidebar()}
@@ -114,6 +133,10 @@ function createRow2(entry) {
                   <div class="locationPair">
                       <div class="waterLabel">LOCATION: </div>
                       ${entry.street ? `<div class="waterValue">${entry.street} ${entry.housenumber} ${entry.postalcode} ${entry.city} ${entry.country}</div>` : `<span>No location entered<span>`}
+                  </div>
+                  <div class="details">
+                      <div id="map"></div>
+                      ${entry.image ? `<img class="imageDetail" src="data:image/png;base64,${entry.image}">` : `<span>No image provided</span>`}  
                   </div>
             </div>`;
 }

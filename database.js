@@ -56,8 +56,8 @@ function removeLocation(id) {
 
 function updateLocation(location) {
     return new Promise((resolve, reject) => {
-        const query = "UPDATE locations SET street = ?, housenumber = ?, postalcode = ?, city = ?, country = ? WHERE id = ?";
-        connection.query(query, [location.street, location.housenumber, location.postalcode, location.city, location.country, location.id], (error, results) => {
+        const query = "UPDATE locations SET street = ?, housenumber = ?, postalcode = ?, city = ?, country = ?, image = ? WHERE id = ?";
+        connection.query(query, [location.street, location.housenumber, location.postalcode, location.city, location.country, location.image, location.id], (error, results) => {
             if (error) {
                 console.log(error);
                 reject(error);

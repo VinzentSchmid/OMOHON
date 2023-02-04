@@ -162,7 +162,7 @@ ${createSidebar()}
 <!-- TODO: Image-->
   <input type="file" id="image" name="image" accept="image/png, image/jpeg"  multiple="false">
   
- <button class="save" type="submit">save</button>
+ <button class="save" type="submit">SAVE</button>
 
 
  </form>
