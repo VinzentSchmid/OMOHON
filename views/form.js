@@ -1,6 +1,5 @@
 
 const createSidebar = require('./sidebar');
-const stream = require("stream");
 function getWaterEntryForm(liquid, locations) {
     if (liquid === undefined) {
         liquid = {
