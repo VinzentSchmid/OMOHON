@@ -1,4 +1,3 @@
-const {getAllWaterEntries} = require("../database");
 const createSidebar = require('./sidebar');
 function getAllLocations(locations) {
     return `<!DOCTYPE html>
@@ -47,7 +46,6 @@ function getAllLocations(locations) {
      </body>
  </html>`;
 }
-// TODO: add elements, which you like add to the table
 function createRow(location) {
     return `<tr class="row">
                 <td class="linkToDetail" hidden="hidden">${location.id}</td>
@@ -61,7 +59,7 @@ function createRow(location) {
             </tr>`;
 }
 
-function getWaterEntriesList(entries, locations) {
+function getWaterEntriesList(entries, locations, filter) {
     return `<!DOCTYPE html>
  <html>
  <head>
@@ -114,7 +112,12 @@ function getWaterEntriesList(entries, locations) {
                     }
                   });
                 }  
+                 const resetBtn = document.getElementById('reset');
+            if(!${JSON.stringify(filter)}){
+                resetBtn.disabled = true;
+            }
             });   
+           
         </script>
         
  </head>
@@ -127,10 +130,10 @@ function getWaterEntriesList(entries, locations) {
 alt="new liquid" title="new liquid" /><span>Add water entry</span></a>
 
 <form id="searchBar" action="/search" method="get">
-  <input type="text" name="q" placeholder="Search Drinks...">
+  <input type="text" name="q" placeholder="${filter ?? 'Search Drinks...'}">
   <input type="hidden" name="type" value="water">
   <button type="submit">Search</button>
-  <button type="reset" onClick="window.location.href='/waterEntries'">Reset</button>
+  <button id="reset" type="reset" onClick="window.location.href='/waterEntries'">Reset</button>
 </form>
  <table>
  <tr>

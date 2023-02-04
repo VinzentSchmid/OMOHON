@@ -1,5 +1,3 @@
-//Creates and return detail page with HTML and CSS reference
-//TODO
 const createSidebar = require('./sidebar');
 function getDetailLocation(location) {
     return `<!DOCTYPE html>

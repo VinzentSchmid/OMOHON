@@ -184,7 +184,8 @@ router.post("/addLocation", (req, res) => {
         if (name === "housenumber") {
             if (value.trim() === "") {
                 form._error("housenumber name must be entered!")
-            }try {
+            }
+            try {
                 Number.parseInt(value)
             } catch (e) {
                 form._error("housenumber name must be an Integer!")
@@ -228,8 +229,8 @@ router.post("/addLocation", (req, res) => {
 
         let geoCoder = nodeGeocoder(optionsMap);
         geoCoder.geocode(location)
-            .then((geocode)=> {
-                if(geocode.length === 0){
+            .then((geocode) => {
+                if (geocode.length === 0) {
                     res.send(getNewLocationForm(location, "No Location found!"));
                     return;
                 }
@@ -260,12 +261,13 @@ router.post("/addLocation", (req, res) => {
                                 });
                                 res.end('302 Redirecting to /locations');
                             },
-                            error => res.send(err));            }
+                            error => res.send(err));
+                    }
 
 
                 });
             })
-            .catch((err)=> {
+            .catch((err) => {
                 res.send(err);
             });
     });
@@ -315,7 +317,11 @@ router.get("/search", (req, res) => {
         case "location":
             query = `SELECT *
                      FROM locations
-                     WHERE street LIKE '%${req.query.q}%';`;
+                     WHERE street LIKE '%${req.query.q}%'
+                        OR housenumber LIKE '%${req.query.q}%'
+                        OR postalcode LIKE '%${req.query.q}%'
+                        OR city LIKE '%${req.query.q}%'
+                        OR country LIKE '%${req.query.q}%'`;
             db.search(query).then(
                 locations => {
                     res.status(200).send(getAllLocations(locations));
@@ -326,14 +332,22 @@ router.get("/search", (req, res) => {
             );
             break;
         case "water":
+            //SELECT * FROM locations RIGHT JOIN waterentries ON waterentries.locations_id = locations.id
             query = `SELECT *
-                     FROM waterentries,
-                          locations
-                     WHERE type LIKE '%${req.query.q}%' AND waterentries.locations_id = locations.id
-                        or locations.id IS NULL;`;
+                     FROM locations
+                              RIGHT JOIN waterentries ON waterentries.locations_id = locations.id
+                     WHERE type LIKE '%${req.query.q}%'`;
+
             db.search(query).then(
                 waterentries => {
-                    res.status(200).send(getWaterEntriesList(waterentries));
+                    db.getAllLocations().then(
+                        locations => {
+                            res.send(getWaterEntriesList(waterentries,locations, req.query.q));
+                        },
+                        error => {
+                            console.log("Error", error);
+                        }
+                    )
                 },
                 error => {
                     console.log("Error", error);
