@@ -43,31 +43,7 @@ function getWaterEntryForm(liquid, locations) {
 </script>
  </head>
  <body>
-<<<<<<< HEAD
- <h1 id="a">${header}</h1>
- <form class="waterEntryForm" action="/addWaterEntry" method="POST">
- <input type="hidden" id="id" name="id" value="${liquid.id}" />
- <div class="form-group">
 
- <label class="form-label" for="liquid-choice">Was hast du
-getrunken?:</label>
- <input list="liquid-list" id="liquid-choice" name="type"
-class="form-control" value="` + liquid.type + `" required pattern="[A-Za-z]*">
-
- <datalist id="liquid-list">
- <option value="Kaffee">
-<option value="Wasser">
-<option value="Apfelsaft">
- </datalist>
- </div>
-
- <div class="form-group border">
- <div>Welche Menge hast du getrunken?</div>
-     <div class="form-check">
-     <input type="radio" id="amount300ml" name="ml" value="300"
-    class="form-check-input" ` + (!liquid.ml || liquid.ml === 300 ? 'checked' : '') + ` >
-     <label class="form-label" for="amount300ml" >Glas 300ml</label>
-=======
  <h1>${header}</h1>
  ${createSidebar()}
  <div class="main">
@@ -80,20 +56,15 @@ class="form-control" value="` + liquid.type + `" required pattern="[A-Za-z]*">
      <input list="liquid-list" id="liquid-choice" name="type"
     class="form-control" value="` + liquid.type + `" required pattern="[A-Za-z]*">
     
-     <!-- current static list, later will be dynamic through
-    server logic -->
      <datalist id="liquid-list">
      <option value="Kaffee">
     <option value="Wasser">
     <option value="Apfelsaft">
      </datalist>
->>>>>>> cf4e77db88021592bc5ba9660d47e3d556dca07a
      </div>
     
      <div class="form-group border">
      <div>Welche Menge hast du getrunken?</div>
-     <!-- will be extended by future lessons, add additional amount
-    by other form -->
          <div class="form-check">
          <input type="radio" id="amount300ml" name="ml" value="300"
         class="form-check-input" ` + (!liquid.ml || liquid.ml === 300 ? 'checked' : '') + ` >
@@ -104,22 +75,16 @@ class="form-control" value="` + liquid.type + `" required pattern="[A-Za-z]*">
          <label class="form-check-label" for="amount500ml">Krug 500ml</label>
          </div>
      </div>
-    
+     <div>
+  <label for="location">Location</label>
+  <select name="location" id="location"></select>
+</div>
      <button class="save" type="submit">save</button>
     
      </form>
  </div>
-<<<<<<< HEAD
- <div>
-  <label for="location">Location</label>
-  <select name="location" id="location"></select>
-</div>
-
- <button class="save" type="submit">SAVE</button>
 
  </form>
-=======
->>>>>>> cf4e77db88021592bc5ba9660d47e3d556dca07a
  </body>
 </html>`;
 }
