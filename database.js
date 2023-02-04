@@ -27,11 +27,10 @@ function getLocationByID(id) {
     });
 }
 
-function addLocation(location, image64) {
+function addLocation(location) {
     return new Promise((resolve, reject) => {
-        console.log(location);
         const query = 'INSERT INTO locations (street, housenumber, postalcode, city, country, image) VALUES (?, ?, ?, ?, ?, ?)';
-        connection.query(query, [location.street, Number(location.housenumber), Number(location.postalcode), location.city, location.country, image64], (error, results) => {
+        connection.query(query, [location.street, Number(location.housenumber), Number(location.postalcode), location.city, location.country, location.image], (error, results) => {
             if (error) {
                 reject(error);
             } else {
@@ -93,9 +92,21 @@ function getAllWaterEntries() {
             }
         });
     });
+}
+function getDistinctWaterEntriesTypes() {
+    return new Promise((resolve, reject) => {
+        const query = 'SELECT DISTINCT type FROM locations RIGHT JOIN waterentries ON waterentries.locations_id = locations.id ORDER BY type;';
+        connection.query(query, (error, results) => {
+            if (error) {
+                console.log(error);
+                reject(error);
+            } else {
+                resolve(results);
+            }
+        });
+    });
 
 }
-
 
 function getWaterEntryByID(id) {
     return new Promise((resolve, reject) => {
@@ -184,11 +195,11 @@ module.exports = {
     removeLocation(id) {
         return removeLocation(id)
     },
-    addLocation(location, image64) {
+    addLocation(location) {
         if (!location.id) {
-            return addLocation(location, image64);
+            return addLocation(location);
         } else {
-            return updateLocation(location, image64);
+            return updateLocation(location);
         }
     },
     getAllWaterEntries,
@@ -207,5 +218,6 @@ module.exports = {
     },
     mapLocationToWaterEntry(entryID, locationID) {
         return mapLocationToWaterEntry(entryID, locationID);
-    }
+    },
+    getDistinctWaterEntriesTypes
 }

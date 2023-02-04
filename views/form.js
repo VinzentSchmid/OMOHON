@@ -1,6 +1,6 @@
 
 const createSidebar = require('./sidebar');
-function getWaterEntryForm(liquid, locations) {
+function getWaterEntryForm(liquid, locations, types) {
     if (liquid === undefined) {
         liquid = {
             id: '',
@@ -24,6 +24,7 @@ function getWaterEntryForm(liquid, locations) {
   const data = ${JSON.stringify(locations)};
  const select = document.getElementById('location');
  const liquid = ${JSON.stringify(liquid)};
+ const typeList = ${JSON.stringify(types)};
  
  const selectOption = document.createElement('option');
  selectOption.textContent = liquid.locations_id === undefined ? 'Select Location':'No Location';
@@ -41,6 +42,7 @@ function getWaterEntryForm(liquid, locations) {
  option.value = 'submit';
  option.id = 'submitOption';
  option.textContent = 'Create New';
+ option.classList.add('submitOption');
  select.appendChild(option);
  
   select.addEventListener("change", function() {
@@ -48,6 +50,13 @@ function getWaterEntryForm(liquid, locations) {
       window.location = "/newLocation";
     }
   });
+ const liquid_choice = document.getElementById('liquid-list');
+  for(let i = 0; i < typeList.length; i++) {
+    const option = document.createElement('option');
+    option.value = typeList[i].type;
+    option.textContent = typeList[i].type;
+    liquid_choice.appendChild(option);
+  }
 });
 </script>
  </head>
@@ -64,11 +73,7 @@ function getWaterEntryForm(liquid, locations) {
     getrunken?:</label>
      <input list="liquid-list" id="liquid-choice" name="type"
     class="form-control" value="` + liquid.type + `" required pattern="[A-Za-z]*">
-    
      <datalist id="liquid-list">
-     <option value="Kaffee">
-    <option value="Wasser">
-    <option value="Apfelsaft">
      </datalist>
      </div>
     
@@ -98,7 +103,7 @@ function getWaterEntryForm(liquid, locations) {
 </html>`;
 }
 
-function getNewLocationForm(location, error){
+function getNewLocationForm(location, error, waterEntryID){
     if (location === undefined) {
         location = {
             id: '',
@@ -111,15 +116,12 @@ function getNewLocationForm(location, error){
             country: ''
         };
     }
-    // define different header(s)
     let header = "Add new location";
-    // check if alredy exists and fill object
 
     if (location.id) {
         header = "Edit location";
     }
 
-    // build form within javascript
     const form = `<!DOCTYPE html>
 <html>
  <head> 
@@ -132,7 +134,7 @@ function getNewLocationForm(location, error){
  
 ${createSidebar()}
     <div class="main">
- <form class="locationEntryForm" action="/addLocation" method="POST" enctype="multipart/form-data">
+ <form class="locationEntryForm" action="/addLocation/${waterEntryID}" method="POST" enctype="multipart/form-data">
  <input type="hidden" id="id" name="id" value="${location.id}">
  
  <div>

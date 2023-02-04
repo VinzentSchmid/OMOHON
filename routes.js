@@ -37,7 +37,14 @@ router.get("/editWaterEntry/:id", (req, res) => {
         liquid => {
             db.getAllLocations().then(
                 locations => {
-                    res.send(getWaterEntryForm(liquid, locations))
+                    db.getDistinctWaterEntriesTypes().then(
+                        types => {
+                            res.send(getWaterEntryForm(liquid, locations, types))
+                        },
+                        error => {
+                            console.log("ERROR")
+                        }
+                    )
                 },
                 error => {
                     console.log("ERROR")
@@ -64,7 +71,15 @@ router.get("/removeWaterEntry/:id", (req, res) => {
 router.get("/newWaterEntry", (req, res) => {
     db.getAllLocations().then(
         locations => {
-            res.send(getWaterEntryForm(undefined, locations))
+            db.getDistinctWaterEntriesTypes().then(
+                types => {
+                    res.send(getWaterEntryForm(undefined, locations, types))
+                },
+                error => {
+                    console.log("ERROR")
+                }
+            )
+
         },
         error => {
             console.log("ERROR")
@@ -169,17 +184,20 @@ router.get("/locations", (req, res) => {
         }
     );
 });
+router.get("/newLocation/:id", (req, res) => {
+    res.send(getNewLocationForm(undefined, undefined, req.params.id))
+});
 router.get("/newLocation", (req, res) => {
     res.send(getNewLocationForm())
 });
-router.post("/addLocation", (req, res) => {
+router.post("/addLocation/:id", (req, res) => {
     const form = new formidable.IncomingForm();
 
     form.on("event", function (name, value) {
 
         if (name === "street") {
             const regexStreet = /^[a-zA-ZßöäüÖÄÜ]*$/;
-            if (value.trim() === "" || !regexStreet.test(value)){
+            if (value.trim() === "" || !regexStreet.test(value)) {
                 form._error("Street name wrong!")
             }
         }
@@ -248,29 +266,31 @@ router.post("/addLocation", (req, res) => {
                         res.send(err);
                     }
 
-                    if (files.image.originalFilename.endsWith(".png") || files.image.originalFilename.endsWith(".jpg") || files.image.originalFilename.endsWith(".jpeg")) {
-                        const image64 = data.toString('base64');
-                        db.addLocation(location, image64).then(
-                            location => {
-                                res.writeHead(302, {
-                                    location: '/locations', 'content-type': 'text/plain'
-                                });
-                                res.end('302 Redirecting to /locations');
-                            },
-                            error => res.send(err));
-                    } else {
-                        // TODO Snackbar ODER Rückmeldung
-                        console.log("pango");
-                        db.addLocation(location, null).then(
-                            location => {
-                                res.writeHead(302, {
-                                    location: '/locations', 'content-type': 'text/plain'
-                                });
-                                res.end('302 Redirecting to /locations');
-                            },
-                            error => res.send(err));
+                    if ((files.image.originalFilename.endsWith(".png") || files.image.originalFilename.endsWith(".jpg") || files.image.originalFilename.endsWith(".jpeg"))) {
+                        location.image = data.toString('base64');
                     }
 
+                    db.addLocation(location).then(
+                        location => {
+                            if (req.params.id) {
+                                db.mapLocationToWaterEntry(req.params.id, location.insertId).then(
+                                    success => {
+                                        res.writeHead(302, {
+                                            location: '/waterentries', 'content-type': 'text/plain'
+                                        });
+                                        res.end('302 Redirecting to /waterentries');
+                                    },
+
+                                    error => res.send(err)
+                            )
+                            } else {
+                                res.writeHead(302, {
+                                    location: '/locations', 'content-type': 'text/plain'
+                                });
+                                res.end('302 Redirecting to /locations');
+                            }
+                        },
+                        error => res.send(err));
 
                 });
             })
@@ -349,7 +369,7 @@ router.get("/search", (req, res) => {
                 waterentries => {
                     db.getAllLocations().then(
                         locations => {
-                            res.send(getWaterEntriesList(waterentries,locations, req.query.q));
+                            res.send(getWaterEntriesList(waterentries, locations, req.query.q));
                         },
                         error => {
                             console.log("Error", error);
