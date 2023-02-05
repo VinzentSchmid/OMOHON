@@ -154,10 +154,19 @@ I had several Tasks, one Main task was to implement the feature of uploading an 
 I implemented this task by breaking it into several smaller tasks and then solved each one at a time:
 
 - Create a button that opens the file explorer
+    - for this i used an input element with the type "file" in HTML 
 - Allow only images
+    - In order to allow only images i used the accept attribute
 - allow uploading max. 1 image
+    - i set the multiple attribute to false
 - convert the image into a base64 string in order to save
+    - In this part i faced a problem, it was not clear to me how to get the real image path in order to convert the image to
+    a string `base64`. With the helo of Emanuel Neziraj and Vinzent Schmid i realised that it was  a thinking mistake of me,
+    and that i was trying to get the path by accessing the wrong object.
 - dispaly the image in location details
+
+my second task was to take the role of a real user in order to find out the web app is usable enough for a normal user, and in order 
+to check for any errors/mistakes by adding, editing and displaying the water entries and location entries.
 
 ### Contributors:
 
