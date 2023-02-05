@@ -77,8 +77,8 @@ function getWaterEntryForm(liquid, locations, types) {
      </datalist>
      </div>
      <div class="form-group">
-     <label class="form-label" for="amount">Welche Anzahl an Getränken hast du getruken?:</label>
-     <input type="number"  id="amount" name="amount" required>
+     <label class="form-label"  for="amount" >Welche Anzahl an Getränken hast du getruken?:</label>
+     <input type="number"  id="amount" name="amount" value="` + liquid.amount + `"  required>
      </div>
      <div class="form-group border">
      <div>Welche Menge hast du getrunken?</div>
@@ -143,7 +143,7 @@ ${createSidebar()}
  <div>
    <div class="form-group">
  <label class="form-label" for="street">Street:</label>
- <input type="text" id="street" name="street" value="${location.street}" required pattern="^[a-zA-ZßöäüÖÄÜ]*$"></div>
+     <input type="text" id="street" name="street" value="${location.street}" required pattern="^[a-zA-ZßöäüÖÄÜ\\s]+$"></div>
  
     <div class="form-group">
  <label class="form-label" for="housenumber">Housenumber:</label>
@@ -155,13 +155,12 @@ ${createSidebar()}
  
      <div class="form-group">
  <label class="form-label" for="city">City:</label>
- <input type="text" id="city" name="city" value="${location.city}" required pattern="^[a-zA-ZßöäüÖÄÜ]*$"></div>
+ <input type="text" id="city" name="city" value="${location.city}" required pattern="^[a-zA-ZßöäüÖÄÜ\\s]+$"></div>
  
       <div class="form-group">
  <label class="form-label" for="country">Country:</label>
- <input type="text" id="country" name="country" value="${location.country}" required pattern="^[a-zA-ZßöäüÖÄÜ]*$"></div>
+ <input type="text" id="country" name="country" value="${location.country}" required pattern="^[a-zA-ZßöäüÖÄÜ\\s]+$"></div>
  
-<!-- TODO: Image-->
   <input type="file" id="image" name="image" accept="image/png, image/jpeg" >
    ${location.image ? `<img class="imageDetail" id="imageDetail" src="data:image/png;base64,${location.image}"><button class="delete" type="button">DELETE</button>` : `<span></span>`}
  <button class="save" type="submit">SAVE</button>

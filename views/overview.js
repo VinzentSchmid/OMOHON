@@ -1,5 +1,5 @@
 const createSidebar = require('./sidebar');
-function getAllLocations(locations) {
+function getAllLocations(locations, filter) {
     return `<!DOCTYPE html>
  <html>
     <head>
@@ -27,7 +27,7 @@ function getAllLocations(locations) {
                 <a id="csv-download" class="add" href="/export"><img class="icon" src="/public/images/export.png" alt="export all locations" title="download Locations dataset" /><span>Export</span></a>
             </div>
             <form id="searchBar" action="/search" method="get">
-              <input type="text" name="q" placeholder="Search Locations...">
+              <input type="text" name="q" placeholder="${!filter || filter.length === 0 ? 'Search Locations...' : filter}">
               <input type="hidden" name="type" value="location">
               <button type="submit">Search</button>
               <button type="reset" onClick="window.location.href='/locations'">Reset</button>
@@ -61,7 +61,7 @@ function createRow(location) {
 
 function getWaterEntriesList(entries, locations, filter) {
     return `<!DOCTYPE html>
- <html>
+ <html lang="en">
  <head>
  <title>Water Entries Overview</title>
  <meta charset="utf-8">
@@ -104,7 +104,6 @@ function getWaterEntriesList(entries, locations, filter) {
                  
                   select.addEventListener("change", function() {
                     if (select.value === "submit") {
-                        //TODO Übergabe von ID mittels (newLocation/1) -> Location erstellen und der WaterEntry zuweisen
                       window.location = "/newLocation/"+id;
                     }
                     else{
@@ -131,7 +130,7 @@ alt="new liquid" title="new liquid" /><span>Add Water Entry</span></a>
 </div>
 
 <form id="searchBar" action="/search" method="get">
-  <input type="text" name="q" placeholder="${filter ?? 'Search Drinks...'}">
+  <input type="text" name="q" placeholder="${!filter || filter.length === 0 ? 'Search Drinks...' : filter}">
   <input type="hidden" name="type" value="water">
   <button type="submit">Search</button>
   <button id="reset" type="reset" onClick="window.location.href='/waterEntries'">Reset</button>
