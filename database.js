@@ -178,12 +178,27 @@ function mapLocationToWaterEntry(entryID, locationID) {
     });
 }
 
+function getLocationbyLatAndLong(latitude, longitude) {
+    return new Promise((resolve, reject) => {
+        const query = 'SELECT * FROM locations WHERE latitude = ? AND longitude = ?';
+        connection.query(query, [latitude, longitude], (error, results) => {
+            if (error) {
+                console.log(error);
+                reject(error);
+            } else {
+                resolve(results);
+            }
+        });
+    });
+}
+
 const insertImage = (image, callback) => {
     connection.query('INSERT INTO locations SET images = ?', {image: image}, (error, results) => {
         if (error) return callback(error);
         callback(null, results);
     });
 };
+
 
 
 module.exports = {
@@ -220,5 +235,8 @@ module.exports = {
     mapLocationToWaterEntry(entryID, locationID) {
         return mapLocationToWaterEntry(entryID, locationID);
     },
-    getDistinctWaterEntriesTypes
+    getDistinctWaterEntriesTypes,
+    getLocationbyLatAndLong(latitude, longitude) {
+        return getLocationbyLatAndLong(latitude, longitude);
+    }
 }
