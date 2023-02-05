@@ -18,6 +18,7 @@ const fs = require('fs');
 
 const nodeGeocoder = require('node-geocoder');
 const errorView = require("./views/errorview");
+const {getLocationbyLatAndLong} = require("./database");
 
 router.use("/static", express.static('public'));
 
@@ -320,33 +321,43 @@ router.post("/addLocation/:id", (req, res) => {
                         return;
                     }
                     location.image = data.toString('base64');
+                    getLocationbyLatAndLong(location.latitude, location.longitude).then(
+                        checkList => {
+                            if (checkList.length > 0) {
+                                res.send(getNewLocationForm(location, "Location already exists!"));
+                                return;
+                            }else{
+                                db.addLocation(location).then(
+                                    location => {
+                                        if (!isNaN(req.params.id)) {
+                                            db.mapLocationToWaterEntry(req.params.id, location.insertId).then(
+                                                () => {
+                                                    res.writeHead(302, {
+                                                        location: '/waterentries', 'content-type': 'text/plain'
+                                                    });
+                                                    res.end('302 Redirecting to /waterentries');
+                                                },
 
-                    db.addLocation(location).then(
-                        location => {
-                            if (!isNaN(req.params.id)) {
-                                db.mapLocationToWaterEntry(req.params.id, location.insertId).then(
-                                    () => {
-                                        res.writeHead(302, {
-                                            location: '/waterentries', 'content-type': 'text/plain'
-                                        });
-                                        res.end('302 Redirecting to /waterentries');
+                                                error => {
+                                                    res.send(errorView(error));
+                                                }
+                                            )
+                                        } else {
+                                            res.writeHead(302, {
+                                                location: '/locations', 'content-type': 'text/plain'
+                                            });
+                                            res.end('302 Redirecting to /locations');
+                                        }
                                     },
-
                                     error => {
                                         res.send(errorView(error));
                                     }
                                 )
-                            } else {
-                                res.writeHead(302, {
-                                    location: '/locations', 'content-type': 'text/plain'
-                                });
-                                res.end('302 Redirecting to /locations');
                             }
                         },
                         error => {
                             res.send(errorView(error));
-                        }
-                    )
+                        });
                 });
             })
             .catch((err) => {
