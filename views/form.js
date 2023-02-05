@@ -1,4 +1,5 @@
 const createSidebar = require('./sidebar');
+
 function getWaterEntryForm(liquid, locations, types) {
     if (liquid === undefined) {
         liquid = {
@@ -104,7 +105,7 @@ function getWaterEntryForm(liquid, locations, types) {
 </html>`;
 }
 
-function getNewLocationForm(location, error, waterEntryID){
+function getNewLocationForm(location, error, waterEntryID) {
     if (location === undefined) {
         location = {
             id: '',
@@ -130,10 +131,9 @@ function getNewLocationForm(location, error, waterEntryID){
  <link rel="stylesheet" href="/public/css/style.css" />
   <script>
   document.addEventListener('DOMContentLoaded', function() {
-      console.log('${location.image}');
        const deleteButton = document.querySelector('.delete');
         const form = document.getElementById('form');
-       if(${location.image!==null} && ${location.image!==undefined} && ${location.image!==''} ){
+       if(${location.image !== null} && ${location.image !== undefined} && ${location.image !== ''} ){
         let byteCharacters = atob('${location.image}');
         let byteArrays = [];
 
@@ -208,7 +208,7 @@ ${createSidebar()}
  
 <!-- TODO: Image-->
   <div class="form-group">
-   <img class="imageEdit" id="imageEdit" src="data:image/png;base64,${location.image}" style="display: ${location.image === undefined || location.image === ''?'none':'block'}" }><button  style="display: ${location.image === undefined || location.image === ''?'none':'block'}" class="delete" type="button">DELETE</button>
+   <img class="imageEdit" id="imageEdit" src="data:image/png;base64,${location.image === undefined || location.image === '' ? '' : location.image}" style="display: ${location.image === undefined || location.image === '' ? 'none' : 'block'}" }><button  style="display: ${location.image === undefined || location.image === '' ? 'none' : 'block'}" class="delete" type="button">DELETE</button>
    <input type="file" id="image" name="image" accept="image/png, image/jpeg">
     </div>
    <button class="save" type="submit">SAVE</button>
