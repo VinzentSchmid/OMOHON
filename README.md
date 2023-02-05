@@ -147,15 +147,6 @@ In case of any error, the errorView function is called and the error message is 
 
 ## Marin Sekic Tasks:
 
-## Mohammed Alamer Tasks:
-
-### Contributors:
-
-Mohammed Alamer, Marin Sekic, Abdullah Kaitoua, Julian Kapellari, Emanuel Neziraj, Vinzent Schmid
-
-
-
-## Marin Sekic Tasks:
 
 ## Mohammed Alamer Tasks:
 
@@ -171,4 +162,5 @@ I implemented this task by breaking it into several smaller tasks and then solve
 ### Contributors:
 
 Mohammed Alamer, Marin Sekic, Abdullah Kaitoua, Julian Kapellari, Emanuel Neziraj, Vinzent Schmid
+
 
