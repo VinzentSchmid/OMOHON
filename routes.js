@@ -113,7 +113,7 @@ router.post("/addWaterEntry", (req, res) => {
     form.parse(req, (err, liquid) => {
 
         if (err) {
-            res.send("errorView(err)");
+            res.send(errorView(err));
             return
         }
 
