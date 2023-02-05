@@ -38,18 +38,18 @@ router.get("/editWaterEntry/:id", (req, res) => {
                             res.send(getWaterEntryForm(liquid, locations, types))
                         },
                         error => {
-                            console.log("ERROR")
+                            res.send(errorView(error));
                         }
                     )
                 },
                 error => {
-                    console.log("ERROR")
+                    res.send(errorView(error));
                 }
             )
 
         },
         error => {
-            console.log("ERROR")
+            res.send(errorView(error));
         }
     )
 
@@ -60,7 +60,7 @@ router.get("/removeWaterEntry/:id", (req, res) => {
             res.redirect('/waterEntries')
         },
         error => {
-            console.log("ERROR")
+            res.send(errorView(error));
         }
     )
 });
@@ -72,13 +72,13 @@ router.get("/newWaterEntry", (req, res) => {
                     res.send(getWaterEntryForm(undefined, locations, types))
                 },
                 error => {
-                    console.log("ERROR")
+                    res.send(errorView(error));
                 }
             )
 
         },
         error => {
-
+            res.send(errorView(error));
         }
     )
 });
@@ -125,7 +125,9 @@ router.post("/addWaterEntry", (req, res) => {
                 });
                 res.end('302 Redirecting to /waterentries');
             },
-            error => res.send("error")
+            error => {
+                res.send(errorView(error));
+            }
         );
     });
 
@@ -139,7 +141,9 @@ router.get("/mapLocationToWaterEntry/:entryID/:locationID", (req, res) => {
             });
             res.end('302 Redirecting to /waterEntries');
         },
-        error => console.log("ERROR")
+        error => {
+            res.send(errorView(error));
+        }
     );
 });
 router.get("/waterentries", (req, res) => {
@@ -156,7 +160,7 @@ router.get("/waterentries", (req, res) => {
 
         },
         error => {
-            console.log("ERROR")
+            res.send(errorView(error));
         }
     )
 });
@@ -167,7 +171,9 @@ router.get("/detailWaterEntry/:id", (req, res) => {
         entry => {
             res.status(200).send(details.getDetailWaterEntry(entry));
         },
-        error => res.send("error")
+        error => {
+            res.send(errorView(error));
+        }
     );
 });
 
@@ -181,7 +187,7 @@ router.get("/locations", (req, res) => {
             res.status(200).send(getAllLocations(locations));
         },
         error => {
-            console.log("Error", error);
+            res.send(errorView(error));
         }
     );
 });
@@ -197,7 +203,7 @@ router.get("/editLocation/:id", (req, res) => {
             res.send(getNewLocationForm(location[0]))
         },
         error => {
-            console.log("ERROR")
+            res.send(errorView(error));
         }
     )
 });
@@ -273,7 +279,7 @@ router.post("/addLocation/:id", (req, res) => {
                 location.longitude = geocode[0].longitude;
                 fs.readFile(files.image.filepath, (err, data) => {
                     if (err) {
-                        res.send(err);
+                        res.send(errorView(err));
                     }
                     if ((files.image.originalFilename.endsWith(".png") || files.image.originalFilename.endsWith(".jpg") || files.image.originalFilename.endsWith(".jpeg"))) {
                         location.image = data.toString('base64');
@@ -290,7 +296,9 @@ router.post("/addLocation/:id", (req, res) => {
                                         res.end('302 Redirecting to /waterentries');
                                     },
 
-                                    error => res.send(err)
+                                    error => {
+                                        res.send(errorView(error));
+                                    }
                                 )
                             } else {
                                 res.writeHead(302, {
@@ -299,8 +307,10 @@ router.post("/addLocation/:id", (req, res) => {
                                 res.end('302 Redirecting to /locations');
                             }
                         },
-                        error => res.send(err));
-
+                        error => {
+                            res.send(errorView(error));
+                        }
+                    )
                 });
             })
             .catch((err) => {
@@ -314,7 +324,7 @@ router.get("/editLocation/:id", (req, res) => {
             res.send(getNewLocationForm(location[0]))
         },
         error => {
-            console.log("ERROR")
+            res.send(errorView(error));
         }
     )
 });
@@ -326,7 +336,7 @@ router.get("/deleteLocation/:id", (req, res) => {
             res.end('302 Redirecting to /locations');
         },
         error => {
-            console.log("Error Remove", error);
+            res.send(errorView(error));
         }
     );
 });
@@ -336,7 +346,9 @@ router.get("/detailLocation/:id", (req, res) => {
         location => {
             res.status(200).send(details.getDetailLocation(location));
         },
-        error => res.send("error")
+        error => {
+            res.send(errorView(error));
+        }
     );
 });
 router.get("/public/images/:image", (req, res) => {
@@ -363,7 +375,7 @@ router.get("/search", (req, res) => {
                     res.status(200).send(getAllLocations(locations, req.query.q));
                 },
                 error => {
-                    console.log("Error", error);
+                    res.send(errorView(error));
                 }
             );
             break;
@@ -381,12 +393,12 @@ router.get("/search", (req, res) => {
                             res.send(getWaterEntriesList(waterentries, locations, req.query.q));
                         },
                         error => {
-                            console.log("Error", error);
+                            res.send(errorView(error));
                         }
                     )
                 },
                 error => {
-                    console.log("Error", error);
+                    res.send(errorView(error));
                 }
             );
             break;
@@ -417,7 +429,7 @@ router.get('/export', (req, res) => {
             csv.write(data, options).pipe(res);
         })
         .catch((error) => {
-            console.error(error);
+            res.send(errorView(error));
             res.status(500).send(error);
         });
 });
