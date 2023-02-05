@@ -10,7 +10,7 @@ const csv = require('fast-csv');
 const options = {
     headers: true,
     delimiter: ';',
-    quoteColumns: true,
+    quoted_string: true,
     encoding: 'utf8',
 
 };
@@ -204,9 +204,7 @@ router.get("/editLocation/:id", (req, res) => {
 
 router.post("/addLocation/:id", (req, res) => {
     const form = new formidable.IncomingForm();
-
     form.on("event", function (name, value) {
-
         if (name === "street") {
             const regexStreet = /^[a-zA-ZßöäüÖÄÜ]*$/;
             if (value.trim() === "" || !regexStreet.test(value)) {
@@ -277,7 +275,6 @@ router.post("/addLocation/:id", (req, res) => {
                     if (err) {
                         res.send(err);
                     }
-
                     if ((files.image.originalFilename.endsWith(".png") || files.image.originalFilename.endsWith(".jpg") || files.image.originalFilename.endsWith(".jpeg"))) {
                         location.image = data.toString('base64');
                     }
@@ -363,7 +360,7 @@ router.get("/search", (req, res) => {
                         OR country LIKE '%${req.query.q}%'`;
             db.search(query).then(
                 locations => {
-                    res.status(200).send(getAllLocations(locations));
+                    res.status(200).send(getAllLocations(locations, req.query.q));
                 },
                 error => {
                     console.log("Error", error);
@@ -402,7 +399,7 @@ router.get('/export', (req, res) => {
     db.getAllLocations()
         .then((results) => {
             // Set the response headers
-            res.setHeader('Content-Type', 'text/csv');
+            res.setHeader('Content-Type', 'text/csv; charset=UTF-8');
             res.setHeader('Content-Disposition', 'attachment; filename="locations.csv"');
             const data = results.map((location) => {
                 return {
