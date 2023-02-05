@@ -201,7 +201,8 @@ router.get("/editLocation/:id", (req, res) => {
         }
     )
 });
-router.post("/addLocation", (req, res) => {
+
+router.post("/addLocation/:id", (req, res) => {
     const form = new formidable.IncomingForm();
 
     form.on("event", function (name, value) {
@@ -283,117 +284,7 @@ router.post("/addLocation", (req, res) => {
 
                     db.addLocation(location).then(
                         location => {
-                            if (req.params.id) {
-                                db.mapLocationToWaterEntry(req.params.id, location.insertId).then(
-                                    () => {
-                                        res.writeHead(302, {
-                                            location: '/waterentries', 'content-type': 'text/plain'
-                                        });
-                                        res.end('302 Redirecting to /waterentries');
-                                    },
-
-                                    error => res.send(err)
-                            )
-                            } else {
-                                res.writeHead(302, {
-                                    location: '/locations', 'content-type': 'text/plain'
-                                });
-                                res.end('302 Redirecting to /locations');
-                            }
-                        },
-                        error => res.send(err));
-
-                });
-            })
-            .catch((err) => {
-                res.send(err);
-            });
-    });
-});
-
-router.post("/addLocation/:id", (req, res) => {
-    const form = new formidable.IncomingForm();
-
-    form.on("event", function (name, value) {
-
-        if (name === "street") {
-            const regexStreet = /^[a-zA-ZßöäüÖÄÜ]*$/;
-            if (value.trim() === "" || !regexStreet.test(value)) {
-                form._error("Street name wrong!")
-            }
-        }
-
-        if (name === "housenumber") {
-            const regexHousenumber = /[\d]+/;
-            if (value.trim() === "" || !regexHousenumber.test(value)) {
-                form._error("Housenumber wrong!")
-            }
-            try {
-                Number.parseInt(value)
-            } catch (e) {
-                form._error("housenumber name must be an Integer!")
-            }
-        }
-
-        if (name === "postalcode") {
-            const regexPostalcode = /[\d]+/;
-            if (value.trim() === "" || !regexPostalcode.test(value)) {
-                form._error("Postal Code must be entered!")
-            }
-            try {
-                Number.parseInt(value)
-            } catch (e) {
-                form._error("Postal Code must be an Integer!")
-            }
-        }
-
-        if (name === "city") {
-            const regexCity = /^[a-zA-ZßöäüÖÄÜ]*$/;
-            if (value.trim() === "" || !regexCity.test(value)) {
-                form._error("City must be entered!")
-            }
-        }
-
-        if (name === "country") {
-            const regexCountry = /^[a-zA-ZßöäüÖÄÜ]*$/;
-            if (value.trim() === "" || !regexCountry.test(value)) {
-                form._error("Country must be entered!")
-            }
-        }
-
-    });
-
-    form.parse(req, (err, location, files) => {
-        if (err) {
-            res.send(getNewLocationForm(location, err));
-            return;
-        }
-
-        let optionsMap = {
-            provider: 'openstreetmap'
-        };
-
-        let geoCoder = nodeGeocoder(optionsMap);
-        geoCoder.geocode(location)
-            .then((geocode) => {
-                if (geocode.length === 0) {
-                    res.send(getNewLocationForm(location, "No Location found!"));
-                    return;
-                }
-                location.latitude = geocode[0].latitude;
-                location.longitude = geocode[0].longitude;
-                fs.readFile(files.image.filepath, (err, data) => {
-                    if (err) {
-                        res.send(err);
-                    }
-
-                    if ((files.image.originalFilename.endsWith(".png") || files.image.originalFilename.endsWith(".jpg") || files.image.originalFilename.endsWith(".jpeg"))) {
-                        location.image = data.toString('base64');
-                    }
-
-                    db.addLocation(location).then(
-                        location => {
-                            if (req.params.id) {
+                            if (!isNaN(req.params.id)) {
                                 db.mapLocationToWaterEntry(req.params.id, location.insertId).then(
                                     () => {
                                         res.writeHead(302, {
