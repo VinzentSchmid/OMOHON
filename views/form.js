@@ -1,4 +1,3 @@
-
 const createSidebar = require('./sidebar');
 function getWaterEntryForm(liquid, locations, types) {
     if (liquid === undefined) {
@@ -130,13 +129,59 @@ function getNewLocationForm(location, error, waterEntryID){
  <title>${header}</title>
  <meta charset="utf-8">
  <link rel="stylesheet" href="/public/css/style.css" />
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+       const deleteButton = document.querySelector('.delete');
+        const form = document.getElementById('form');
+       if(${location.image!==null} && ${location.image!==undefined} && ${location.image!==''} ){
+        let byteCharacters = atob('${location.image}');
+        let byteArrays = [];
+
+         for (let offset = 0; offset < byteCharacters.length; offset += 512) {
+            let slice = byteCharacters.slice(offset, offset + 512);
+            let byteNumbers = new Array(slice.length);
+
+            for (let i = 0; i < slice.length; i++) {
+            byteNumbers[i] = slice.charCodeAt(i);
+            }
+
+            let byteArray = new Uint8Array(byteNumbers);
+            byteArrays.push(byteArray);
+        }
+        const file = new File(byteArrays, "*.png", { type: "image/png" });
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(file);
+        form.image.files = dataTransfer.files;
+           deleteButton.addEventListener('click', () => {
+     const imageEdit = document.querySelector('.imageEdit');
+     imageEdit.style.display = 'none';
+     deleteButton.style.display = 'none';
+     const dataTransfer = new DataTransfer();
+     form.image.files = dataTransfer.files;
+  });
+    }
+
+    document.getElementById("image").addEventListener("change", function(event) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      document.getElementById("imageEdit").src = e.target.result;
+      document.getElementById("imageEdit").style.display = "block";
+      deleteButton.style.display = 'block';
+    };
+    reader.readAsDataURL(event.target.files[0]);
+  });
+  
+   });
+  
+ 
+</script>
  </head>
  <body>
  <h1>${header}</h1>
  
 ${createSidebar()}
     <div class="main">
- <form class="locationEntryForm" action="/addLocation/${waterEntryID}" method="POST" enctype="multipart/form-data">
+ <form id="form" class="locationEntryForm" action="/addLocation/${waterEntryID}" method="POST" enctype="multipart/form-data">
  <input type="hidden" id="id" name="id" value="${location.id}">
  ${error ? `<div class="error">${error}</div>` : ''}
  
@@ -163,19 +208,10 @@ ${createSidebar()}
  
 <!-- TODO: Image-->
   <div class="form-group">
-   ${location.image ? `<img class="imageEdit" id="imageEdit" src="data:image/png;base64,${location.image}"><button class="delete" type="button">DELETE</button>` : `<span></span>`}
-   <input type="file" id="image" name="image" accept="image/png, image/jpeg"  multiple="false">
+   <img class="imageEdit" id="imageEdit" src="data:image/png;base64,${location.image}" style="display: ${location.image === ''?'none':'block'}" }><button  style="display: ${location.image === ''?'none':'block'}" class="delete" type="button">DELETE</button>
+   <input type="file" id="image" name="image" accept="image/png, image/jpeg">
     </div>
    <button class="save" type="submit">SAVE</button>
-
- <script>
-    const deleteButton = document.querySelector('.delete');
-   deleteButton.addEventListener('click', () => {
-     const imageEdit = document.querySelector('.imageEdit');
-     imageEdit.remove();
-     deleteButton.remove();
-   });
-</script>
 
  </form>
  </div>

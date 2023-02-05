@@ -108,13 +108,13 @@ router.post("/addWaterEntry", (req, res) => {
                 form._error('Please select 500ml or lower!');
             }
         }
-        if(name === "amount"){
+        if (name === "amount") {
             try {
                 Number.parseInt(value)
             } catch (e) {
                 form._error("housenumber name must be an Integer!")
             }
-            if(value <= 1){
+            if (value <= 1) {
                 form._error('Please select a number!');
             }
 
@@ -293,8 +293,8 @@ router.post("/addLocation/:id", (req, res) => {
                 }
                 location.latitude = geocode[0].latitude;
                 location.longitude = geocode[0].longitude;
-                if(files.image.originalFilename !== ""){
-                    if(files.length > 1){
+                if (files.image.originalFilename !== "") {
+                    if (files.length > 1) {
                         res.send(getNewLocationForm(location, "Please select only one image!"));
                         return;
                     }
@@ -319,7 +319,6 @@ router.post("/addLocation/:id", (req, res) => {
                         res.send(getNewLocationForm(location, err));
                         return;
                     }
-
                     location.image = data.toString('base64');
 
                     db.addLocation(location).then(

@@ -29,7 +29,7 @@ function getLocationByID(id) {
 
 function addLocation(location) {
     return new Promise((resolve, reject) => {
-        const query = 'INSERT INTO locations (latitude, longitude, street, housenumber, postalcode, city, country, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+        const query = location.image !== undefined ? 'INSERT INTO locations (latitude, longitude, street, housenumber, postalcode, city, country, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)' : 'INSERT INTO locations (latitude, longitude, street, housenumber, postalcode, city, country) VALUES (?, ?, ?, ?, ?, ?, ?)';
         connection.query(query, [Number(location.latitude), Number(location.longitude), location.street.trim(), Number(location.housenumber.trim()), Number(location.postalcode.trim()), location.city.trim(), location.country.trim(), location.image], (error, results) => {
             if (error) {
                 reject(error);
@@ -93,6 +93,7 @@ function getAllWaterEntries() {
         });
     });
 }
+
 function getDistinctWaterEntriesTypes() {
     return new Promise((resolve, reject) => {
         const query = 'SELECT DISTINCT type FROM locations RIGHT JOIN waterentries ON waterentries.locations_id = locations.id ORDER BY type;';
