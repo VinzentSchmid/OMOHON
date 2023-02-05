@@ -72,13 +72,13 @@ function getWaterEntryForm(liquid, locations, types) {
      <label class="form-label" for="liquid-choice">Was hast du
     getrunken?:</label>
      <input list="liquid-list" id="liquid-choice" name="type"
-    class="form-control" value="` + liquid.type + `" required pattern="[A-Za-z]*">
+    class="form-control" value="` + liquid.type + `" required pattern="[A-Za-zÄÖÜäöü\\s]+">
      <datalist id="liquid-list">
      </datalist>
      </div>
      <div class="form-group">
      <label class="form-label"  for="amount" >Welche Anzahl an Getränken hast du getruken?:</label>
-     <input type="number"  id="amount" name="amount" value="` + liquid.amount + `"  required>
+     <input type="number" min="1"  id="amount" name="amount" value="` + liquid.amount + `"  required>
      </div>
      <div class="form-group border">
      <div>Welche Menge hast du getrunken?</div>
@@ -147,11 +147,11 @@ ${createSidebar()}
  
     <div class="form-group">
  <label class="form-label" for="housenumber">Housenumber:</label>
- <input type="text" id="housenumber" name="housenumber" value="${location.housenumber}" required pattern="[\\d]+"></div>
+ <input type="text" id="housenumber" name="housenumber" value="${location.housenumber}" required pattern="\\s?[\\d]+\\s?"></div>
  
      <div class="form-group">
  <label class="form-label" for="postalcode">Postal Code:</label>
- <input type="text" id="postalcode" name="postalcode" value="${location.postalcode}" required pattern="[\\d]+"></div>
+ <input type="text" id="postalcode" name="postalcode" value="${location.postalcode}" required pattern="\\s?[\\d]+\\s?"></div>
  
      <div class="form-group">
  <label class="form-label" for="city">City:</label>
