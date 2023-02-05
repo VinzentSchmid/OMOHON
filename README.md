@@ -159,6 +159,15 @@ Mohammed Alamer, Marin Sekic, Abdullah Kaitoua, Julian Kapellari, Emanuel Nezira
 
 ## Mohammed Alamer Tasks:
 
+I had several Tasks, one Main task was to implement the feature of uploading an image or add an image to the location.
+I implemented this task by breaking it into several smaller tasks and then solved each one at a time:
+
+- Create a button that opens the file explorer
+- Allow only images
+- allow uploading max. 1 image
+- convert the image into a base64 string in order to save
+- dispaly the image in location details
+
 ### Contributors:
 
 Mohammed Alamer, Marin Sekic, Abdullah Kaitoua, Julian Kapellari, Emanuel Neziraj, Vinzent Schmid
