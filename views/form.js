@@ -77,8 +77,8 @@ function getWaterEntryForm(liquid, locations, types) {
      </datalist>
      </div>
      <div class="form-group">
-     <label class="form-label" for="amount">Welche Anzahl an Getränken hast du getruken?:</label>
-     <input type="number"  id="amount" name="amount" required>
+     <label class="form-label"  for="amount" >Welche Anzahl an Getränken hast du getruken?:</label>
+     <input type="number"  id="amount" name="amount" value="` + liquid.amount + `"  required>
      </div>
      <div class="form-group border">
      <div>Welche Menge hast du getrunken?</div>

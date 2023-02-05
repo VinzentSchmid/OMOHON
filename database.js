@@ -150,9 +150,9 @@ function removeWaterEntry(id) {
 
 function updateWaterEntry(liquid) {
     return new Promise((resolve, reject) => {
-        const query = 'UPDATE waterentries SET ml = ?, type = ?, locations_id = ? WHERE id = ?';
+        const query = 'UPDATE waterentries SET ml = ?, type = ?, amount = ?, locations_id = ? WHERE id = ?';
         const location = Number(liquid.location);
-        connection.query(query, [liquid.ml, liquid.type, location === -1 || isNaN(location) ? null : location, liquid.id], (error, results) => {
+        connection.query(query, [liquid.ml, liquid.type, liquid.amount, location === -1 || isNaN(location) ? null : location, liquid.id], (error, results) => {
             if (error) {
                 console.log(error);
                 reject(error);
