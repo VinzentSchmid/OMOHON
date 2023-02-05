@@ -162,8 +162,8 @@ ${createSidebar()}
  <input type="text" id="country" name="country" value="${location.country}" required pattern="^[a-zA-ZßöäüÖÄÜ]*$"></div>
  
 <!-- TODO: Image-->
-  <input type="file" id="newImage" name="newImage" accept="image/png, image/jpeg"  multiple="false">
-   ${location.image ? `<img class="imageDetail" id="oldImage" src="data:image/png;base64,${location.image}"><button class="delete" type="button">DELETE</button>` : `<span></span>`}
+  <input type="file" id="image" name="image" accept="image/png, image/jpeg" >
+   ${location.image ? `<img class="imageDetail" id="imageDetail" src="data:image/png;base64,${location.image}"><button class="delete" type="button">DELETE</button>` : `<span></span>`}
  <button class="save" type="submit">SAVE</button>
 
  <script>

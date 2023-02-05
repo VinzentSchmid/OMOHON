@@ -204,11 +204,15 @@ router.get("/editLocation/:id", (req, res) => {
 
 router.post("/addLocation/:id", (req, res) => {
     const form = new formidable.IncomingForm();
+    const requiredFields = ["street", "housenumber", "postalcode", "city", "country"];
+    form.on("field", function (name, value) {
 
-    form.on("event", function (name, value) {
+        if (requiredFields.indexOf(name) > -1 && !value) {
+            form._error('Required field is empty!');
+        }
 
         if (name === "street") {
-            const regexStreet = /^[a-zA-ZßöäüÖÄÜ]*$/;
+            const regexStreet = /^[a-zA-ZßöäüÖÄÜ\\s]+$/;
             if (value.trim() === "" || !regexStreet.test(value)) {
                 form._error("Street name wrong!")
             }
@@ -239,19 +243,18 @@ router.post("/addLocation/:id", (req, res) => {
         }
 
         if (name === "city") {
-            const regexCity = /^[a-zA-ZßöäüÖÄÜ]*$/;
+            const regexCity = /^[a-zA-ZßöäüÖÄÜ\\s]+$/;
             if (value.trim() === "" || !regexCity.test(value)) {
                 form._error("City must be entered!")
             }
         }
 
         if (name === "country") {
-            const regexCountry = /^[a-zA-ZßöäüÖÄÜ]*$/;
+            const regexCountry = /^[a-zA-ZßöäüÖÄÜ\\s]+$/;
             if (value.trim() === "" || !regexCountry.test(value)) {
                 form._error("Country must be entered!")
             }
         }
-
     });
 
     form.parse(req, (err, location, files) => {
@@ -273,14 +276,34 @@ router.post("/addLocation/:id", (req, res) => {
                 }
                 location.latitude = geocode[0].latitude;
                 location.longitude = geocode[0].longitude;
+                if(files.image.originalFilename !== ""){
+                    if(files.length > 1){
+                        res.send(getNewLocationForm(location, "Please select only one image!"));
+                        return;
+                    }
+
+                    const extension = files.image.originalFilename.split('.').pop();
+
+                    // Validate the file extension
+                    if (extension !== 'jpg' && extension !== 'jpeg' && extension !== 'png') {
+                        res.send(getNewLocationForm(location, "Image must be an jpg, jpeg or png!"));
+                        return;
+                    }
+
+                    // Validate the file size
+                    if (files.image.size > 1024 * 1024) {
+                        res.send(getNewLocationForm(location, "Image must be smaller than 1MB!"));
+                        return;
+
+                    }
+                }
                 fs.readFile(files.image.filepath, (err, data) => {
                     if (err) {
                         res.send(err);
+                        return;
                     }
 
-                    if ((files.image.originalFilename.endsWith(".png") || files.image.originalFilename.endsWith(".jpg") || files.image.originalFilename.endsWith(".jpeg"))) {
-                        location.image = data.toString('base64');
-                    }
+                    location.image = data.toString('base64');
 
                     db.addLocation(location).then(
                         location => {
