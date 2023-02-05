@@ -321,9 +321,10 @@ router.post("/addLocation/:id", (req, res) => {
                         return;
                     }
                     location.image = data.toString('base64');
-                    getLocationbyLatAndLong(location.latitude, location.longitude).then(
+                    getLocationbyLatAndLong(location).then(
                         checkList => {
-                            if (checkList.length > 0) {
+                            console.log(checkList)
+                            if((!location.id && checkList.length > 0) || (location.id && checkList.length > 0 && Number(location.id) !== Number(checkList[0].id))){
                                 res.send(getNewLocationForm(location, "Location already exists!"));
                                 return;
                             }else{

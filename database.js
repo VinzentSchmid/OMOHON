@@ -178,10 +178,10 @@ function mapLocationToWaterEntry(entryID, locationID) {
     });
 }
 
-function getLocationbyLatAndLong(latitude, longitude) {
+function getLocationbyLatAndLong(location) {
     return new Promise((resolve, reject) => {
-        const query = 'SELECT * FROM locations WHERE latitude = ? AND longitude = ?';
-        connection.query(query, [latitude, longitude], (error, results) => {
+        const query = 'SELECT * FROM locations WHERE street = ? AND housenumber = ? AND latitude = ? AND longitude = ? AND postalcode = ? AND city = ? AND country = ?';
+        connection.query(query, [location.street, location.housenumber, location.latitude, location.longitude, location.postalcode, location.city, location.country], (error, results) => {
             if (error) {
                 console.log(error);
                 reject(error);
