@@ -135,7 +135,7 @@ function createRow2(entry) {
                       ${entry.street ? `<div class="waterValue">${entry.street} ${entry.housenumber} ${entry.postalcode} ${entry.city} ${entry.country}</div>` : `<span>No location entered<span>`}
                   </div>
                   <div class="details">
-                      <div id="map"></div>
+                      ${entry.latitude ? `<div id="map"></div>` : ''}
                       ${entry.image ? `<img class="imageDetail" src="data:image/png;base64,${entry.image}">` : `<span>No image provided</span>`}  
                   </div>
             </div>`;
