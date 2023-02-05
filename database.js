@@ -54,7 +54,6 @@ function removeLocation(id) {
 }
 
 function updateLocation(location) {
-    console.log(location);
     return new Promise((resolve, reject) => {
         const query = "UPDATE locations SET latitude = ?, longitude = ?, street = ?, housenumber = ?, postalcode = ?, city = ?, country = ?, image = ? WHERE id = ?";
         connection.query(query, [location.latitude, location.longitude, location.street.trim(), Number(location.housenumber.trim()), Number(location.postalcode.trim()), location.city.trim(), location.country.trim(), location.image, location.id], (error, results) => {
@@ -126,7 +125,6 @@ function addWaterEntry(liquid) {
     return new Promise((resolve, reject) => {
         const query = 'INSERT INTO waterentries (ml, type, amount, locations_id) VALUES (?, ?, ?, ?)';
         const location = Number(liquid.location);
-        console.log(liquid);
         connection.query(query, [liquid.ml, liquid.type.trim(), Number(liquid.amount), location === -1 || isNaN(location) ? null : location], (error, results) => {
             if (error) {
                 reject(error);
