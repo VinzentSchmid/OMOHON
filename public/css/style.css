@@ -263,7 +263,7 @@ input[type="radio"]:checked {
 
 #map {
     height: 500px;
-    width: 30%;
+    width: 500px;
     border-radius: 10px;
 }
 #map + span{
