@@ -139,6 +139,7 @@ alt="new liquid" title="new liquid" /><span>Add Water Entry</span></a>
  <table>
  <tr>
     <th>LIQUID</th>
+    <th>ML</th>
     <th>AMOUNT</th>
     <th>LOCATION</th> 
  </tr>
@@ -155,6 +156,7 @@ function createWaterEntryRow(entry) {
     return `<tr class="row" id="${entry.id}">
                  <td class="linkToEntry">${entry.type}</td>
                  <td class="linkToEntry">${entry.ml}</td>
+                 <td class="linkToEntry">${entry.amount}</td>
                  ${entry.street ? `<td class="linkToEntry">${entry.street} ${entry.housenumber} ${entry.postalcode} ${entry.city} ${entry.country}</td>` : `<td class="newLocation"><select name="location" id="${entry.id}select"></select></td>`}
                  <td class="no-hover"><a href="/removeWaterEntry/${entry.id} "onclick="return confirm('Are you sure you want to delete this entry?')"><img class="icon" src="/public/images/delete.png" alt="delete liquid" title="delete liquid"/></a></td>
                  <td class="no-hover"><a href="/editWaterEntry/${entry.id}"><img class="icon" src="/public/images/edit.png" alt="edit liquid" title="edit liquid"/></a></td>
