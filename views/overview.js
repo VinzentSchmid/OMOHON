@@ -23,7 +23,7 @@ function getAllLocations(locations) {
         ${createSidebar('/locations')}
         <div class="main">
             <div class="action">
-                <a class="add" href="/newLocation"><img class="icon" src="/public/images/new.png" alt="new location" title="New Location" /><span>Add location</span></a>
+                <a class="add" href="/newLocation"><img class="icon" src="/public/images/new.png" alt="new location" title="New Location" /><span>Add Location</span></a>
                 <a id="csv-download" class="add" href="/export"><img class="icon" src="/public/images/export.png" alt="export all locations" title="download Locations dataset" /><span>Export</span></a>
             </div>
             <form id="searchBar" action="/search" method="get">
@@ -54,7 +54,7 @@ function createRow(location) {
                 <td class="linkToDetail">${location.postalcode}</td>
                 <td class="linkToDetail">${location.city}</td>
                 <td class="linkToDetail">${location.country}</td>
-                <td class="no-hover"><a href="/deleteLocation/${location.id}" onclick="return confirm('Are you sure you want to delete this location ?')"><img class="icon" src="/public/images/delete.png" alt="delete location" title="delete location"/></a></td>
+                <td class="no-hover"><a href="/deleteLocation/${location.id}" onclick="return confirm('Are you sure you want to delete this location?')"><img class="icon" src="/public/images/delete.png" alt="delete location" title="delete location"/></a></td>
                 <td class="no-hover"><a href="/editLocation/${location.id}"><img class="icon" src="/public/images/edit.png" alt="edit location" title="edit location"/></a></td>
             </tr>`;
 }
@@ -122,12 +122,12 @@ function getWaterEntriesList(entries, locations, filter) {
         
  </head>
  <body>
- <h1>Water Entries</h1>
+ <h1>WATER ENTRIES</h1>
  ${createSidebar("/waterEntries")}
  <div class="main">
 <div class="action">
  <a class="add" href="/newWaterEntry"><img class="icon" src="../public/images/new.png"
-alt="new liquid" title="new liquid" /><span>Add water entry</span></a>
+alt="new liquid" title="new liquid" /><span>Add Water Entry</span></a>
 </div>
 
 <form id="searchBar" action="/search" method="get">
@@ -156,7 +156,7 @@ function createWaterEntryRow(entry) {
                  <td class="linkToEntry">${entry.type}</td>
                  <td class="linkToEntry">${entry.ml}</td>
                  ${entry.street ? `<td class="linkToEntry">${entry.street} ${entry.housenumber} ${entry.postalcode} ${entry.city} ${entry.country}</td>` : `<td class="newLocation"><select name="location" id="${entry.id}select"></select></td>`}
-                 <td class="no-hover"><a href="/removeWaterEntry/${entry.id} "onclick="return confirm('Are you sure you want to delete this location ?')"><img class="icon" src="/public/images/delete.png" alt="delete liquid" title="delete liquid"/></a></td>
+                 <td class="no-hover"><a href="/removeWaterEntry/${entry.id} "onclick="return confirm('Are you sure you want to delete this entry?')"><img class="icon" src="/public/images/delete.png" alt="delete liquid" title="delete liquid"/></a></td>
                  <td class="no-hover"><a href="/editWaterEntry/${entry.id}"><img class="icon" src="/public/images/edit.png" alt="edit liquid" title="edit liquid"/></a></td>
             </tr>`;
 }
