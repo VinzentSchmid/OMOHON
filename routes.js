@@ -114,7 +114,7 @@ router.post("/addWaterEntry", (req, res) => {
             } catch (e) {
                 form._error("housenumber name must be an Integer!")
             }
-            if (value <= 1) {
+            if (value < 1) {
                 form._error('Please select a number!');
             }
 
