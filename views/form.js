@@ -8,9 +8,9 @@ function getWaterEntryForm(liquid, locations, types) {
             type: ''
         };
     }
-    let header = "Add new water entry";
+    let header = "Add New Water Entry";
     if (liquid.id) {
-        header = "Edit water entry";
+        header = "Edit Water Entry";
     }
 
     return `<!DOCTYPE html>
@@ -119,10 +119,10 @@ function getNewLocationForm(location, error, waterEntryID){
             country: ''
         };
     }
-    let header = "Add new location";
+    let header = "Add New Location";
 
     if (location.id) {
-        header = "Edit location";
+        header = "Edit Location";
     }
     return `<!DOCTYPE html>
 <html>
@@ -138,6 +138,7 @@ ${createSidebar()}
     <div class="main">
  <form class="locationEntryForm" action="${waterEntryID!==undefined?'/addLocation/'+waterEntryID:'/addLocation'}" method="POST" enctype="multipart/form-data">
  <input type="hidden" id="id" name="id" value="${location.id}">
+ ${error ? `<div class="error">${error}</div>` : ''}
  
  <div>
    <div class="form-group">

@@ -29,8 +29,8 @@ function getLocationByID(id) {
 
 function addLocation(location) {
     return new Promise((resolve, reject) => {
-        const query = 'INSERT INTO locations (street, housenumber, postalcode, city, country, image) VALUES (?, ?, ?, ?, ?, ?)';
-        connection.query(query, [location.street, Number(location.housenumber), Number(location.postalcode), location.city, location.country, location.image], (error, results) => {
+        const query = 'INSERT INTO locations (latitude, longitude, street, housenumber, postalcode, city, country, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+        connection.query(query, [Number(location.latitude), Number(location.longitude), location.street, Number(location.housenumber), Number(location.postalcode), location.city, location.country, location.image], (error, results) => {
             if (error) {
                 reject(error);
             } else {
@@ -53,10 +53,10 @@ function removeLocation(id) {
     });
 }
 
-function updateLocation(location, image64) {
+function updateLocation(location) {
     return new Promise((resolve, reject) => {
-        const query = "UPDATE locations SET street = ?, housenumber = ?, postalcode = ?, city = ?, country = ?, image = ? WHERE id = ?";
-        connection.query(query, [location.street, location.housenumber, location.postalcode, location.city, location.country, image64, location.id], (error, results) => {
+        const query = "UPDATE locations SET latitude = ?, longitude = ?, street = ?, housenumber = ?, postalcode = ?, city = ?, country = ?, image = ? WHERE id = ?";
+        connection.query(query, [location.latitude, location.longitude, location.street, location.housenumber, location.postalcode, location.city, location.country, location.image, location.id], (error, results) => {
             if (error) {
                 console.log(error);
                 reject(error);

@@ -267,7 +267,7 @@ router.post("/addLocation", (req, res) => {
         geoCoder.geocode(location)
             .then((geocode) => {
                 if (geocode.length === 0) {
-                    res.send(getNewLocationForm(location, "No Location found!"));
+                    res.send(getNewLocationForm(location, "Please enter an existing location!"));
                     return;
                 }
                 location.latitude = geocode[0].latitude;
