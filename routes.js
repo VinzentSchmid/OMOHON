@@ -229,7 +229,7 @@ router.post("/addLocation/:id", (req, res) => {
         }
 
         if (name === "street") {
-            const regexStreet = /^[a-zA-ZßöäüÖÄÜ\\s]+$/;
+            const regexStreet = /^[a-zA-ZßöäüÖÄÜ\s]+$/;
             if (value.trim() === "" || !regexStreet.test(value)) {
                 form._error("Street name wrong!")
             }
@@ -260,14 +260,14 @@ router.post("/addLocation/:id", (req, res) => {
         }
 
         if (name === "city") {
-            const regexCity = /^[a-zA-ZßöäüÖÄÜ\\s]+$/;
+            const regexCity = /^[a-zA-ZßöäüÖÄÜ\s]+$/;
             if (value.trim() === "" || !regexCity.test(value)) {
                 form._error("City must be entered!")
             }
         }
 
         if (name === "country") {
-            const regexCountry = /^[a-zA-ZßöäüÖÄÜ\\s]+$/;
+            const regexCountry = /^[a-zA-ZßöäüÖÄÜ\s]+$/;
             if (value.trim() === "" || !regexCountry.test(value)) {
                 form._error("Country must be entered!")
             }
@@ -308,8 +308,8 @@ router.post("/addLocation/:id", (req, res) => {
                     }
 
                     // Validate the file size
-                    if (files.image.size > 1024 * 1024) {
-                        res.send(getNewLocationForm(location, "Image must be smaller than 1MB!"));
+                    if (files.image.size > 40000) {
+                        res.send(getNewLocationForm(location, "Image must be smaller than 50kB!"));
                         return;
 
                     }
