@@ -68,31 +68,30 @@ function getWaterEntryForm(liquid, locations, types) {
      <input type="hidden" id="id" name="id" value="${liquid.id}" />
      <div class="form-group">
     
-     <label class="form-label" for="liquid-choice">Was hast du
-    getrunken?:</label>
+     <label class="form-label" for="liquid-choice">What did you drink?:</label>
      <input list="liquid-list" id="liquid-choice" name="type"
     class="form-control" value="` + liquid.type + `" required pattern="[A-Za-zÄÖÜäöü\\s]+">
      <datalist id="liquid-list">
      </datalist>
      </div>
      <div class="form-group">
-     <label class="form-label"  for="amount" >Welche Anzahl an Getränken hast du getruken?:</label>
+     <label class="form-label"  for="amount" >How many drinks did you drink?:</label>
      <input type="number" min="1"  id="amount" name="amount" value="` + liquid.amount + `"  required>
      </div>
      <div class="form-group border">
-     <div>Welche Menge hast du getrunken?</div>
+     <div>How much did you drink?</div>
          <div class="form-check">
          <input type="radio" id="amount300ml" name="ml" value="300"
         class="form-check-input" ` + (!liquid.ml || liquid.ml === 300 ? 'checked' : '') + ` >
-         <label class="form-label" for="amount300ml" >Glas 300ml</label>
+         <label class="form-label" for="amount300ml" >Glass 300ml</label>
          </div>
          <div class="form-check">
          <input type="radio" id="amount500ml" name="ml" value="500" class="form-check-input" ` + (liquid.ml === 500 ? 'checked' : '') + `>
-         <label class="form-check-label" for="amount500ml">Krug 500ml</label>
+         <label class="form-check-label" for="amount500ml">Jug 500ml</label>
          </div>
      </div>
      <div class="form-group">
-  <label class="form-label" for="location">Location</label>
+  <label class="form-label" for="location">Where did you drink?</label>
   <select name="location" id="location" value="${liquid.locations_id}"></select>
 </div>
      <button class="save" type="submit">SAVE</button>
