@@ -99,21 +99,32 @@ router.post("/addWaterEntry", (req, res) => {
         }
 
         if (name === "ml") {
+            try {
+                Number.parseInt(value)
+            } catch (e) {
+                form._error("housenumber name must be an Integer!")
+            }
             if (value > 500) {
                 form._error('Please select 500ml or lower!');
             }
         }
         if(name === "amount"){
+            try {
+                Number.parseInt(value)
+            } catch (e) {
+                form._error("housenumber name must be an Integer!")
+            }
             if(value <= 1){
                 form._error('Please select a number!');
             }
+
         }
     });
 
     form.parse(req, (err, liquid) => {
 
         if (err) {
-            res.send("errorView(err)");
+            res.send(getNewLocationForm(location, err));
             return
         }
 
@@ -213,7 +224,7 @@ router.post("/addLocation/:id", (req, res) => {
         }
 
         if (name === "housenumber") {
-            const regexHousenumber = /[\d]+/;
+            const regexHousenumber = /\s?[\d]+\s?/;
             if (value.trim() === "" || !regexHousenumber.test(value)) {
                 form._error("Housenumber wrong!")
             }
@@ -225,7 +236,7 @@ router.post("/addLocation/:id", (req, res) => {
         }
 
         if (name === "postalcode") {
-            const regexPostalcode = /[\d]+/;
+            const regexPostalcode = /\s?[\d]+\s?/;
             if (value.trim() === "" || !regexPostalcode.test(value)) {
                 form._error("Postal Code must be entered!")
             }

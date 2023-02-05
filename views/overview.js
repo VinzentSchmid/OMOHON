@@ -85,6 +85,7 @@ function getWaterEntriesList(entries, locations, filter) {
                      continue;
                  }
                   const selectOption = document.createElement('option');
+                      selectOption.value = 'select';
                       selectOption.textContent = 'Select Location';
                       select.appendChild(selectOption);
                       
@@ -105,7 +106,7 @@ function getWaterEntriesList(entries, locations, filter) {
                   select.addEventListener("change", function() {
                     if (select.value === "submit") {
                       window.location = "/newLocation/"+id;
-                    }
+                    }else if(select.value === "select"){}
                     else{
                         window.location = "/mapLocationToWaterEntry/" + id + '/' + select.value;
                     }
