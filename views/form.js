@@ -162,15 +162,17 @@ ${createSidebar()}
  <input type="text" id="country" name="country" value="${location.country}" required pattern="^[a-zA-ZßöäüÖÄÜ\\s]+$"></div>
  
 <!-- TODO: Image-->
-  <input type="file" id="image" name="image" accept="image/png, image/jpeg"  multiple="false">
-   ${location.image ? `<img class="imageDetail" id="imageDetail" src="data:image/png;base64,${location.image}"><button class="delete" type="button">DELETE</button>` : `<span></span>`}
- <button class="save" type="submit">SAVE</button>
+  <div class="form-group">
+   ${location.image ? `<img class="imageEdit" id="imageEdit" src="data:image/png;base64,${location.image}"><button class="delete" type="button">DELETE</button>` : `<span></span>`}
+   <input type="file" id="image" name="image" accept="image/png, image/jpeg"  multiple="false">
+    </div>
+   <button class="save" type="submit">SAVE</button>
 
  <script>
     const deleteButton = document.querySelector('.delete');
    deleteButton.addEventListener('click', () => {
-     const imageDetail = document.querySelector('.imageDetail');
-     imageDetail.remove();
+     const imageEdit = document.querySelector('.imageEdit');
+     imageEdit.remove();
      deleteButton.remove();
    });
 </script>

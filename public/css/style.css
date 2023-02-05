@@ -266,6 +266,25 @@ input[type="radio"]:checked {
     width: 30%;
     border-radius: 10px;
 }
+#map + span{
+    width: 500px;
+    height: 500px;
+    border: 1px solid white;
+    border-radius: 10px;
+    margin-left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.imageEdit{
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+}
+.delete{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
 .details {
     display: flex;
     justify-content: center;
