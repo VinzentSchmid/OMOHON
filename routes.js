@@ -308,7 +308,7 @@ router.post("/addLocation/:id", (req, res) => {
                     }
 
                     // Validate the file size
-                    if (files.image.size > 40000) {
+                    if (files.image.size > 50000) {
                         res.send(getNewLocationForm(location, "Image must be smaller than 50kB!"));
                         return;
 
