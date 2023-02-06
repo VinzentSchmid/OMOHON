@@ -103,7 +103,7 @@ router.post("/addWaterEntry", (req, res) => {
             try {
                 Number.parseInt(value)
             } catch (e) {
-                form._error("housenumber name must be an Integer!")
+                form._error("ML must be an Integer!")
             }
             if (value > 500) {
                 form._error('Please select 500ml or lower!');
@@ -113,7 +113,7 @@ router.post("/addWaterEntry", (req, res) => {
             try {
                 Number.parseInt(value)
             } catch (e) {
-                form._error("housenumber name must be an Integer!")
+                form._error("Amount must be an Integer!")
             }
             if (value < 1) {
                 form._error('Please select a number!');
