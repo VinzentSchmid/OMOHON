@@ -18,7 +18,7 @@ const fs = require('fs');
 
 const nodeGeocoder = require('node-geocoder');
 const errorView = require("./views/errorview");
-const {getLocationbyLatAndLong} = require("./database");
+const {getLocationToCheck} = require("./database");
 
 router.use("/static", express.static('public'));
 
@@ -166,7 +166,7 @@ router.get("/waterentries", (req, res) => {
                     res.send(getWaterEntriesList(liquids, locations))
                 },
                 error => {
-                    console.log("ERROR");
+                    res.send(errorView(error));
                 }
             )
 
@@ -230,28 +230,28 @@ router.post("/addLocation/:id", (req, res) => {
         }
 
         if (name === "street") {
-            const regexStreet = /^[a-zA-ZßöäüÖÄÜ\s]+$/;
+            const regexStreet = /^[a-zA-ZßöäüÖÄÜ.\-\s]+$/;
             if (value.trim() === "" || !regexStreet.test(value)) {
                 form._error("Street name wrong!")
             }
         }
 
         if (name === "housenumber") {
-            const regexHousenumber = /\s?[\d]+\s?/;
+            const regexHousenumber = /^[a-z0-9\s]+$/;
             if (value.trim() === "" || !regexHousenumber.test(value)) {
                 form._error("Housenumber wrong!")
             }
-            try {
-                Number.parseInt(value)
-            } catch (e) {
-                form._error("housenumber name must be an Integer!")
-            }
+            // try {
+            //     Number.parseInt(value)
+            // } catch (e) {
+            //     form._error("Housenumber name must be an Integer!")
+            // }
         }
 
         if (name === "postalcode") {
             const regexPostalcode = /\s?[\d]+\s?/;
             if (value.trim() === "" || !regexPostalcode.test(value)) {
-                form._error("Postal Code must be entered!")
+                form._error("Postal Code wrong!")
             }
             try {
                 Number.parseInt(value)
@@ -261,9 +261,9 @@ router.post("/addLocation/:id", (req, res) => {
         }
 
         if (name === "city") {
-            const regexCity = /^[a-zA-ZßöäüÖÄÜ\s]+$/;
+            const regexCity = /^[a-zA-ZßöäüÖÄÜ.\-\s]+$/;
             if (value.trim() === "" || !regexCity.test(value)) {
-                form._error("City must be entered!")
+                form._error("City wrong!")
             }
         }
 
@@ -321,9 +321,8 @@ router.post("/addLocation/:id", (req, res) => {
                         return;
                     }
                     location.image = data.toString('base64');
-                    getLocationbyLatAndLong(location).then(
+                    getLocationToCheck(location).then(
                         checkList => {
-                            console.log(checkList)
                             if((!location.id && checkList.length > 0) || (location.id && checkList.length > 0 && Number(location.id) !== Number(checkList[0].id))){
                                 res.send(getNewLocationForm(location, "Location already exists!"));
                                 return;

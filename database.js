@@ -30,7 +30,7 @@ function getLocationByID(id) {
 function addLocation(location) {
     return new Promise((resolve, reject) => {
         const query = location.image !== undefined ? 'INSERT INTO locations (latitude, longitude, street, housenumber, postalcode, city, country, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)' : 'INSERT INTO locations (latitude, longitude, street, housenumber, postalcode, city, country) VALUES (?, ?, ?, ?, ?, ?, ?)';
-        connection.query(query, [Number(location.latitude), Number(location.longitude), location.street.trim(), Number(location.housenumber.trim()), Number(location.postalcode.trim()), location.city.trim(), location.country.trim(), location.image], (error, results) => {
+        connection.query(query, [Number(location.latitude), Number(location.longitude), location.street.trim(), location.housenumber.trim(), Number(location.postalcode.trim()), location.city.trim(), location.country.trim(), location.image], (error, results) => {
             if (error) {
                 reject(error);
             } else {
@@ -56,7 +56,7 @@ function removeLocation(id) {
 function updateLocation(location) {
     return new Promise((resolve, reject) => {
         const query = "UPDATE locations SET latitude = ?, longitude = ?, street = ?, housenumber = ?, postalcode = ?, city = ?, country = ?, image = ? WHERE id = ?";
-        connection.query(query, [location.latitude, location.longitude, location.street.trim(), Number(location.housenumber.trim()), Number(location.postalcode.trim()), location.city.trim(), location.country.trim(), location.image, location.id], (error, results) => {
+        connection.query(query, [location.latitude, location.longitude, location.street.trim(), location.housenumber.trim(), Number(location.postalcode.trim()), location.city.trim(), location.country.trim(), location.image, location.id], (error, results) => {
             if (error) {
                 console.log(error);
                 reject(error);
@@ -178,7 +178,7 @@ function mapLocationToWaterEntry(entryID, locationID) {
     });
 }
 
-function getLocationbyLatAndLong(location) {
+function getLocationToCheck(location) {
     return new Promise((resolve, reject) => {
         const query = 'SELECT * FROM locations WHERE street = ? AND housenumber = ? AND latitude = ? AND longitude = ? AND postalcode = ? AND city = ? AND country = ?';
         connection.query(query, [location.street, location.housenumber, location.latitude, location.longitude, location.postalcode, location.city, location.country], (error, results) => {
@@ -236,7 +236,7 @@ module.exports = {
         return mapLocationToWaterEntry(entryID, locationID);
     },
     getDistinctWaterEntriesTypes,
-    getLocationbyLatAndLong(latitude, longitude) {
-        return getLocationbyLatAndLong(latitude, longitude);
+    getLocationToCheck(location) {
+        return getLocationToCheck(location);
     }
 }

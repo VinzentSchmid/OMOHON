@@ -152,14 +152,13 @@ function getNewLocationForm(location, error, waterEntryID) {
        const dataTransfer = new DataTransfer();
        dataTransfer.items.add(file);
        form.image.files = dataTransfer.files;
-       deleteButton.addEventListener('click', () => {
-         console.log('delete');
-         document.getElementById("imageEdit").style.display = 'none';
-         deleteButton.style.display = 'none';
-         const dataTransfer = new DataTransfer();
-         form.image.files = dataTransfer.files;
-       });
     }
+    deleteButton.addEventListener('click', () => {
+      document.getElementById("imageEdit").style.display = 'none';
+      deleteButton.style.display = 'none';
+      const dataTransfer = new DataTransfer();
+      form.image.files = dataTransfer.files;
+    });
 
     document.getElementById("image").addEventListener("change", function(event) {
     const reader = new FileReader();
@@ -207,11 +206,11 @@ ${createSidebar()}
  <div>
    <div class="form-group">
  <label class="form-label" for="street">Street:</label>
-     <input type="text" id="street" name="street" value="${location.street}" required pattern="^[a-zA-ZßöäüÖÄÜ\\s]+$"></div>
+     <input type="text" id="street" name="street" value="${location.street}" required pattern="^[a-zA-ZßöäüÖÄÜ.-\\s]+$"></div>
  
     <div class="form-group">
  <label class="form-label" for="housenumber">Housenumber:</label>
- <input type="text" id="housenumber" name="housenumber" value="${location.housenumber}" required pattern="\\s?[\\d]+\\s?"></div>
+ <input type="text" id="housenumber" name="housenumber" value="${location.housenumber}" required pattern="^[a-z0-9\\s]+$"></div>
  
      <div class="form-group">
  <label class="form-label" for="postalcode">Postal Code:</label>
@@ -219,7 +218,7 @@ ${createSidebar()}
  
      <div class="form-group">
  <label class="form-label" for="city">City:</label>
- <input type="text" id="city" name="city" value="${location.city}" required pattern="^[a-zA-ZßöäüÖÄÜ\\s]+$"></div>
+ <input type="text" id="city" name="city" value="${location.city}" required pattern="^[a-zA-ZßöäüÖÄÜ.-\\s]+$"></div>
  
       <div class="form-group">
  <label class="form-label" for="country">Country:</label>
