@@ -72,10 +72,10 @@ only used CSS.
 
 Here you can see the design of the website:
 
-![OverviewWaterEntries](public/images/doc/schmid/overViewPageWaterEntries.png)
-![OverviewLocations](public/images/doc/schmid/overViewPageLocations.png)
-![EditLocations](public/images/doc/schmid/EditLocations.png)
-![AddWaterEntry](public/images/doc/schmid/AddWaterEntry.png)
+![OverviewWaterEntries](doc/schmid/overViewPageWaterEntries.png)
+![OverviewLocations](doc/schmid/overViewPageLocations.png)
+![EditLocations](doc/schmid/EditLocations.png)
+![AddWaterEntry](doc/schmid/AddWaterEntry.png)
 
 ### Delete Function
 I also implemented the delete function, which is pretty simple. I just added a button to the location overview page, 
@@ -203,23 +203,23 @@ entries. The user can search for water entries by type.
 
 ## Marin Sekic Tasks:
 My Main Task for this Sprint was to implement the Add/Edit Feature for the Locations.
-![AddLocation](public/images/doc/AddLocationPage.png)
-![EditLocation](public/images/doc/EditLocationPage.png)
+![AddLocation](doc/AddLocationPage.png)
+![EditLocation](doc/EditLocationPage.png)
 First, I created a basic HTML Form with the necessary values/input fields. (Just Blank HTML Structure - The HTML Site/Front End was designed by our Head of Design Vinzent Schmidt)
 The Form is created in [form.js](views/form.js) and is returned as response after the route is called. (See [routes.js](routes.js))
-![Routes](public/images/doc/Routes.png)
+![Routes](doc/Routes.png)
 Afterwards I implemented the backend/logic for the data transfer to the database. After the Form was validated on the client side the Form triggers the route /AddLocation, which validates the data again on the Server Side and if everything is alright, then the Database Function is called.
 It's a simple SQL query which saves the new Location to the Database (Online Hosted).
-![Database](public/images/doc/AddLocationDatabase.png)
+![Database](doc/AddLocationDatabase.png)
 The Form Validation is done on both sides: Client and Server. Required Pattern with Regex on the Client Side directly in the Form and Regex with Formidable on the Server Side.
-![ClientSideValidation](public/images/doc/ClientSideValidation.png)
-![ServerSideValidation](public/images/doc/ServerSideValidation.png)
+![ClientSideValidation](doc/ClientSideValidation.png)
+![ServerSideValidation](doc/ServerSideValidation.png)
 Additionally, we implemented also GeoCoder to validate, if the address exists. This was mainly done by my colleague Head of Software Emanuel Neziraj.
-![GeoCoderValidation](public/images/doc/GeoCoderValidation.png)
+![GeoCoderValidation](doc/GeoCoderValidation.png)
 Also, the Edit Location Function was mainly done by me. After the Add Function was implemented, the Edit Funcation was at the base similar to the Add Function.
 
 Here the Form gets loaded the same (with different routes), and is checked, if there is a Location Object existing. (null for Add, not null for Edit). With this condition the Form gets filled with the already existing Location and the Header is also adapted.
-![EditLocationCheck](public/images/doc/EditLocationCheck.png)
+![EditLocationCheck](doc/EditLocationCheck.png)
 
 ## Julian Kapellari Tasks:
 
@@ -234,7 +234,7 @@ Here the Form gets loaded the same (with different routes), and is checked, if t
 7) Use require statements in your main file to access dependencies and other source files.
 8) Run your application using the command node path/to/index.js.
 
-![img.png](public/images/doc/kapellari/projectstructure.png)
+![img.png](doc/kapellari/projectstructure.png)
 
 ### Create Database on freemysqlhosting.net
 
@@ -250,8 +250,8 @@ Here the Form gets loaded the same (with different routes), and is checked, if t
 10) Connect to your database using your preferred programming language and the information provided in the previous step.
 11) Create Location and WaterTracking Table
 
-![img_1.png](public/images/doc/kapellari/database_locations.png)
-![img_2.png](public/images/doc/kapellari/database_waterentreis.png)
+![img_1.png](doc/kapellari/database_locations.png)
+![img_2.png](doc/kapellari/database_waterentreis.png)
 
 We used an online database, so that everyone has the same data, and we do not need to create the database in javascript.
 
@@ -264,7 +264,7 @@ If the location does not exist yet, the Create button can be pressed, which poin
 it will also be added to the water entry immediately.
 I also added the Selection text field to the Add/Edit form.
 
-![img_3.png](public/images/doc/kapellari/selection_field.png)
+![img_3.png](doc/kapellari/selection_field.png)
 
 ## Abdullah Kaitoua Tasks:
 
