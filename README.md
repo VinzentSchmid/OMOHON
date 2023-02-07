@@ -1,8 +1,19 @@
 # Water-Tracking - Locations
 
-Following tasks are implemented:
+## Installation
+A server is required for this exercise and will be provided by node.js.
+To use node.js, the application node.js must be installed. The installation can be found
+[here](https://nodejs.org/en/download/).
 
-## Overview
+After the installation, the node.js following commands can be used in the terminal:
+- `npm install` to install all dependencies
+
+## Usage
+To start the web application, use the following command in the terminal: `node index.js`
+
+## Implemented Features::
+
+### Overview
 
 On overview page you can see all the places you have added. You can also add new places by clicking on the plus button. 
 You can also delete places by clicking on the trash button. You can also edit places by clicking on the edit button. 
@@ -11,7 +22,7 @@ You can also see the details by clicking on the location row.
 Additionally, you can click on the export button to export all the data to a csv file. More details about the 
 export can be found in the export section.
 
-## Edit/Add
+### Edit/Add
 
 On the edit/add page you can add a new place or edit an existing one. You can add an address, and a picture. The 
 location can be added by clicking on the save button. The address will be converted to a location and the map will be 
@@ -21,12 +32,12 @@ When a new location is added or updated, longitude and latitude will be saved in
 latitude will be used to show the location on the map. Additionally, with the longitude and latitude insertion, it is 
 also a validation that the address is valid.
 
-## Show Details
+### Show Details
 We added a details page, where you can see the details of a location. The details page shows the location address like 
 street, number, postcode, city, country and latitude and longitude, the location picture and the location on the 
 map.
 
-## Delete
+### Delete
 
 When you click on the trash button, you will be asked to confirm the deletion. If you click on the delete button, the 
 location will be deleted from the database. If you click on the cancel button, the location will not be deleted.
@@ -34,19 +45,19 @@ location will be deleted from the database. If you click on the cancel button, t
 If a location is deleted, all water entries for that location will not be deleted. The location will be set to null for 
 all water entries.
 
-## Integrate location selection with water tracking
+### Integrate location selection with water tracking
 
 With the water-tracking integration, we made a sidebar that can be used to switch between the water-tracking entrances 
 and location entrances. Furthermore, we added a location row to the water-tracking entrance. The location row will show 
 the location name and the location address. If the location is not set, there is a dropdown window where you can choose 
 one of the locations, which were added before, or you can add a new location.
 
-## Upload Picture
+### Upload Picture
 
 When you add a new location or edit an existing one you can add a picture. The picture will be converted to base64 and 
 saved in the database. The picture will be shown on the details page, and on the edit page.
 
-## Export Data:
+### Export Data:
 
 When you click on the export button, the locations will be exported to a csv file. The csv file will be downloaded to 
 your computer where you want to store the data.
@@ -75,34 +86,92 @@ My main task was to implement a validation for add/edit location and the locatio
 part of the integration with the water tracking page and a location duplication check.
 
 ### Add/Edit Location
-
-
-#### Duplication Check
+For the add/edit - feature I had to implement a validation for the address. I used the openstreetmap API to validate 
+the location. Furthermore, I implemented a location duplication check. If the location already exists, the user will 
+get a warning message. If the location does not exist, the location will be added to the database. The location will be
+added to the database with the longitude and latitude. The longitude and latitude will be used to show the location on
+the map.
 
 #### Latitude/Longitude
+We needed the longitude and latitude of the location to show the location on a map and also to show on the details
+page, which was also implemented by me. The longitude and latitude will be saved in the database.
+
+For the longitude and latitude I used package geoCoder with the openstreetmap API. The API is called when the user 
+clicks on the save button and is called with the location as parameter. If there is no existing location, the API will 
+return an error message. If there is an existing location, the API will return the longitude and latitude of the 
+location. The longitude and latitude will be saved in the database.
+
+The API call takes some time, so I used a Promise to wait for the API call to finish.
+
+There was a problem with the asynchronous API call. For the adding of the location, five different promises were
+created. The problem was that the promises were not executed in the right order, so I had to nest the promises to
+make sure that the promises were executed in the right order. The following code shows the nested promises for the 
+validation, reading an image and save to base64 (done by Mohammed), check if there are duplicates, save the location
+to the database and eventually map the location to a water entry.
 
 ![addLocation.png](public%2Fimages%2Fdoc%2Fneziraj%2FaddLocation.png)
 
+### Location Validation
+Additionally, with the longitude and latitude insertion, it is also a validation that the address is valid. If there is
+no longitude and latitude, the location is not valid and the user will get a warning message. If there is a longitude
+and latitude, the location is valid and the user will get a success message and the location will be added to the
+database.
+
+#### Duplication Check
+I also added a duplication check. If the location already exists, the user will get a warning message. If the location
+does not exist, the location will be added to the database. The check method asks the database if there is a location
+with the same street, number, postcode, city and country. This was a little tricky, because updating a location with
+the same address should be possible. Therefore, I had to check if the location is updated or added.
+
 ### Show Location Details
+I added a details page, where you can see the details of a location. The details page shows the location address like
+street, number, postcode, city, country and latitude and longitude, the location picture and the location on the
+map. This was a main feature of this sprint.
 
 ![locationDetail.png](public%2Fimages%2Fdoc%2Fneziraj%2FlocationDetail.png)
 
 #### Google Maps API
 
+For the map I used the Google Maps API. The API is called when the user clicks on the details button. The API is called
+with the longitude and latitude as parameter. If there is no existing location, the API will return an error message.
+
+For this purpose, I needed a Google Maps API key. I created a new project in the Google Cloud Platform and created a
+new API key. The API key is removed from the code and is not visible in the repository, due to security reasons.
+**There will be a warning message in the console**, if the API key is not set and the map can only be shown in the 
+development mode.
+
 ![map.png](public%2Fimages%2Fdoc%2Fneziraj%2Fmap.png)
+
+Following code shows the API call with the longitude and latitude as parameter. The code is provided by the Google
+Maps API documentation.
+
 ![googleMapsAPI.png](public%2Fimages%2Fdoc%2Fneziraj%2FgoogleMapsAPI.png)
 
 ### Integrate Location Selection with Water Tracking
 
+I also implemented a part of the integration with the water tracking page. I implemented the join between the water
+entries and the locations. The user can now select a location when he adds a water entry. Furthermore, a sidebar was
+added to all pages and the water entries got a details page and a search function.
+
 #### Sidebar
+
+I added a sidebar to all pages. The sidebar contains a link to the water tracking page and a link to the location
+overview page.
 
 ![sidebar.png](public%2Fimages%2Fdoc%2Fneziraj%2Fsidebar.png)
 
 #### Water Entry Details
 
+I added a details page for the water entries. The details page shows the water entry details like the type, the amount, 
+the ml, the time it was created, the location and the picture. Most of the code was already implemented for the 
+location details page.
+
 ![waterEntriesDetail.png](public%2Fimages%2Fdoc%2Fneziraj%2FwaterEntriesDetail.png)
 
 #### Search Water Entries
+
+I also used the search function for the location, which was provided by Abdullah and implemented it for the water
+entries. The user can search for water entries by type.
 
 ![searchDrinks.png](public%2Fimages%2Fdoc%2Fneziraj%2FsearchDrinks.png)
 
@@ -186,6 +255,22 @@ I implemented this task by breaking it into several smaller tasks and then solve
 
 my second task was to take the role of a real user in order to find out the web app is usable enough for a normal user, and in order 
 to check for any errors/mistakes by adding, editing and displaying the water entries and location entries.
+
+## Packages
+* [express](https://www.npmjs.com/package/express)
+* [mysql2](https://www.npmjs.com/package/mysql2)
+* [fast-csv](https://www.npmjs.com/package/fast-csv)
+* [formidable](https://www.npmjs.com/package/formidable)
+* [multer](https://www.npmjs.com/package/multer)
+* [geocoder](https://www.npmjs.com/package/geocoder)
+* [csv-stringify](https://www.npmjs.com/package/csv-stringify)
+* [csv-parser](https://www.npmjs.com/package/csv-parser)
+* [buffer](https://www.npmjs.com/package/buffer)
+
+## References
+* [Google Maps API:](https://developers.google.com/maps/documentation/javascript/overview)
+* [OpenStreetMap:](https://www.openstreetmap.org/)
+* [ChatGPT](https://chat.openai.com/)
 
 ## Development
 Pull requests and major changes are welcome. Just send us the changed project, so we can take a look and learn from it.
