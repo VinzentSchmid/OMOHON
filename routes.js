@@ -241,11 +241,6 @@ router.post("/addLocation/:id", (req, res) => {
             if (value.trim() === "" || !regexHousenumber.test(value)) {
                 form._error("Housenumber wrong!")
             }
-            // try {
-            //     Number.parseInt(value)
-            // } catch (e) {
-            //     form._error("Housenumber name must be an Integer!")
-            // }
         }
 
         if (name === "postalcode") {
@@ -265,17 +260,6 @@ router.post("/addLocation/:id", (req, res) => {
             if (value.trim() === "" || !regexCity.test(value)) {
                 form._error("City wrong!")
             }
-        }
-
-        if (name === "country") {
-            fetch("/static/data/countries.csv")
-                .then(response => response.text())
-                .then(text => {
-                    const countries = text.split('\n');
-                    if(!countries.contains(value)){
-                        form._error("Country not in list!");
-                    }
-                });
         }
     });
 
@@ -409,6 +393,11 @@ router.get("/public/images/:image", (req, res) => {
 router.get("/public/css/:stylesheet", (req, res) => {
     const stylesheet = req.params.stylesheet;
     res.sendFile(path.join(__dirname, 'public', 'css', stylesheet));
+});
+
+router.get("/public/data/:file", (req, res) => {
+    const csvFile = req.params.file;
+    res.sendFile(path.join(__dirname, 'public', 'data', csvFile));
 });
 router.get("/search", (req, res) => {
     let query;

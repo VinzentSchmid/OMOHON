@@ -172,7 +172,7 @@ function getNewLocationForm(location, error, waterEntryID) {
        
     const location = ${JSON.stringify(location)};
 
-    fetch("/static/data/countries.csv")
+    fetch("/public/data/countries.csv")
       .then(response => response.text())
       .then(text => {
         const countries = text.split('\\n');
