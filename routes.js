@@ -268,10 +268,14 @@ router.post("/addLocation/:id", (req, res) => {
         }
 
         if (name === "country") {
-            const regexCountry = /^[a-zA-ZßöäüÖÄÜ\s]+$/;
-            if (value.trim() === "" || !regexCountry.test(value)) {
-                form._error("Country must be entered!")
-            }
+            fetch("/static/data/countries.csv")
+                .then(response => response.text())
+                .then(text => {
+                    const countries = text.split('\n');
+                    if(!countries.contains(value)){
+                        form._error("Country not in list!");
+                    }
+                });
         }
     });
 
