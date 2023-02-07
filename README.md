@@ -50,6 +50,26 @@ I also implemented the delete function, which is pretty simple. I just added a b
 ## Julian Kapellari Tasks:
 
 
+## Marin Sekic Tasks:
+My Main Task for this Sprint was to implement the Add/Edit Feature for the Locations.
+![AddLocation](public/images/doc/AddLocationPage.png)
+![EditLocation](public/images/doc/EditLocationPage.png)
+First, I created a basic HTML Form with the necessary values/input fields. (Just Blank HTML Structure - The HTML Site/Front End was designed by our Head of Design Vinzent Schmidt)
+The Form is created in [form.js](views/form.js) and is returned as response after the route is called. (See [routes.js](routes.js))
+![Routes](public/images/doc/Routes.png)
+Afterwards I implemented the backend/logic for the data transfer to the database. After the Form was validated on the client side the Form triggers the route /AddLocation, which validates the data again on the Server Side and if everything is alright, then the Database Function is called.
+It's a simple SQL query which saves the new Location to the Database (Online Hosted).
+![Database](public/images/doc/AddLocationDatabase.png)
+The Form Validation is done on both sides: Client and Server. Required Pattern with Regex on the Client Side directly in the Form and Regex with Formidable on the Server Side.
+![ClientSideValidation](public/images/doc/ClientSideValidation.png)
+![ServerSideValidation](public/images/doc/ServerSideValidation.png)
+Additionally, we implemented also GeoCoder to validate, if the address exists. This was mainly done by my colleague Head of Software Emanuel Neziraj.
+![GeoCoderValidation](public/images/doc/GeoCoderValidation.png)
+Also, the Edit Location Function was mainly done by me. After the Add Function was implemented, the Edit Funcation was at the base similar to the Add Function.
+
+Here the Form gets loaded the same (with different routes), and is checked, if there is a Location Object existing. (null for Add, not null for Edit). With this condition the Form gets filled with the already existing Location and the Header is also adapted.
+![EditLocationCheck](public/images/doc/EditLocationCheck.png)
+
 ## Abdullah Kaitoua Tasks:
 # Water-Tracking - Orte
 
@@ -144,9 +164,6 @@ The response headers are set to specify the content type as text/csv; charset=UT
 ### Error Handling
 
 In case of any error, the errorView function is called and the error message is sent to the client with a status code of 500.
-
-## Marin Sekic Tasks:
-
 
 ## Mohammed Alamer Tasks:
 
