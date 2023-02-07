@@ -223,6 +223,49 @@ Here the Form gets loaded the same (with different routes), and is checked, if t
 
 ## Julian Kapellari Tasks:
 
+### Create project structure:
+
+1) Create a folder for your project.
+2) Open the command line and navigate to the folder using the command cd path/to/project-folder.
+3) Run the command npm init to create a package.json file for your project.
+4) Create a folder named src that contains all the source files for your application.
+5) Create a main file for your application, e.g. index.js.
+6) Add dependencies by running the npm install --save command.
+7) Use require statements in your main file to access dependencies and other source files.
+8) Run your application using the command node path/to/index.js.
+
+![img.png](public/images/doc/kapellari/projectstructure.png)
+
+### Create Database on freemysqlhosting.net
+
+1) Go to the website freemysqlhosting.net.
+2) Click the "Sign Up" button to create a new account.
+3) Fill in the required information to create an account.
+4) After logging in, click on the "Databases" tab.
+5) Click the "Create a new database" button.
+6) Enter a name for your database and select the desired database type.
+7) Set a password for your database and click "Create".
+8) The database will now be created, and you will be redirected to a page with information on how to connect to your database using various programming languages, including PHP, Java, and Python.
+9) Note down the database host, database name, database username, and database password, as you will need them to connect to your database from your application.
+10) Connect to your database using your preferred programming language and the information provided in the previous step.
+11) Create Location and WaterTracking Table
+
+![img_1.png](public/images/doc/kapellari/database_locations.png)
+![img_2.png](public/images/doc/kapellari/database_waterentreis.png)
+
+We used an online database, so that everyone has the same data, and we do not need to create the database in javascript.
+
+### Implement Location into WaterTracking
+
+I have implemented that in WaterTracking Overview, you can see the specified location for the entry. 
+In addition, if no location is selected (i.e. location is nullable), a selection text field is displayed, 
+where all currently existing text fields are selectable. If you press on one of them, it will be added directly to the corresponding Water Entry. 
+If the location does not exist yet, the Create button can be pressed, which points to the addLocation form. If a location is created there, 
+it will also be added to the water entry immediately.
+I also added the Selection text field to the Add/Edit form.
+
+![img_3.png](public/images/doc/kapellari/selection_field.png)
+
 ## Abdullah Kaitoua Tasks:
 
 1- add a search function:
