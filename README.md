@@ -55,19 +55,45 @@ your computer where you want to store the data.
 
 My main task was to design the whole "website" and to implement the delete function.
 
-My inspiration for the design was ChatGPT, and I tried to make it look similar to that. For designing the fronted I 
+### Design
+The website has been developed using CSS to enhance its appearance and user experience. My inspiration for the design was ChatGPT, and I tried to make it look similar to that. For designing the fronted I 
 only used CSS.
 
 Here you can see the design of the website:
 
-![OverviewWaterEntries](public/images/doc/overViewPageWaterEntries.png)
-![OverviewLocations](public/images/doc/overViewPageLocations.png)
-![EditLocations](public/images/doc/EditLocations.png)
-![img.png](public/images/doc/AddWaterEntry.png)
+![OverviewWaterEntries](public/images/doc/schmid/overViewPageWaterEntries.png)
+![OverviewLocations](public/images/doc/schmid/overViewPageLocations.png)
+![EditLocations](public/images/doc/schmid/EditLocations.png)
+![AddWaterEntry](public/images/doc/schmid/AddWaterEntry.png)
 
+### Delete Function
 I also implemented the delete function, which is pretty simple. I just added a button to the location overview page, 
 which opens a modal, where you can confirm the deletion. If you click on the delete button, the location will be 
-deleted from the database. If you click on the cancel button, the location will not be deleted.
+deleted from the database, and the form updates without reloading the page, because of the promise. If you click on the cancel button, the location will not be deleted.
+
+Here you can see a little snippet of the delete function:
+``` javascript
+function removeLocation(id) {
+  return new Promise((resolve, reject) => {
+    const query = 'DELETE FROM locations WHERE id = ?';
+    connection.query(query, [id], (error, results) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(results);
+      }
+    });
+  });
+}
+```
+
+### Export Function
+
+I fixed the export function, by adding ; instead of , to the csv file. That way the rows are separated correctly.
+
+### Bug Fixes
+
+Various bugs have been fixed, like updating the picture to improve the stability and functionality of the website.
 
 ## Emanuel Neziraj Tasks:
 
