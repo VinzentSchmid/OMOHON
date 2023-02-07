@@ -132,33 +132,33 @@ function getNewLocationForm(location, error, waterEntryID) {
   <script>
   document.addEventListener('DOMContentLoaded', function() {
        const deleteButton = document.querySelector('.delete');
-        const form = document.getElementById('form');
+       const form = document.getElementById('form');
        if(${location.image !== null} && ${location.image !== undefined} && ${location.image !== ''} ){
         let byteCharacters = atob('${location.image}');
         let byteArrays = [];
-
+    
          for (let offset = 0; offset < byteCharacters.length; offset += 512) {
             let slice = byteCharacters.slice(offset, offset + 512);
             let byteNumbers = new Array(slice.length);
-
+    
             for (let i = 0; i < slice.length; i++) {
             byteNumbers[i] = slice.charCodeAt(i);
             }
-
+    
             let byteArray = new Uint8Array(byteNumbers);
             byteArrays.push(byteArray);
-        }
-        const file = new File(byteArrays, "*.png", { type: "image/png" });
-        const dataTransfer = new DataTransfer();
-        dataTransfer.items.add(file);
-        form.image.files = dataTransfer.files;
-           deleteButton.addEventListener('click', () => {
-     const imageEdit = document.querySelector('.imageEdit');
-     imageEdit.style.display = 'none';
-     deleteButton.style.display = 'none';
-     const dataTransfer = new DataTransfer();
-     form.image.files = dataTransfer.files;
-  });
+       }
+       const file = new File(byteArrays, "*.png", { type: "image/png" });
+       const dataTransfer = new DataTransfer();
+       dataTransfer.items.add(file);
+       form.image.files = dataTransfer.files;
+       deleteButton.addEventListener('click', () => {
+         console.log('delete');
+         document.getElementById("imageEdit").style.display = 'none';
+         deleteButton.style.display = 'none';
+         const dataTransfer = new DataTransfer();
+         form.image.files = dataTransfer.files;
+       });
     }
 
     document.getElementById("image").addEventListener("change", function(event) {
@@ -169,9 +169,28 @@ function getNewLocationForm(location, error, waterEntryID) {
       deleteButton.style.display = 'block';
     };
     reader.readAsDataURL(event.target.files[0]);
+    });
+       
+    const location = ${JSON.stringify(location)};
+
+    fetch("/static/data/countries.csv")
+      .then(response => response.text())
+      .then(text => {
+        const countries = text.split('\\n');
+        const country = location.country === undefined ? '' : location.country;
+        const select = document.getElementById('country');
+        const option = document.createElement('option');
+        option.value = country;
+        option.text = country;
+        select.appendChild(option);
+        countries.forEach(country => {
+          const option = document.createElement('option');
+          option.value = country;
+          option.text = country;
+          select.appendChild(option);
+        });
+      });
   });
-  
-   });
   
  
 </script>
@@ -204,9 +223,10 @@ ${createSidebar()}
  
       <div class="form-group">
  <label class="form-label" for="country">Country:</label>
- <input type="text" id="country" name="country" value="${location.country}" required pattern="^[a-zA-ZßöäüÖÄÜ\\s]+$"></div>
+ <select id="country" name="country" required></select>
  
-<!-- TODO: Image-->
+<!-- <input type="text" id="country" name="country" value="${location.country}" required pattern="^[a-zA-ZßöäüÖÄÜ\\s]+$"></div>-->
+ 
   <div class="form-group">
    <img class="imageEdit" id="imageEdit" src="data:image/png;base64,${location.image === undefined || location.image === '' ? '' : location.image}" style="display: ${location.image === undefined || location.image === '' ? 'none' : 'block'}" }><button  style="display: ${location.image === undefined || location.image === '' ? 'none' : 'block'}" class="delete" type="button">DELETE</button>
    <input type="file" id="image" name="image" accept="image/png, image/jpeg">
