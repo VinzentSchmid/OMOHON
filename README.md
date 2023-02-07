@@ -135,7 +135,7 @@ make sure that the promises were executed in the right order. The following code
 validation, reading an image and save to base64 (done by Mohammed), check if there are duplicates, save the location
 to the database and eventually map the location to a water entry.
 
-![addLocation.png](public%2Fimages%2Fdoc%2Fneziraj%2FaddLocation.png)
+![addLocation.png](doc%2Fneziraj%2FaddLocation.png)
 
 ### Location Validation
 Additionally, with the longitude and latitude insertion, it is also a validation that the address is valid. If there is
@@ -154,7 +154,7 @@ I added a details page, where you can see the details of a location. The details
 street, number, postcode, city, country and latitude and longitude, the location picture and the location on the
 map. This was a main feature of this sprint.
 
-![locationDetail.png](public%2Fimages%2Fdoc%2Fneziraj%2FlocationDetail.png)
+![locationDetail.png](doc%2Fneziraj%2FlocationDetail.png)
 
 #### Google Maps API
 
@@ -166,12 +166,12 @@ new API key. The API key is removed from the code and is not visible in the repo
 **There will be a warning message in the console**, if the API key is not set and the map can only be shown in the 
 development mode.
 
-![map.png](public%2Fimages%2Fdoc%2Fneziraj%2Fmap.png)
+![map.png](doc%2Fneziraj%2Fmap.png)
 
 Following code shows the API call with the longitude and latitude as parameter. The code is provided by the Google
 Maps API documentation.
 
-![googleMapsAPI.png](public%2Fimages%2Fdoc%2Fneziraj%2FgoogleMapsAPI.png)
+![googleMapsAPI.png](doc%2Fneziraj%2FgoogleMapsAPI.png)
 
 ### Integrate Location Selection with Water Tracking
 
@@ -184,7 +184,7 @@ added to all pages and the water entries got a details page and a search functio
 I added a sidebar to all pages. The sidebar contains a link to the water tracking page and a link to the location
 overview page.
 
-![sidebar.png](public%2Fimages%2Fdoc%2Fneziraj%2Fsidebar.png)
+![sidebar.png](doc%2Fneziraj%2Fsidebar.png)
 
 #### Water Entry Details
 
@@ -192,14 +192,14 @@ I added a details page for the water entries. The details page shows the water e
 the ml, the time it was created, the location and the picture. Most of the code was already implemented for the 
 location details page.
 
-![waterEntriesDetail.png](public%2Fimages%2Fdoc%2Fneziraj%2FwaterEntriesDetail.png)
+![waterEntriesDetail.png](doc%2Fneziraj%2FwaterEntriesDetail.png)
 
 #### Search Water Entries
 
 I also used the search function for the location, which was provided by Abdullah and implemented it for the water
 entries. The user can search for water entries by type.
 
-![searchDrinks.png](public%2Fimages%2Fdoc%2Fneziraj%2FsearchDrinks.png)
+![searchDrinks.png](doc%2Fneziraj%2FsearchDrinks.png)
 
 ## Marin Sekic Tasks:
 My Main Task for this Sprint was to implement the Add/Edit Feature for the Locations.
